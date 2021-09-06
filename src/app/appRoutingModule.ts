@@ -1,13 +1,15 @@
+import { AuthGuard } from './guards/auth.guard';
 import { NgModule } from "@angular/core";
-import {Routes, RouterModule} from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { CreatePolicyComponent } from "./components/create-policy/create-policy.component";
 import { UserLoginComponent } from "./components/user-login/user-login.component";
-import { UserPanelComponent } from "./components/user-panel/user-panel.component";
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-    { path: 'userlogin', component: UserLoginComponent},
-    { path: 'userpanel', component: UserPanelComponent},
-    {path: 'createpolicy', component: CreatePolicyComponent}
+    { path: '', redirectTo:'userlogin', pathMatch:'full' },
+    { path: 'userlogin', component: UserLoginComponent },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'createpolicy', component: CreatePolicyComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -15,4 +17,3 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 export class appRoutingModule {}
-export const routingComponents = [UserPanelComponent]
