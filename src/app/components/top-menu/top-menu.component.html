@@ -1,17 +1,19 @@
-<img src="../assets/images/logo.png" alt="company logo">
+<a routerLink="home">
+    <img src="../assets/images/logo.png" alt="company logo">
+</a>
 
 <ol>
-    <li><a>Home</a></li>
+    <li><a routerLink="home">Home</a></li>
     <li><a>Policies</a>
         <ul>
-            <li><a href="/createpolicy">Create policy</a></li>
-            <li><a href="#">Search policy</a></li>
+            <li><a routerLink="createpolicy">Create policy</a></li>
+            <li><a routerLink="#">Search policy</a></li>
         </ul>
     </li>
     <li><a>Customers</a></li>
     <li><a>Statistics</a></li>
     <li class="login">
-        <a href="/userlogin" *ngIf="!loggedUser; else logged">Log in</a>
+        <a routerLink="userlogin" *ngIf="!loggedUser; else logged">Log in</a>
     </li>
 </ol>
 
@@ -19,6 +21,6 @@
     <p>{{loggedUser}} &#9660;</p>
     <ul>
         <li>Settings</li>
-        <li><a href="#">Logout</a></li>
+        <li><a (click)="logOut()" routerLink="userlogin">Logout</a></li>
     </ul>
 </ng-template>

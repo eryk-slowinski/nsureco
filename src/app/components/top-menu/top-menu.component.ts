@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,11 +11,16 @@ export class TopMenuComponent implements OnInit {
 
   loggedUser: string = '';
 
-  constructor(private userService: UserService) {
+  constructor(private authService: AuthService) {
   }
 
+  logOut(){
+    this.authService.isAuthenticated = false;
+    this.loggedUser = '';
+  };
+
   ngOnInit(): void {
-    this.userService.userLogIn().subscribe(data => {
+    this.authService.userLogIn().subscribe(data => {
       this.loggedUser = data;
     });
 
