@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { TopMenuComponent } from './components/top-menu/top-menu.component';
 import { CreatePolicyComponent } from './components/create-policy/create-policy.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { UserLoginComponent } from './components/user-login/user-login.component
     TopMenuComponent,
     CreatePolicyComponent,
     UserLoginComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
