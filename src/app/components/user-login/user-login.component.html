@@ -1,10 +1,12 @@
 <div class="center">
-    <form>
+    <form [formGroup]="logInForm" novalidate (ngSubmit)="onSubmit()">
         <p>Please enter your login:</p>
-        <input class="input" type="text" name="userName" [(ngModel)]="userName">
+        <input class="input" [class.ng-invalid]="userName.invalid && userName.touched" type="text" formControlName="userName">
+        <span class="incorrect" *ngIf="userName.invalid && userName.touched">Login is required</span>
         <p>Please enter your password:</p>
-        <input class="input" type="password" [(ngModel)]="userPassword" name="userPassword">
+        <input class="input" [class.ng-invalid]="userPassword.invalid && userPassword.touched" type="password" formControlName="userPassword">
+        <span class="incorrect" *ngIf="userPassword.invalid && userPassword.touched">Password is required</span>
         <p class="incorrect" *ngIf="!loggedUser">User name or password is incorrect</p>
-        <button [disabled]="!userName || !userPassword" (click)="logIn()" class="btn" type="button">Login</button>
+        <button class="btn" [disabled]="logInForm.invalid" type="submit">Login</button>
     </form>
 </div>

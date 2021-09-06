@@ -1,32 +1,38 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.css']
+  styleUrls: ['./user-login.component.css'],
 })
-
 export class UserLoginComponent implements OnInit {
-  constructor(private http: HttpClient, private router: Router, private userService: UserService) {
-  }
+  constructor(
+    private authService: AuthService
+  ) {}
 
-  userCredentials: Object = new Object();
-  userName: string = '';
-  userPassword: string = '';
-  userObj: Object = new Object();
+  logInData = null;
   loggedUser: string = ' ';
 
-  async logIn() {
-    this.userCredentials = this.userService.getUserData(this.userName, this.userPassword);
-    this.userObj = await this.userService.postUser().then();
-    this.loggedUser = this.userService.verifyUser(this.userObj);
+
+  async onSubmit() {
+    this.logInData = await this.authService.postUser(this.logInForm.value);
+    this.loggedUser = this.authService.verifyUser(this.logInData);
   }
 
+  logInForm = new FormGroup({
+    userName: new FormControl(null, Validators.required),
+    userPassword: new FormControl(null, Validators.required)
+  });
 
-  ngOnInit(): void {
-
+  get userName() {
+    return this.logInForm.get('userName');
   }
+
+  get userPassword() {
+    return this.logInForm.get('userPassword');
+  }
+
+  ngOnInit(): void {}
 }
