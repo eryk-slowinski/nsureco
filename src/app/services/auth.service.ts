@@ -13,7 +13,7 @@ export class AuthService {
 
   url: string = `http://localhost:8082/verify`;
   isAuthenticated = false;
-  wrongUser: string = 'NOT_EXIST';
+  userNotExist: string = 'NOT_EXIST';
   loggedUser = new Subject<string>();
 
   async postUser(logInData: FormGroup): Promise<Object> {
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   verifyUser(logInData: LogInData) {
-    if (logInData['name'] === this.wrongUser) {
+    if (logInData['name'] === this.userNotExist) {
       this.isAuthenticated = false;
       return '';
     } else {
