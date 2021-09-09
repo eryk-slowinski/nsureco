@@ -10,6 +10,9 @@ import { TopMenuComponent } from './components/top-menu/top-menu.component';
 import { CreatePolicyComponent } from './components/create-policy/create-policy.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { HomeComponent } from './components/home/home.component';
+import { SearchCustomerComponent } from './components/search-customer/search-customer.component';
+import { CreateCustomerComponent } from './components/create-customer/create-customer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,8 @@ import { HomeComponent } from './components/home/home.component';
     CreatePolicyComponent,
     UserLoginComponent,
     HomeComponent,
+    SearchCustomerComponent,
+    CreateCustomerComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +32,7 @@ import { HomeComponent } from './components/home/home.component';
     ReactiveFormsModule,
     FormsModule,
     appRoutingModule,
+    BrowserAnimationsModule,
   ],
   exports: [],
   providers: [],

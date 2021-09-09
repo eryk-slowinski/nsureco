@@ -1,26 +1,53 @@
-<a routerLink="home">
-    <img src="../assets/images/logo.png" alt="company logo">
-</a>
-
-<ol>
-    <li><a routerLink="home">Home</a></li>
-    <li><a>Policies</a>
-        <ul>
-            <li><a routerLink="createpolicy">Create policy</a></li>
-            <li><a routerLink="#">Search policy</a></li>
-        </ul>
-    </li>
-    <li><a>Customers</a></li>
-    <li><a>Statistics</a></li>
-    <li class="login">
-        <a routerLink="userlogin" *ngIf="!loggedUser; else logged">Log in</a>
-    </li>
-</ol>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink="home">
+            <img src="../assets/images/logo.png" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" routerLink="home">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Policies</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" routerLink="searchpolicy">Search policy</a></li>
+                        <li><a class="dropdown-item" routerLink="createpolicy">Create policy</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Customers</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" routerLink="searchcustomer">Search customer</a></li>
+                        <li><a class="dropdown-item" routerLink="createcustomer">Create customer</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" routerLink="stats">Statistics</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" routerLink="userlogin" *ngIf="!loggedUser; else logged">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <ng-template #logged>
-    <p>{{loggedUser}} &#9660;</p>
-    <ul>
-        <li>Settings</li>
-        <li><a (click)="logOut()" routerLink="userlogin">Logout</a></li>
-    </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{loggedUser}}</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" routerLink="searchcustomer" routerLink="settings">Settings</a></li>
+                    <li><a class="dropdown-item" routerLink="createcustomer" (click)="logOut()" routerLink="userlogin">Log out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </ng-template>
