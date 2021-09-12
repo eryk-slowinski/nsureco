@@ -7,13 +7,13 @@
                     <div class="col-12">
                         <label>Username</label>
                         <input type="text" class="form-control" placeholder="Username" formControlName="userName" required>
-                        <span class="invalid" *ngIf="userName.invalid && userName.touched">User name is required</span>
+                        <span class="text-danger" *ngIf="userName.invalid && userName.touched">User name is required</span>
                     </div>
                     <div class="col-12">
                         <label>Password</label>
                         <input type="password" class="form-control" placeholder="Password" formControlName="userPassword" required>
-                        <span class="invalid" *ngIf="userPassword.invalid && userPassword.touched">Password is required</span>
-                        <span class="invalid" *ngIf="!loggedUser">User name or password is incorrect</span>
+                        <span class="text-danger" *ngIf="userPassword.invalid && userPassword.touched">Password is required</span>
+                        <span class="text-danger" *ngIf="!loggedUser">User name or password is incorrect</span>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-dark float-end" [disabled]="logInForm.invalid"> Login</button>
