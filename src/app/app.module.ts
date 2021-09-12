@@ -13,6 +13,8 @@ import { HomeComponent } from './components/home/home.component';
 import { SearchCustomerComponent } from './components/search-customer/search-customer.component';
 import { CreateCustomerComponent } from './components/create-customer/create-customer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomerComponent } from './components/customer/customer.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     SearchCustomerComponent,
     CreateCustomerComponent,
+    CustomerComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

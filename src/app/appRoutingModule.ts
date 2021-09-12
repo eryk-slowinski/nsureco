@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CreatePolicyComponent } from "./components/create-policy/create-policy.component";
 import { UserLoginComponent } from "./components/user-login/user-login.component";
 import { HomeComponent } from './components/home/home.component';
+import { CustomerComponent } from './components/customer/customer.component';
 
 const routes: Routes = [
     { path: '', redirectTo:'userlogin', pathMatch:'full' },
@@ -15,10 +16,12 @@ const routes: Routes = [
     // { path: 'createpolicy', component: CreatePolicyComponent, canActivate: [AuthGuard] },
     // { path: 'createcustomer', component: CreateCustomerComponent, canActivate: [AuthGuard] },
     // { path: 'searchcustomer', component: SearchCustomerComponent, canActivate: [AuthGuard] },
+    // { path: 'customer', component: CustomerComponent, canActivate: [AuthGuard] },
     { path: 'home', component: HomeComponent },
     { path: 'createpolicy', component: CreatePolicyComponent },
     { path: 'createcustomer', component: CreateCustomerComponent },
     { path: 'searchcustomer', component: SearchCustomerComponent },
+    { path: 'customer', component: CustomerComponent },
 ];
 
 @NgModule({
