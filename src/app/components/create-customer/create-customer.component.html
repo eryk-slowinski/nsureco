@@ -1,0 +1,32 @@
+<div class="container p-4">
+    <form class="card card-sm" [formGroup]="createCustomerForm">
+        <div class="mb-3 p-2">
+            <label for="customerName" class="form-label">Customer name:</label>
+            <input type="email" class="form-control" id="customerName" placeholder="Name" formControlName="name">
+            <span class="text-danger" *ngIf="name.invalid && name.touched">Customer name is required</span>
+        </div>
+        <div class="mb-3 p-2">
+            <label for="birthDate" class="form-label">Birth date:</label>
+            <input type="text" class="form-control" id="birthDate" placeholder="dd-mm-yyyy" formControlName="birth_date">
+            <span class="text-danger" *ngIf="birth_date.invalid && birth_date.touched">Birth date is required</span>
+        </div>
+        <div class="mb-3 p-2">
+            <label for="pesel" class="form-label">PESEL:</label>
+            <input type="text" class="form-control" id="pesel" placeholder="Pesel" formControlName="pesel" pattern="[0-9]{11}">
+            <span class="text-danger" *ngIf="pesel.invalid && pesel.touched">Pesel is required (11 digits)</span>
+        </div>
+        <div class="mb-3 p-2">
+            <label for="address" class="form-label">Address:</label>
+            <input type="text" class="form-control" id="address" placeholder="Address" formControlName="address">
+            <span class="text-danger" *ngIf="address.invalid && address.touched">Address is required</span>
+        </div>
+        <div class="mb-3 p-2">
+            <label for="phoneNum" class="form-label">Phone number:</label>
+            <input type="text" class="form-control" id="phoneNum" placeholder="Phone number" formControlName="phone_num">
+            <span class="text-danger " *ngIf="phone_num.invalid && phone_num.touched">Phone number is required</span>
+        </div>
+        <div class="col-auto p-2">
+            <button class="btn btn-primary" type="submit" (click)="onSubmit(createCustomerForm)" [disabled]="createCustomerForm.invalid">Add customer</button>
+        </div>
+    </form>
+</div>
