@@ -1,45 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { appRoutingModule } from './appRoutingModule';
-import { HttpClientModule} from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-//Components
+import { AppRoutingModule } from './appRoutingModule';
 import { AppComponent } from './app.component';
-import { TopMenuComponent } from './components/top-menu/top-menu.component';
-import { CreatePolicyComponent } from './components/create-policy/create-policy.component';
-import { UserLoginComponent } from './components/user-login/user-login.component';
-import { HomeComponent } from './components/home/home.component';
-import { SearchCustomerComponent } from './components/search-customer/search-customer.component';
-import { CreateCustomerComponent } from './components/create-customer/create-customer.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CustomerComponent } from './components/customer/customer.component';
-import { FooterComponent } from './components/footer/footer.component';
+
+import { LayoutModule } from './modules/layout/layout.module';
+import { CustomersModule } from './modules/customers/customers.module';
+import { UsersModule } from './modules/users/users.module';
+import { CoreModule } from './modules/core/core.module';
+import { PoliciesModule } from './modules/policies/policies.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TopMenuComponent,
-    CreatePolicyComponent,
-    UserLoginComponent,
-    HomeComponent,
-    SearchCustomerComponent,
-    CreateCustomerComponent,
-    CustomerComponent,
-    FooterComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FormsModule,
-    appRoutingModule,
-    BrowserAnimationsModule,
+    CoreModule,
+    LayoutModule,
+    CustomersModule,
+    UsersModule,
+    PoliciesModule,
+    AppRoutingModule,
   ],
-  exports: [],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

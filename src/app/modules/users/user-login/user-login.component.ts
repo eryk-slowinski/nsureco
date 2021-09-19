@@ -1,19 +1,16 @@
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-login',
-  templateUrl: './user-login.component.html'
+  templateUrl: './user-login.component.html',
 })
 export class UserLoginComponent implements OnInit {
-  constructor(
-    private authService: AuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   logInData = null;
   loggedUser: string = ' ';
-
 
   async onSubmit() {
     this.logInData = await this.authService.postUser(this.logInForm.value);
@@ -22,7 +19,7 @@ export class UserLoginComponent implements OnInit {
 
   logInForm = new FormGroup({
     userName: new FormControl(null, Validators.required),
-    userPassword: new FormControl(null, Validators.required)
+    userPassword: new FormControl(null, Validators.required),
   });
 
   get userName() {
