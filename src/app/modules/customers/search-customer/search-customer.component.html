@@ -65,8 +65,8 @@
                aria-expanded="false"></a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <a routerLink="/customer" [queryParams]="{ customer: [result[0]] }" class="dropdown-item">View
-                  customer</a>
+                <a routerLink="/createpolicy" (click)="selectCustomer(result)" class="dropdown-item">Create
+                  policy</a>
               </li>
             </ul>
           </li>
