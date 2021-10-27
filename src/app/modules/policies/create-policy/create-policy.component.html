@@ -1,0 +1,103 @@
+<h3 class="text-center mt-3">Create policy</h3>
+
+<div class="container">
+  <p class="description">Policy owner:</p>
+  <table class="table table-bordered w-auto" *ngIf="customerSelected[0] != null; else noCustomer">
+    <tbody>
+    <tr>
+      <th scope="row">ID</th>
+      <td>{{customerSelected[0]}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Name</th>
+      <td>{{customerSelected[1]}}</td>
+    </tr>
+    <tr>
+      <th scope="row">PESEL</th>
+      <td>{{customerSelected[2]}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Birth date</th>
+      <td>{{customerSelected[3] | date: "mediumDate"}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Phone number</th>
+      <td>{{customerSelected[4]}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Address</th>
+      <td>{{customerSelected[5]}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noCustomer>
+  <h5 class="text-danger">No policy owner choosen</h5>
+  <a class="btn btn-md btn-primary" routerLink="/searchcustomer" role="button">Go to customer search &raquo;</a>
+</ng-template>
+
+
+<!--<button (click)="test()">test</button>-->
+
+<!--<div>-->
+<!--  <ul class="vehicle-choice">-->
+<!--    <li (click)="chooseVehicleType('CAR')" [ngClass]="{'active': vehicle.vehicleType === 'CAR'}">-->
+<!--      <img src="../../../../assets/images/car.png" alt="car"/>-->
+<!--      <div>Car</div>-->
+<!--    </li>-->
+<!--    <li (click)="chooseVehicleType('MTB')" [ngClass]="{'active': vehicle.vehicleType === 'MTB'}">-->
+<!--      <img src="../../../../assets/images/motorbike.png" alt="motorbike"/>-->
+<!--      <div>Motorbike</div>-->
+<!--    </li>-->
+<!--    <li (click)="chooseVehicleType('TRA')" [ngClass]="{'active': vehicle.vehicleType === 'TRA'}">-->
+<!--      <img src="../../../../assets/images/trailer.png" alt="trailer"/>-->
+<!--      <div>Trailer</div>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+<!--<div *ngIf="vehicle.vehicleType === 'CAR' || vehicle.vehicleType === 'MTB'">-->
+<!--  <fieldset>-->
+<!--    <div>-->
+<!--      <label>Choose a brand:</label>-->
+<!--      <select [(ngModel)]="selectedVehicleType" (change)="chooseVehicleBrand(selectedVehicleType)">-->
+<!--        <option selected hidden>Brand</option>-->
+<!--        <option *ngFor="let brand of brands">{{ brand }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <div [hidden]="!vehicle.brand">-->
+<!--      <label>Choose a model:</label>-->
+<!--      <select [(ngModel)]="selectedBrand" (change)="chooseVehicleModel(selectedBrand)">-->
+<!--        <option selected hidden>Model</option>-->
+<!--        <option selected hidden>Choose model</option>-->
+<!--        <option *ngFor="let model of models">{{ model }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <div [hidden]="!vehicle.vehicleModel">-->
+<!--      <label>Choose a generation:</label>-->
+<!--      <select [(ngModel)]="selectedModel" (change)="chooseGeneration(selectedModel)">-->
+<!--        <option selected hidden>Generation</option>-->
+<!--        <option *ngFor="let generation of generations">{{ generation }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <div [hidden]="!vehicle.generation">-->
+<!--      <label>Choose an engine type:</label>-->
+<!--      <select [(ngModel)]="selectedGeneration" (change)="chooseEngineType(selectedGeneration)">-->
+<!--        <option selected hidden>Engine type</option>-->
+<!--        <option *ngFor="let engineType of engineTypes">{{ engineType }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <div [hidden]="!vehicle.engineType">-->
+<!--      <label>Choose an engine:</label>-->
+<!--      <select [(ngModel)]="selectedEngineType" (change)="chooseEngineType(selectedEngineType)">-->
+<!--        <option selected hidden>Engine</option>-->
+<!--        <option *ngFor="let engine of engines">{{ engine }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--  </fieldset>-->
+<!--</div>-->
+
+<!--<div *ngIf="vehicle.vehicleType === 'TRA'">-->
+<!--  <div>trailer</div>-->
+<!--</div>-->
