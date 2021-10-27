@@ -1,26 +1,32 @@
-import { BrowserModule } from '@angular/platform-browser';
+//Angular modules
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './appRoutingModule';
-import { AppComponent } from './app.component';
-
-import { LayoutModule } from './modules/layout/layout.module';
-import { CustomersModule } from './modules/customers/customers.module';
+//Feature modules
+import { SharedModule } from './modules/shared/shared.module';
 import { UsersModule } from './modules/users/users.module';
-import { CoreModule } from './modules/core/core.module';
 import { PoliciesModule } from './modules/policies/policies.module';
+import { CustomersModule } from './modules/customers/customers.module';
+import { CoreModule } from './modules/core/core.module';
+import { LayoutModule } from './modules/layout/layout.module';
+import { BrowserModule } from '@angular/platform-browser';
+//Components
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    //Angular modules
     BrowserModule,
     HttpClientModule,
-    CoreModule,
-    LayoutModule,
-    CustomersModule,
-    UsersModule,
-    PoliciesModule,
     AppRoutingModule,
+    //Feature modules
+    LayoutModule,
+    CoreModule,
+    CustomersModule,
+    PoliciesModule,
+    UsersModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
