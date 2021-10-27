@@ -1,4 +1,4 @@
-export class Transaction {
+export interface Transaction {
   transactionType: string;
   modifiedBy: string;
   timestamp: string;

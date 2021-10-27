@@ -1,4 +1,4 @@
-export class PolicyLine {
+export interface PolicyLine {
   policyLineId: number;
   transactionId: number;
   policyId: number;

@@ -1,4 +1,4 @@
-export class InsuredObject {
+export interface InsuredObject {
   policyLineNo: number;
   transactionId: number;
   type: string;
