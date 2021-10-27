@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { InsuredObject } from '../models/insured-object';
-import { PolicyLine } from '../models/policy-line';
-import { Transactions } from '../models/transactions';
+import { InsuredObject } from '../models/insuredObject';
+import { PolicyLine } from '../models/policyLine';
+import { Transaction } from '../models/transaction';
 import { Vehicle } from '../models/vehicle';
 import { Policy } from '../models/policy';
 import { Observable, of } from 'rxjs';
@@ -22,15 +22,15 @@ export class PolicyService {
 
   constructor(private http: HttpClient) {}
 
-  async createTransaction(transaction: Transactions): Promise<Transactions> {
+  async createTransaction(transaction: Transaction): Promise<Transaction> {
     return await this.http
-      .post<Transactions>(this.createTransactionUrl, transaction)
+      .post<Transaction>(this.createTransactionUrl, transaction)
       .toPromise();
   }
 
-  async getTransaction(transaction: Transactions): Promise<Transactions> {
+  async getTransaction(transaction: Transaction): Promise<Transaction> {
     return await this.http
-      .post<Transactions>(this.getTransactionUrl, transaction)
+      .post<Transaction>(this.getTransactionUrl, transaction)
       .toPromise();
   }
 
