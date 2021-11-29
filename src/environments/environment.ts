@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  policyService: 'https://insapp-policy-service.herokuapp.com/',
+  customerService: 'https://insapp-customer-service.herokuapp.com/',
+  userService: 'https://insapp-user-service.herokuapp.com/'
 };
 
 /*

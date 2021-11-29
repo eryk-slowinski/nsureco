@@ -6,19 +6,20 @@ import { Transaction } from '../models/transaction';
 import { Vehicle } from '../models/vehicle';
 import { Policy } from '../models/policy';
 import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PolicyService {
-  createTransactionUrl: string = 'http://localhost:8083/createtransaction';
-  createPolicyUrl: string = 'http://localhost:8083/createpolicy';
-  createPolicyLineUrl: string = 'http://localhost:8083/createpolicyline';
-  createInsuredObjectUrl: string = 'http://localhost:8083/createinsuredobject';
-  getTransactionUrl: string = 'http://localhost:8083/gettransactionid';
-  getPolicyUrl: string = 'http://localhost:8083/getpolicy';
-  getPolicyLineUrl: string = 'http://localhost:8083/getpolicyline';
-  getVehiclesUrl: string = 'http://localhost:8083/getvehicles';
+  createTransactionUrl: string = environment.policyService+'createtransaction';
+  createPolicyUrl: string = environment.policyService+'createpolicy';
+  createPolicyLineUrl: string = environment.policyService+'createpolicyline';
+  createInsuredObjectUrl: string = environment.policyService+'createinsuredobject';
+  getTransactionUrl: string = environment.policyService+'gettransactionid';
+  getPolicyUrl: string = environment.policyService+'getpolicy';
+  getPolicyLineUrl: string = environment.policyService+'getpolicyline';
+  getVehiclesUrl: string = environment.policyService+'getvehicles';
 
   constructor(private http: HttpClient) {}
 

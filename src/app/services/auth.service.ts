@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { LogInData } from './../models/logInData';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { LogInData } from './../models/logInData';
 export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
-  url: string = `http://localhost:8082/verify`;
+  url: string = environment.userService+`verify`;
   isAuthenticated = false;
   userNotExist: string = 'NOT_EXIST';
   loggedUser = new Subject<string>();
