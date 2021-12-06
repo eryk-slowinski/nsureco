@@ -2,7 +2,6 @@ import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +9,10 @@ import { environment } from '../../environments/environment';
 export class CustomerService {
   constructor(private http: HttpClient) {}
 
-  urlName: string = environment.customerService+'customerSearchByName';
-  urlId: string = environment.customerService+'customerSearchByID';
-  urlPesel: string = environment.customerService+'customerSearchByPesel';
-  urlAddCustomer: string = environment.customerService+'addCustomer';
+  urlName: string = 'http://localhost:8082/customerSearchByName';
+  urlId: string = 'http://localhost:8082/customerSearchByID';
+  urlPesel: string = 'http://localhost:8082/customerSearchByPesel';
+  urlAddCustomer: string = 'http://localhost:8082/addCustomer';
   customerSelected: BehaviorSubject<Object> = new BehaviorSubject<any>(Object); //variable declared to handle customer selected between independent components
 
   setUrl(searchForm: FormGroup): string {
