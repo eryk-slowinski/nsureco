@@ -1,4 +1,4 @@
-export interface Policy {
+export class Policy {
   transactionId: number;
   ownerId: number;
   type: string;

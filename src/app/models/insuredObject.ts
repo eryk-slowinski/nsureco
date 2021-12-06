@@ -1,5 +1,6 @@
-export interface InsuredObject {
-  policyLineNo: number;
+export class InsuredObject {
+  objectId: number;
+  policyLineId: number;
   transactionId: number;
   type: string;
   c01: string;
@@ -10,6 +11,9 @@ export interface InsuredObject {
   n02: number;
   n03: number;
   n04: number;
+  n05: number;
+  n06: number;
+  n07: number;
   d01: Date;
   d02: Date;
   d03: Date;
