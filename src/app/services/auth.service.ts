@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { LogInData } from './../models/logInData';
-import { environment } from '../../environments/environment';
+import { environment } from 'src/environments/environment';
+//models
+import { LogInData } from 'src/app/models/logInData';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ import { environment } from '../../environments/environment';
 export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
-  url: string = environment.userService+`verify`;
+  url: string = environment.userService + `verify`;
   isAuthenticated = false;
   userNotExist: string = 'NOT_EXIST';
   loggedUser = new Subject<string>();

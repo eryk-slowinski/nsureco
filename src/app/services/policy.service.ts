@@ -1,37 +1,41 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 //models
-import { InsuredObject } from '../models/insuredObject';
-import { PolicyLine } from '../models/policyLine';
-import { Transaction } from '../models/transaction';
-import { Vehicle } from '../models/vehicle';
-import { Policy } from '../models/policy';
-import { ObjectsConfig } from '../models/objectsConfig';
-import { ObjectRisksConfig } from './../models/objectRisksConfig';
-import { ObjectRisks } from './../models/objectRisks';
-import { PolicyLinesConfig } from './../models/policyLinesConfig';
-import { ProductsConfig } from './../models/productsConfig';
+import { InsuredObject } from 'src/app/models/insuredObject';
+import { PolicyLine } from 'src/app/models/policyLine';
+import { Transaction } from 'src/app/models/transaction';
+import { Vehicle } from 'src/app/models/vehicle';
+import { Policy } from 'src/app/models/policy';
+import { ObjectsConfig } from 'src/app/models/objectsConfig';
+import { ObjectRisksConfig } from 'src/app/models/objectRisksConfig';
+import { ObjectRisks } from 'src/app/models/objectRisks';
+import { PolicyLinesConfig } from 'src/app/models/policyLinesConfig';
+import { ProductsConfig } from 'src/app/models/productsConfig';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PolicyService {
-  createTransactionUrl: string = 'http://localhost:8083/createtransaction';
-  createPolicyUrl: string = 'http://localhost:8083/createpolicy';
-  createPolicyLineUrl: string = 'http://localhost:8083/createpolicyline';
-  createInsuredObjectUrl: string = 'http://localhost:8083/insertinsuredobject';
-  getTransactionUrl: string = 'http://localhost:8083/gettransactionid';
-  getPolicyUrl: string = 'http://localhost:8083/getpolicy';
-  getPolicyLineUrl: string = 'http://localhost:8083/getpolicyline';
-  getVehiclesUrl: string = 'http://localhost:8083/getvehicles';
-  getProductsUrl: string = 'http://localhost:8083/getproducts';
-  getPolicyLinesUrl: string = 'http://localhost:8083/getpolicylinetypes';
-  getObjectsUrl: string = 'http://localhost:8083/getobjecttypes';
-  createRisksUrl: string = 'http://localhost:8083/createrisks';
-  getObjectRisksConfigUrl: string = 'http://localhost:8083/getrisksconfig';
-  calculationUrl: string = 'http://localhost:8083/calculations';
-  updateRiskUrl: string = 'http://localhost:8083/updaterisk';
-  getRisksUrl: string = 'http://localhost:8083/getrisks';
+  createTransactionUrl: string =
+    environment.policyService + 'createtransaction';
+  createPolicyUrl: string = environment.policyService + 'createpolicy';
+  createPolicyLineUrl: string = environment.policyService + 'createpolicyline';
+  createInsuredObjectUrl: string =
+    environment.policyService + 'insertinsuredobject';
+  getTransactionUrl: string = environment.policyService + 'gettransactionid';
+  getPolicyUrl: string = environment.policyService + 'getpolicy';
+  getPolicyLineUrl: string = environment.policyService + 'getpolicyline';
+  getVehiclesUrl: string = environment.policyService + 'getvehicles';
+  getProductsUrl: string = environment.policyService + 'getproducts';
+  getPolicyLinesUrl: string = environment.policyService + 'getpolicylinetypes';
+  getObjectsUrl: string = environment.policyService + 'getobjecttypes';
+  createRisksUrl: string = environment.policyService + 'createrisks';
+  getObjectRisksConfigUrl: string =
+    environment.policyService + 'getrisksconfig';
+  calculationUrl: string = environment.policyService + 'calculations';
+  updateRiskUrl: string = environment.policyService + 'updaterisk';
+  getRisksUrl: string = environment.policyService + 'getrisks';
 
   constructor(private http: HttpClient) {}
 
