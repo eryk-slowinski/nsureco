@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { PolicyService } from 'src/app/services/policy.service';
-import { CustomerService } from '../../../services/customer.service';
+import { CustomerService } from 'src/app/services/customer.service';
 //models
 import { Transaction } from 'src/app/models/transaction';
 import { ObjectsConfig } from 'src/app/models/objectsConfig';
@@ -156,7 +156,7 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   async createPolicy() {
-    this.createTransaction(); //oninit?
+    await this.createTransaction();
     this.policy.transactionId = this.transaction.transactionId;
     this.policy.ownerId = this.customerSelected[0];
     this.policy.type = 'Vehicle insurance';
@@ -166,7 +166,7 @@ export class CreatePolicyComponent implements OnInit {
     this.policy.version = '1.0';
     await this.policyService.createPolicy(this.policy).then();
     this.policy = await this.policyService.getPolicy(this.policy).then();
-    this.createPolicyLine();
+    await this.createPolicyLine();
   }
 
   async createInsuredVehicle() {
