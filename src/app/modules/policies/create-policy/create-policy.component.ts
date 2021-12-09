@@ -1,3 +1,4 @@
+import { VehicleTypesConfig } from './../../../models/vehicleTypesConfig';
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { PolicyService } from 'src/app/services/policy.service';
@@ -45,82 +46,87 @@ export class CreatePolicyComponent implements OnInit {
     policyLineId: null,
   };
 
-  chooseProduct() {
-    this.policyService.getProducts().then((data) => (this.products = data));
+  async chooseProduct() {
+    await this.policyService
+      .getProducts()
+      .then((data) => (this.products = data));
   }
 
-  choosePolicyLine(product: string) {
-    this.policyService
+  async choosePolicyLine(product: string) {
+    await this.policyService
       .getPolicyLines(product)
       .then((data) => (this.policyLines = data));
   }
 
-  getRequiredObjects(policyLine: string) {
-    this.policyService
+  async getRequiredObjects(policyLine: string) {
+    await this.policyService
       .getObjects(policyLine)
       .then((data) => (this.objects = data));
   }
 
-  selectedVehicleType: string;
+  vehicleTypesObject: VehicleTypesConfig = new VehicleTypesConfig();
+  vehicleTypesConfig: VehicleTypesConfig[];
 
-  vehicleTypes: Vehicle[];
+  async getVehicleTypes(object: VehicleTypesConfig) {
+    object.productLineType = this.configuration.policyLineId;
+    await this.policyService
+      .getVehicleTypes(object)
+      .then((data) => (this.vehicleTypesConfig = data));
+  }
+
+  selectedVehicleType: string;
   selectedBrand: string;
   brands: Vehicle[];
+  selectedModel: string;
+  models: Vehicle[];
+  selectedGeneration: string;
+  generations: Vehicle[];
+  selectedEngineType: string;
+  engineTypes: Vehicle[];
+  selectedEngine: string;
+  engines: Vehicle[];
+  vehicleId: Vehicle[];
 
-  loadVehicleTypes() {
-    this.policyService
-      .getVehicles(this.vehicle)
-      .then((data) => (this.vehicleTypes = data));
-  }
+  vehicles: Vehicle[];
 
   chooseVehicleType(vehicleType: string) {
     this.vehicle.vehicleType = vehicleType;
-    this.policyService
-      .getVehicles(this.vehicle)
-      .then((data) => (this.brands = data));
+    this.policyService.getVehicles(this.vehicle).then((data) => {
+      this.vehicles = data;
+    });
+    console.log(this.vehicle);
   }
-
-  selectedModel: string;
-  models: Vehicle[];
 
   chooseVehicleBrand(vehicleBrand: string) {
     this.vehicle.brand = vehicleBrand;
     this.policyService
       .getVehicles(this.vehicle)
-      .then((data) => (this.models = data));
+      .then((data) => (this.vehicles = data));
+    console.log(this.vehicle);
   }
-
-  selectedGeneration: string;
-  generations: Vehicle[];
 
   chooseVehicleModel(vehicleModel: string) {
     this.vehicle.vehicleModel = vehicleModel;
     this.policyService
       .getVehicles(this.vehicle)
-      .then((data) => (this.generations = data));
+      .then((data) => (this.vehicles = data));
+    console.log(this.vehicle);
   }
-
-  selectedEngineType: string;
-  engineTypes: Vehicle[];
 
   chooseGeneration(generation: string) {
     this.vehicle.generation = generation;
     this.policyService
       .getVehicles(this.vehicle)
-      .then((data) => (this.engineTypes = data));
+      .then((data) => (this.vehicles = data));
+    console.log(this.vehicle);
   }
-
-  selectedEngine: string;
-  engines: Vehicle[];
 
   chooseEngineType(engineType: string) {
     this.vehicle.engineType = engineType;
     this.policyService
       .getVehicles(this.vehicle)
-      .then((data) => (this.engines = data));
+      .then((data) => (this.vehicles = data));
   }
-
-  vehicleId: Vehicle[];
 
   chooseEngine(engine: string) {
     this.vehicle.engine = engine;
@@ -234,6 +240,6 @@ export class CreatePolicyComponent implements OnInit {
       this.customerSelected = customer;
     });
     this.chooseProduct();
-    this.loadVehicleTypes();
+    // this.loadVehicleTypes();
   }
 }

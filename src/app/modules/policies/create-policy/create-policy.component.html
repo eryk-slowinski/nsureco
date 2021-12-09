@@ -41,18 +41,20 @@
   <h4 class="text-center mt-3">Product & policy line:</h4>
   <label for="product">Select product:</label>
   <select id="product" class="form-control" [(ngModel)]="configuration.productId"
-    (change)="choosePolicyLine(configuration.productId)">
+    (change)="choosePolicyLine(configuration.productId); createPolicy()">
     <option selected hidden>Product</option>
     <option *ngFor="let product of products">{{product.productId}}</option>
   </select>
   <label for="policyLine">Select policy line:</label>
   <select [disabled]="!configuration.productId" id="policyLine" class="form-control"
-    [(ngModel)]="configuration.policyLineId" (change)="getRequiredObjects(configuration.policyLineId); createPolicy()">
+    [(ngModel)]="configuration.policyLineId"
+    (change)="getRequiredObjects(configuration.policyLineId); getVehicleTypes(vehicleTypesObject)">
     <option selected hidden>Policy line</option>
     <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineId}}</option>
   </select>
 </div>
 
+<!-- loop over required objects -->
 <div *ngFor="let object of objects">
   <div *ngIf="object.objType === 'DRI'; then driver"></div>
   <div *ngIf="object.objType === 'VEH'; then motorVehicle"></div>
@@ -63,40 +65,39 @@
   <div class="container">
     <h4 class="text-center mt-3">Vehicle:</h4>
     <label>Choose a vehicle type:</label>
-    <select class="form-control" [(ngModel)]="selectedVehicleType" (change)="chooseVehicleType(selectedVehicleType)">
+    <select class="form-control" [(ngModel)]="vehicle.vehicleType" (change)="chooseVehicleType(vehicle.vehicleType)">
       <option selected hidden>Vehicle type</option>
-      <option *ngFor="let vehicleType of vehicleTypes">{{ vehicleType }}</option>
+      <option *ngFor="let vehicleType of vehicleTypesConfig">{{ vehicleType.vehicleType }}</option>
     </select>
     <label>Choose a brand:</label>
-    <select class="form-control" [disabled]="!selectedVehicleType" [(ngModel)]="selectedVehicleType"
-      (change)="chooseVehicleBrand(selectedVehicleType)">
+    <select class="form-control" [disabled]="!vehicle.vehicleType" [(ngModel)]="vehicle.brand"
+      (change)="chooseVehicleBrand(vehicle.brand)">
       <option selected hidden>Brand</option>
-      <option *ngFor="let brand of brands">{{ brand }}</option>
+      <option *ngFor="let brand of vehicles">{{ brand }}</option>
     </select>
     <label>Choose a model:</label>
-    <select class="form-control" [disabled]="!vehicle.brand" [(ngModel)]="selectedBrand"
-      (change)="chooseVehicleModel(selectedBrand)">
+    <select class="form-control" [disabled]="!vehicle.brand" [(ngModel)]="vehicle.vehicleModel"
+      (change)="chooseVehicleModel(vehicle.vehicleModel)">
       <option selected hidden>Model</option>
-      <option selected hidden>Choose model</option>
-      <option *ngFor="let model of models">{{ model }}</option>
+      <option *ngFor="let model of vehicles">{{ model }}</option>
     </select>
     <label>Choose a generation:</label>
     <select class="form-control" [disabled]="!vehicle.vehicleModel" [(ngModel)]="selectedModel"
       (change)="chooseGeneration(selectedModel)">
       <option selected hidden>Generation</option>
-      <option *ngFor="let generation of generations">{{ generation }}</option>
+      <option *ngFor="let generation of vehicles">{{ generation }}</option>
     </select>
     <label>Choose an engine type:</label>
     <select class="form-control" [disabled]="!vehicle.generation" [(ngModel)]="selectedGeneration"
       (change)="chooseEngineType(selectedGeneration)">
       <option selected hidden>Engine type</option>
-      <option *ngFor="let engineType of engineTypes">{{ engineType }}</option>
+      <option *ngFor="let engineType of vehicles">{{ engineType }}</option>
     </select>
     <label>Choose an engine:</label>
     <select class="form-control" [disabled]="!vehicle.engineType" [(ngModel)]="selectedEngineType"
       (change)="chooseEngine(selectedEngineType)">
       <option selected hidden>Engine</option>
-      <option *ngFor="let engine of engines">{{ engine }}</option>
+      <option *ngFor="let engine of vehicles">{{ engine }}</option>
     </select>
     <table class="table table-bordered w-auto" [hidden]="!vehicleId">
       <tbody>
