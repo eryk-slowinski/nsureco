@@ -1,3 +1,4 @@
+import { VehicleTypesConfig } from './../models/vehicleTypesConfig';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -36,6 +37,7 @@ export class PolicyService {
   calculationUrl: string = environment.policyService + 'calculations';
   updateRiskUrl: string = environment.policyService + 'updaterisk';
   getRisksUrl: string = environment.policyService + 'getrisks';
+  getVehicleTypesUrl: string = environment.policyService + 'getvehicletypes';
 
   constructor(private http: HttpClient) {}
 
@@ -126,6 +128,14 @@ export class PolicyService {
   async getRisks(object: InsuredObject): Promise<ObjectRisks[]> {
     return await this.http
       .post<ObjectRisks[]>(this.getRisksUrl, object)
+      .toPromise();
+  }
+
+  async getVehicleTypes(
+    object: VehicleTypesConfig
+  ): Promise<VehicleTypesConfig[]> {
+    return await this.http
+      .post<VehicleTypesConfig[]>(this.getVehicleTypesUrl, object)
       .toPromise();
   }
 
