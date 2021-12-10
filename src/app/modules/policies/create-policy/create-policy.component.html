@@ -65,50 +65,44 @@
   <div class="container">
     <h4 class="text-center mt-3">Vehicle:</h4>
     <label>Choose a vehicle type:</label>
-    <select class="form-control" [(ngModel)]="vehicle.vehicleType" (change)="chooseVehicleType(vehicle.vehicleType)">
-      <option selected hidden>Vehicle type</option>
-      <option *ngFor="let vehicleType of vehicleTypesConfig">{{ vehicleType.vehicleType }}</option>
+    <select class="form-control" [(ngModel)]="vehicle.vehicleType" (change)="chooseVehicleType()">
+      <option selected hidden>{{vehicle.vehicleType}}</option>
+      <option *ngFor="let vehicleType of vehicleTypesConfig">{{ vehicleType.vehicleType }}
+      </option>
     </select>
     <label>Choose a brand:</label>
     <select class="form-control" [disabled]="!vehicle.vehicleType" [(ngModel)]="vehicle.brand"
-      (change)="chooseVehicleBrand(vehicle.brand)">
-      <option selected hidden>Brand</option>
-      <option *ngFor="let brand of vehicles">{{ brand }}</option>
+      (change)="chooseVehicleBrand()">
+      <option selected hidden>{{vehicle.brand}}</option>
+      <option *ngFor="let vehicle of vehicles">{{ vehicle }}</option>
     </select>
     <label>Choose a model:</label>
     <select class="form-control" [disabled]="!vehicle.brand" [(ngModel)]="vehicle.vehicleModel"
-      (change)="chooseVehicleModel(vehicle.vehicleModel)">
-      <option selected hidden>Model</option>
+      (change)="chooseVehicleModel()">
+      <option selected hidden>{{vehicle.vehicleModel}}</option>
       <option *ngFor="let model of vehicles">{{ model }}</option>
     </select>
     <label>Choose a generation:</label>
-    <select class="form-control" [disabled]="!vehicle.vehicleModel" [(ngModel)]="selectedModel"
-      (change)="chooseGeneration(selectedModel)">
-      <option selected hidden>Generation</option>
+    <select class="form-control" [disabled]="!vehicle.vehicleModel" [(ngModel)]="vehicle.generation"
+      (change)="chooseGeneration()">
+      <option selected hidden>{{vehicle.generation}}</option>
       <option *ngFor="let generation of vehicles">{{ generation }}</option>
     </select>
     <label>Choose an engine type:</label>
-    <select class="form-control" [disabled]="!vehicle.generation" [(ngModel)]="selectedGeneration"
-      (change)="chooseEngineType(selectedGeneration)">
-      <option selected hidden>Engine type</option>
+    <select class="form-control" [disabled]="!vehicle.generation" [(ngModel)]="vehicle.engineType"
+      (change)="chooseEngineType()">
+      <option selected hidden>{{vehicle.engineType}}</option>
       <option *ngFor="let engineType of vehicles">{{ engineType }}</option>
     </select>
     <label>Choose an engine:</label>
-    <select class="form-control" [disabled]="!vehicle.engineType" [(ngModel)]="selectedEngineType"
-      (change)="chooseEngine(selectedEngineType)">
-      <option selected hidden>Engine</option>
+    <select class="form-control" [disabled]="!vehicle.engineType" [(ngModel)]="vehicle.engine"
+      (change)="chooseEngine()">
+      <option selected hidden>{{vehicle.engine}}</option>
       <option *ngFor="let engine of vehicles">{{ engine }}</option>
     </select>
-    <table class="table table-bordered w-auto" [hidden]="!vehicleId">
-      <tbody>
-        <tr>
-          <th scope="row">Vehicle ID:</th>
-          <td>{{vehicleId}}</td>
-        </tr>
-      </tbody>
-    </table>
+
   </div>
-  <div class="container" [hidden]="!vehicleId">
+  <div class="container" [hidden]="!vehicle.engine">
     <label for="VIN">Please enter VIN:</label>
     <input class="form-control" id="VIN" type="text" [(ngModel)]="vehicleObject.c01">
     <label for="rgnum">Please enter registration number:</label>
