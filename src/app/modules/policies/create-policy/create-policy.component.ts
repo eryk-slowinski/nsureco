@@ -191,7 +191,7 @@ export class CreatePolicyComponent implements OnInit {
     await this.getRisksConfig(object);
     this.objectRisksConfig.forEach((element) => {
       this.risk.riskId = element.objectRisks; // NAZWA DO ZMIANY => czarny
-      this.risk.objectId = object.objectId;
+      this.risk.objectId = Number(this.vehicles[0]);
       this.risk.isSelected = 'false';
       this.policyService.createRisks(this.risk).then();
     });
@@ -209,7 +209,7 @@ export class CreatePolicyComponent implements OnInit {
         break;
       }
     }
-    risk.objectId = this.vehicleObject.objectId;
+    risk.objectId = Number(this.vehicles[0]);
     risk.riskId = riskId;
     risk.isSelected = 'true';
     await this.policyService.changeCoverage(risk).then();
