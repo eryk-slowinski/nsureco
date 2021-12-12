@@ -29,11 +29,11 @@ export class FooterComponent implements OnInit {
   }
 
   async checkStatuses() {
-    this.checkStatus(this.dbService, "db-service", 0);
-    this.checkStatus(this.userService, "user-service", 1);
-    this.checkStatus(this.customerService, "customer-service", 2);
-    this.checkStatus(this.policyService, "policy-service", 3);
     this.showStatuses();
+    await this.checkStatus(this.dbService, "db-service", 0);
+    await this.checkStatus(this.userService, "user-service", 1);
+    await this.checkStatus(this.customerService, "customer-service", 2);
+    await this.checkStatus(this.policyService, "policy-service", 3);
   }
 
   async checkStatus(service: any, serviceName: String, currentValue: number = null) {
@@ -51,7 +51,7 @@ export class FooterComponent implements OnInit {
     }
   }
 
-  showStatuses() {
+  async showStatuses() {
     let statuses = "";
     this.allStatuses.forEach(item => {
       statuses += "\n" + item;
