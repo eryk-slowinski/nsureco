@@ -18,8 +18,10 @@ export class FooterComponent implements OnInit {
     private userService: AuthService,
     private customerService: CustomerService
   ) { }
+
   serverStatus: String = "";
   allStatuses: String[] = [];
+
   ngOnInit(): void {
     this.allStatuses.push("db-service: pending...");
     this.allStatuses.push("user-service: pending...");
@@ -28,13 +30,14 @@ export class FooterComponent implements OnInit {
     this.checkStatus(this.dbService, "db-service");
   }
 
-  async checkStatuses(isOnInit: boolean = false) {
+  async checkStatuses() {
     this.checkStatus(this.dbService, "db-service", 0);
     this.checkStatus(this.userService, "user-service", 1);
     this.checkStatus(this.customerService, "customer-service", 2);
     this.checkStatus(this.policyService, "policy-service", 3);
     this.showStatuses();
   }
+
   async checkStatus(service: any, serviceName: String, currentValue: number = null) {
     try {
       await service
@@ -57,10 +60,4 @@ export class FooterComponent implements OnInit {
     alert(statuses);
   }
 
-  initStatuses() {
-    this.allStatuses.push("db-service: pending...");
-    this.allStatuses.push("user-service: pending...");
-    this.allStatuses.push("customer-service: pending...");
-    this.allStatuses.push("policy-service: pending...");
-  }
 }
