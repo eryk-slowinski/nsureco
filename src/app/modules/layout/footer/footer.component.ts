@@ -1,4 +1,3 @@
-import { collectExternalReferences, compileNgModule } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/services/customer.service';
 import { DbService } from 'src/app/services/db.service';
@@ -19,7 +18,6 @@ export class FooterComponent implements OnInit {
     private customerService: CustomerService
   ) { }
 
-  serverStatus: String = "";
   allStatuses: String[] = [];
 
   ngOnInit(): void {
@@ -39,12 +37,13 @@ export class FooterComponent implements OnInit {
   }
 
   async checkStatus(service: any, serviceName: String, currentValue: number = null) {
+    let serverStatus = "";
     try {
       await service
         .checkStatus()
-        .then((data) => (this.serverStatus = data));
+        .then((data) => (serverStatus = data));
       if (currentValue != null) {
-        this.allStatuses[currentValue] = this.serverStatus;
+        this.allStatuses[currentValue] = serverStatus;
       }
     }
     catch (e) {
