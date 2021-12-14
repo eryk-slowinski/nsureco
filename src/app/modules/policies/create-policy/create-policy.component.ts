@@ -30,7 +30,7 @@ export class CreatePolicyComponent implements OnInit {
   vehicleObject: InsuredObject = new InsuredObject();
   risk: ObjectRisks = new ObjectRisks();
   datepipe: DatePipe = new DatePipe('en-US');
-  risks: ObjectRisks[];
+  risks: ObjectRisks[] = [];
   products: ProductsConfig[];
   policyLines: PolicyLinesConfig[];
   objects: ObjectsConfig[];
@@ -166,7 +166,7 @@ export class CreatePolicyComponent implements OnInit {
     this.vehicleObject.type = 'VEH';
     this.vehicleObject.version = this.policyLine.version;
     // this.vehicleObject.d01 = date;
-    await this.policyService.createInsuredObject(this.vehicleObject).then();
+    // await this.policyService.createInsuredObject(this.vehicleObject).then();
     this.vehicleObject = await this.policyService
       .createInsuredObject(this.vehicleObject)
       .then();
@@ -189,34 +189,38 @@ export class CreatePolicyComponent implements OnInit {
 
   async createRisks(object: InsuredObject) {
     await this.getRisksConfig(object);
-    this.objectRisksConfig.forEach((element) => {
+    this.objectRisksConfig.forEach(async (element) => {
       this.risk.riskId = element.objectRisks; // NAZWA DO ZMIANY => czarny
-      this.risk.objectId = Number(this.vehicles[0]);
+      this.risk.objectId = object.objectId;
       this.risk.isSelected = 'false';
-      this.policyService.createRisks(this.risk).then();
+      this.risk.checkboxValue = false;
+      await this.policyService.createRisks(this.risk).then();
     });
   }
 
-  async getRisks(object: InsuredObject) {
-    return await this.policyService.getRisks(object).then();
-  }
-
-  async changeCoverage(risk: ObjectRisks, riskId: string) {
-    this.risks = await this.getRisks(this.vehicleObject);
-    for (let i = 0; i < this.risks.length; i++) {
-      if (this.risks[i].riskId == riskId) {
-        risk.id = this.risks[i].id;
-        break;
-      }
-    }
-    risk.objectId = Number(this.vehicles[0]);
-    risk.riskId = riskId;
-    risk.isSelected = 'true';
-    await this.policyService.changeCoverage(risk).then();
+  async reloadCoverages(object: InsuredObject) {
+    this.risks = await this.policyService.getRisks(object);
+    console.log(this.risks);
   }
 
   async calculation(policyLine: PolicyLine) {
+    console.log(policyLine);
     await this.policyService.calculation(policyLine);
+  }
+
+  toggleCoverage(risk: ObjectRisks) {
+    this.risks.forEach(async (arg) => {
+      if (risk === arg) {
+        arg.checkboxValue = !arg.checkboxValue;
+        arg.isSelected = String(arg.checkboxValue);
+      }
+    });
+  }
+
+  updateRisks() {
+    this.risks.forEach(async (risk) => {
+      await this.policyService.changeCoverage(risk).then();
+    });
   }
 
   ngOnInit() {

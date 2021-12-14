@@ -33,8 +33,10 @@
 </div>
 
 <ng-template #noCustomer>
-  <h5 class="text-danger">No policy owner choosen</h5>
-  <a class="btn btn-md btn-primary" routerLink="/searchcustomer" role="button">Go to customer search &raquo;</a>
+  <div class="container">
+    <h5 class="text-danger">No policy owner choosen</h5>
+    <a class="btn btn-md btn-primary" routerLink="/searchcustomer" role="button">Go to customer search &raquo;</a>
+  </div>
 </ng-template>
 
 <div class="container" [hidden]="!customerSelected[0]">
@@ -82,21 +84,21 @@
       <option selected hidden>{{vehicle.vehicleModel}}</option>
       <option *ngFor="let model of vehicles">{{ model }}</option>
     </select>
-    <label>Choose a generation:</label>
-    <select class="form-control" [disabled]="!vehicle.vehicleModel" [(ngModel)]="vehicle.generation"
-      (change)="chooseGeneration()">
+    <label [hidden]="configuration.policyLineId == 'TRA'">Choose a generation:</label>
+    <select class="form-control" [disabled]="!vehicle.vehicleModel" [hidden]="configuration.policyLineId == 'TRA'"
+      [(ngModel)]="vehicle.generation" (change)="chooseGeneration()">
       <option selected hidden>{{vehicle.generation}}</option>
       <option *ngFor="let generation of vehicles">{{ generation }}</option>
     </select>
-    <label>Choose an engine type:</label>
-    <select class="form-control" [disabled]="!vehicle.generation" [(ngModel)]="vehicle.engineType"
-      (change)="chooseEngineType()">
+    <label [hidden]="configuration.policyLineId == 'TRA'">Choose an engine type:</label>
+    <select class="form-control" [disabled]="!vehicle.generation" [hidden]="configuration.policyLineId == 'TRA'"
+      [(ngModel)]="vehicle.engineType" (change)="chooseEngineType()">
       <option selected hidden>{{vehicle.engineType}}</option>
       <option *ngFor="let engineType of vehicles">{{ engineType }}</option>
     </select>
-    <label>Choose an engine:</label>
-    <select class="form-control" [disabled]="!vehicle.engineType" [(ngModel)]="vehicle.engine"
-      (change)="chooseEngine()">
+    <label [hidden]="configuration.policyLineId == 'TRA'">Choose an engine:</label>
+    <select class="form-control" [disabled]="!vehicle.engineType" [hidden]="configuration.policyLineId == 'TRA'"
+      [(ngModel)]="vehicle.engine" (change)="chooseEngine()">
       <option selected hidden>{{vehicle.engine}}</option>
       <option *ngFor="let engine of vehicles">{{ engine }}</option>
     </select>
@@ -132,41 +134,41 @@
     <input class="form-control" id="claims" type="text" [disabled]="!driverObject.n02" [(ngModel)]="driverObject.n03">
     <label for="licDate">Driver's licence date:</label>
     <input class="form-control" id="licDate" type="text" [disabled]="!driverObject.n03" [(ngModel)]="driverObject.d01">
-    <button class="btn btn-primary" type="submit" (click)="createInsuredDriver(); createRisks(vehicleObject)"
+    <button class="btn btn-primary" type="submit"
+      (click)="createInsuredDriver(); createRisks(vehicleObject); reloadCoverages(vehicleObject)"
       [disabled]="!driverObject.d01">Create
       insured driver</button>
   </div>
 </ng-template>
 
-<div class="container">
-  <h4 class="text-center mt-3">Select risks:</h4>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="OC" id="oc-checkbox" (change)="changeCoverage(risk, 'OC')">
-    <label class="form-check-label" for="oc-checkbox">
-      OC
-    </label>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="AC" id="ac-checkbox" (change)="changeCoverage(risk, 'AC')">
-    <label class="form-check-label" for="ac-checkbox">
-      AC
-    </label>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="NNW" id="nnw-checkbox"
-      (change)="changeCoverage(risk, 'NNW')">
-    <label class="form-check-label" for="nnw-checkbox">
-      NNW
-    </label>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="ASI" id="asi-checkbox"
-      (change)="changeCoverage(risk, 'ASI')">
-    <label class="form-check-label" for="asi-checkbox">
-      ASI
-    </label>
-  </div>
+<div class="container mt-4">
+  <table class=" table table-bordered w-auto">
+    <thead>
+      <tr>
+        <th scope="col">Covered</th>
+        <th scope="col">Id</th>
+        <th scope="col">Risk</th>
+        <th scope="col">Premium</th>
+        <th scope="col">Premium for period</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let risk of risks">
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="checkbox-list" [(ngModel)]="risk.checkboxValue"
+              (click)="toggleCoverage(risk)" ngDefaultControl>
+          </div>
+        </td>
+        <td>{{risk.id}}</td>
+        <td>{{risk.riskId}}</td>
+        <td>{{risk.premium}}</td>
+        <td>{{risk.premiumForPeriod}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-primary" type="submit" (click)="reloadCoverages(vehicleObject)">Show coverages</button>
+  <button class="btn btn-primary" type="submit" (click)="updateRisks()">Update coverages</button>
+  <button class="btn btn-primary" type="submit" (click)="calculation(policyLine)">Calc</button>
+
 </div>
-
-
-<button class="btn btn-primary" type="submit" (click)="calculation(policyLine)">Calculate</button>
