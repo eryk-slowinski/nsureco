@@ -5,5 +5,4 @@ export class ObjectRisks {
   premium: number;
   premiumForPeriod: number;
   isSelected: string;
-  checkboxValue: boolean;
 }
