@@ -37,6 +37,10 @@ export class CreatePolicyComponent implements OnInit {
   objectRisksConfig: ObjectRisksConfig[];
   customerSelected: Object = new Object();
   vehicles: Vehicle[];
+  vehicleTypesObject: VehicleTypesConfig = new VehicleTypesConfig();
+  vehicleTypesConfig: VehicleTypesConfig[];
+  driverCreated: boolean = false;
+  vehicleCreated: boolean = false;
 
   constructor(
     private policyService: PolicyService,
@@ -65,9 +69,6 @@ export class CreatePolicyComponent implements OnInit {
       .getObjects(policyLine)
       .then((data) => (this.objects = data));
   }
-
-  vehicleTypesObject: VehicleTypesConfig = new VehicleTypesConfig();
-  vehicleTypesConfig: VehicleTypesConfig[];
 
   async getVehicleTypes(object: VehicleTypesConfig) {
     object.productLineType = this.configuration.policyLineId;
@@ -160,16 +161,20 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   async createInsuredVehicle() {
+    console.log(this.vehicle);
+    console.log(this.vehicles);
     this.vehicleObject.policyLineId = this.policyLine.policyLineId;
     this.vehicleObject.transactionId = this.transaction.transactionId;
     this.vehicleObject.n01 = Number(this.vehicles[0]);
     this.vehicleObject.type = 'VEH';
     this.vehicleObject.version = this.policyLine.version;
     // this.vehicleObject.d01 = date;
-    // await this.policyService.createInsuredObject(this.vehicleObject).then();
     this.vehicleObject = await this.policyService
       .createInsuredObject(this.vehicleObject)
       .then();
+    await this.createRisks(this.vehicleObject);
+    await this.reloadCoverages(this.vehicleObject);
+    this.risks.sort((a, b) => a.riskId.localeCompare(b.riskId));
   }
 
   async createInsuredDriver() {
@@ -185,6 +190,9 @@ export class CreatePolicyComponent implements OnInit {
     await this.policyService
       .getObjectRisksConfig(object)
       .then((data) => (this.objectRisksConfig = data));
+    this.objectRisksConfig.sort((a, b) =>
+      a.objectRisks.localeCompare(b.objectRisks)
+    );
   }
 
   async createRisks(object: InsuredObject) {
@@ -193,34 +201,36 @@ export class CreatePolicyComponent implements OnInit {
       this.risk.riskId = element.objectRisks; // NAZWA DO ZMIANY => czarny
       this.risk.objectId = object.objectId;
       this.risk.isSelected = 'false';
-      this.risk.checkboxValue = false;
       await this.policyService.createRisks(this.risk).then();
     });
+    await this.delay(300);
   }
 
+  //delay a bit to prevent spamming checkbox
   async reloadCoverages(object: InsuredObject) {
     this.risks = await this.policyService.getRisks(object);
-    console.log(this.risks);
+    this.risks.sort((a, b) => a.riskId.localeCompare(b.riskId));
   }
 
   async calculation(policyLine: PolicyLine) {
-    console.log(policyLine);
     await this.policyService.calculation(policyLine);
+    await this.reloadCoverages(this.vehicleObject);
   }
 
-  toggleCoverage(risk: ObjectRisks) {
-    this.risks.forEach(async (arg) => {
-      if (risk === arg) {
-        arg.checkboxValue = !arg.checkboxValue;
-        arg.isSelected = String(arg.checkboxValue);
+  async toggleCoverage(riskId: string) {
+    this.risks.forEach((riskFromList) => {
+      if (riskFromList.riskId == riskId) {
+        this.risk = riskFromList;
       }
     });
+    this.risk.isSelected == 'false'
+      ? (this.risk.isSelected = 'true')
+      : (this.risk.isSelected = 'false');
+    await this.policyService.changeCoverage(this.risk).then();
   }
 
-  updateRisks() {
-    this.risks.forEach(async (risk) => {
-      await this.policyService.changeCoverage(risk).then();
-    });
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   ngOnInit() {
