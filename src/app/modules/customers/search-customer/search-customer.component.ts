@@ -7,7 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './search-customer.component.html',
 })
 export class SearchCustomerComponent {
-  constructor(private customerService: CustomerService) {}
+  constructor(private customerService: CustomerService) { }
 
   searchResults: [];
 

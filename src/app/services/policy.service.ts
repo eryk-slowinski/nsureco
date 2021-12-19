@@ -13,6 +13,7 @@ import { ObjectRisksConfig } from 'src/app/models/objectRisksConfig';
 import { ObjectRisks } from 'src/app/models/objectRisks';
 import { PolicyLinesConfig } from 'src/app/models/policyLinesConfig';
 import { ProductsConfig } from 'src/app/models/productsConfig';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -40,8 +41,10 @@ export class PolicyService {
   updateRiskUrl: string = environment.policyService + 'updaterisk';
   getRisksUrl: string = environment.policyService + 'getrisks';
   getVehicleTypesUrl: string = environment.policyService + 'getvehicletypes';
+  searchPolicyUrl: string = environment.policyService + 'searchpolicy';
+  policySelected: BehaviorSubject<Object> = new BehaviorSubject<any>(Object);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   async getProducts(): Promise<ProductsConfig[]> {
     return await this.http
@@ -81,6 +84,10 @@ export class PolicyService {
 
   async getPolicy(policy: Policy): Promise<Policy> {
     return await this.http.post<Policy>(this.getPolicyUrl, policy).toPromise();
+  }
+
+  async searchPolicy(policy: Policy): Promise<Policy[]> {
+    return await this.http.post<Policy[]>(this.searchPolicyUrl, policy).toPromise();
   }
 
   async createPolicyLine(policyLine: Object): Promise<PolicyLine> {
@@ -152,6 +159,6 @@ export class PolicyService {
   }
 
   async checkStatus(): Promise<String> {
-    return await this.http.get(this.urlStatus, {responseType: 'text'}).toPromise();
+    return await this.http.get(this.urlStatus, { responseType: 'text' }).toPromise();
   }
 }
