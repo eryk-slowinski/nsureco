@@ -161,8 +161,6 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   async createInsuredVehicle() {
-    console.log(this.vehicle);
-    console.log(this.vehicles);
     this.vehicleObject.policyLineId = this.policyLine.policyLineId;
     this.vehicleObject.transactionId = this.transaction.transactionId;
     this.vehicleObject.n01 = Number(this.vehicles[0]);

@@ -155,12 +155,14 @@
   <div class="row justify-content-md-center">
     <div class="col-sm-5">
       <h4 class="text-center mt-3">Vehicle</h4>
+
       <label>Choose a trailer type:</label>
       <select class="form-control" [(ngModel)]="vehicle.vehicleType" (change)="chooseVehicleType()">
         <option selected hidden>{{vehicle.vehicleType}}</option>
         <option *ngFor="let vehicleType of vehicleTypesConfig">{{ vehicleType.vehicleType }}
         </option>
       </select>
+
       <label>Choose a brand:</label>
       <select class="form-control" [(ngModel)]="vehicle.brand" (change)="chooseVehicleBrand()">
         <option selected hidden>{{vehicle.brand}}</option>
@@ -168,7 +170,7 @@
       </select>
       <label>Choose a model:</label>
       <select class="form-control" [disabled]="!vehicle.brand" [(ngModel)]="vehicle.vehicleModel"
-        (change)="chooseVehicleModel(); vehicle.generation = null; vehicle.engineType = null; vehicle.engine = null">
+        (change)="vehicle.generation = 'null'; vehicle.engineType = 'null'; vehicle.engine = 'null'; chooseVehicleModel()">
         <option selected hidden>{{vehicle.vehicleModel}}</option>
         <option *ngFor="let model of vehicles">{{ model }}</option>
       </select>
@@ -238,5 +240,5 @@
   </div>
   <button class="btn btn-primary" type="submit" (click)="calculation(policyLine)">Calculate
     premium</button>
-
+  <p>TOTAL PREMIUM:</p>
 </ng-template>
