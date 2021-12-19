@@ -41,11 +41,12 @@ export class CreatePolicyComponent implements OnInit {
   vehicleTypesConfig: VehicleTypesConfig[];
   driverCreated: boolean = false;
   vehicleCreated: boolean = false;
+  totalPremium: number = 0;
 
   constructor(
     private policyService: PolicyService,
     private customerService: CustomerService
-  ) {}
+  ) { }
 
   configuration = {
     productId: null,
@@ -213,6 +214,10 @@ export class CreatePolicyComponent implements OnInit {
   async calculation(policyLine: PolicyLine) {
     await this.policyService.calculation(policyLine);
     await this.reloadCoverages(this.vehicleObject);
+    this.risks.forEach((risk) => {
+      if (risk.premium != NaN)
+        this.totalPremium += risk.premium;
+    })
   }
 
   async toggleCoverage(riskId: string) {

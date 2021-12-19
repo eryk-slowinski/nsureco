@@ -155,16 +155,15 @@
   <div class="row justify-content-md-center">
     <div class="col-sm-5">
       <h4 class="text-center mt-3">Vehicle</h4>
-
       <label>Choose a trailer type:</label>
       <select class="form-control" [(ngModel)]="vehicle.vehicleType" (change)="chooseVehicleType()">
         <option selected hidden>{{vehicle.vehicleType}}</option>
         <option *ngFor="let vehicleType of vehicleTypesConfig">{{ vehicleType.vehicleType }}
         </option>
       </select>
-
       <label>Choose a brand:</label>
-      <select class="form-control" [(ngModel)]="vehicle.brand" (change)="chooseVehicleBrand()">
+      <select class="form-control" vehicle.vehicleType='TRA' [(ngModel)]="vehicle.brand"
+        (change)="chooseVehicleBrand()">
         <option selected hidden>{{vehicle.brand}}</option>
         <option *ngFor="let vehicle of vehicles">{{ vehicle }}</option>
       </select>
@@ -193,16 +192,13 @@
         (click)="createInsuredVehicle(); reloadCoverages(vehicleObject); vehicleCreated = true">Create
         insured trailer</button>
     </div>
-    <!--  -->
-    <!-- VEHICLE ID IS NOT FOUND WHEN CREATING VEHICLE OBJECT -->
-    <!-- PROBLEM OCCURS ONLY ON TRAILER -->
-    <!--  -->
   </div>
   <div class="col-sm" *ngIf="vehicleCreated; then calculate"></div>
 </ng-template>
 
 <ng-template #calculate>
   <div class="container mt-4">
+    <h4 class="mt-3">Select risks</h4>
     <div class="row">
       <table class=" table table-bordered w-auto">
         <thead>
@@ -234,11 +230,10 @@
             <td>{{risk.premium}}</td>
             <td>{{risk.premiumForPeriod}}</td>
           </tr>
-
       </table>
     </div>
   </div>
   <button class="btn btn-primary" type="submit" (click)="calculation(policyLine)">Calculate
     premium</button>
-  <p>TOTAL PREMIUM:</p>
+  <h5 class="mt-3">TOTAL PREMIUM: {{totalPremium}}</h5>
 </ng-template>
