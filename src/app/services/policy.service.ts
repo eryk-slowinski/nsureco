@@ -18,6 +18,8 @@ import { ProductsConfig } from 'src/app/models/productsConfig';
   providedIn: 'root',
 })
 export class PolicyService {
+
+  urlStatus: string = environment.policyService + 'serviceStatus';
   createTransactionUrl: string =
     environment.policyService + 'createtransaction';
   createPolicyUrl: string = environment.policyService + 'createpolicy';
@@ -147,5 +149,9 @@ export class PolicyService {
 
   async calculation(policyLine: PolicyLine) {
     await this.http.post(this.calculationUrl, policyLine).toPromise();
+  }
+
+  async checkStatus(): Promise<String> {
+    return await this.http.get(this.urlStatus, {responseType: 'text'}).toPromise();
   }
 }

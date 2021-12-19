@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class CustomerService {
   constructor(private http: HttpClient) {}
 
+  urlStatus: string = environment.customerService + 'serviceStatus';
   urlName: string = environment.customerService + 'customerSearchByName';
   urlId: string = environment.customerService + 'customerSearchByID';
   urlPesel: string = environment.customerService + 'customerSearchByPesel';
@@ -38,5 +39,9 @@ export class CustomerService {
     return await this.http
       .post<any>(this.urlAddCustomer, createCustomerForm.value)
       .toPromise();
+  }
+
+  async checkStatus(): Promise<String> {
+    return await this.http.get(this.urlStatus, {responseType: 'text'}).toPromise();
   }
 }

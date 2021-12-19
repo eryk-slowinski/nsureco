@@ -13,6 +13,7 @@ import { LogInData } from 'src/app/models/logInData';
 export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
+  urlStatus: string = environment.userService + 'serviceStatus';
   url: string = environment.userService + `verify`;
   isAuthenticated = false;
   userNotExist: string = 'NOT_EXIST';
@@ -41,5 +42,9 @@ export class AuthService {
 
   userLogIn(): Observable<string> {
     return this.loggedUser.asObservable();
+  }
+
+  async checkStatus(): Promise<String> {
+    return await this.http.get(this.urlStatus, {responseType: 'text'}).toPromise();
   }
 }
