@@ -153,6 +153,7 @@ export class CreatePolicyComponent implements OnInit {
     this.policy.ownerId = this.customerSelected[0];
     this.policy.type = 'Vehicle insurance';
     this.policy.status = 'quotation';
+    console.log(this.policy.startDate);
     this.policy.productType = this.configuration.productId;
     this.policy.altNo = this.policy.productType + this.policy.ownerId;
     this.policy.version = '1.0';
@@ -167,7 +168,6 @@ export class CreatePolicyComponent implements OnInit {
     this.vehicleObject.n01 = Number(this.vehicles[0]);
     this.vehicleObject.type = 'VEH';
     this.vehicleObject.version = this.policyLine.version;
-    // this.vehicleObject.d01 = date;
     this.vehicleObject = await this.policyService
       .createInsuredObject(this.vehicleObject)
       .then();
