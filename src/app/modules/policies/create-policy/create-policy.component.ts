@@ -153,7 +153,6 @@ export class CreatePolicyComponent implements OnInit {
     this.policy.ownerId = this.customerSelected[0];
     this.policy.type = 'Vehicle insurance';
     this.policy.status = 'quotation';
-    console.log(this.policy.startDate);
     this.policy.productType = this.configuration.productId;
     this.policy.altNo = this.policy.productType + this.policy.ownerId;
     this.policy.version = '1.0';
