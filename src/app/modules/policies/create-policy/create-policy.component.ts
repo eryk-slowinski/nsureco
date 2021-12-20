@@ -158,7 +158,6 @@ export class CreatePolicyComponent implements OnInit {
     this.policy.version = '1.0';
     await this.policyService.createPolicy(this.policy).then();
     this.policy = await this.policyService.getPolicy(this.policy).then();
-    await this.createPolicyLine();
   }
 
   async createInsuredVehicle() {
@@ -179,8 +178,8 @@ export class CreatePolicyComponent implements OnInit {
     this.driverObject.policyLineId = this.policyLine.policyLineId;
     this.driverObject.transactionId = this.transaction.transactionId;
     this.driverObject.type = 'DRI';
+    this.driverObject.version = this.policyLine.version;
     this.driverObject.n01 = this.customerSelected[0];
-    console.log(this.driverObject);
     await this.policyService.createInsuredObject(this.driverObject).then();
   }
 
@@ -211,6 +210,7 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   async calculation(policyLine: PolicyLine) {
+    this.totalPremium = 0;
     await this.policyService.calculation(policyLine);
     await this.reloadCoverages(this.vehicleObject);
     this.risks.forEach((risk) => {
