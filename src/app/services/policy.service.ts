@@ -42,6 +42,12 @@ export class PolicyService {
   getRisksUrl: string = environment.policyService + 'getrisks';
   getVehicleTypesUrl: string = environment.policyService + 'getvehicletypes';
   searchPolicyUrl: string = environment.policyService + 'searchpolicy';
+  searchPolicyLineUrl: string = environment.policyService + 'searchpolicyline';
+  updatePolicyUrl: string = environment.policyService + 'updatepolicy';
+  updatePolicyLineUrl: string = environment.policyService + 'updatepolicyline';
+  updateInsuredVehicleUrl: string = environment.policyService + 'updateinsuredvehicle';
+  searchInsuredObjectUrl: string = environment.policyService + 'searchinsuredobject';
+  searchVehicleUrl: string = environment.policyService + 'getvehicle';
   policySelected: BehaviorSubject<Object> = new BehaviorSubject<any>(Object);
 
   constructor(private http: HttpClient) { }
@@ -82,12 +88,16 @@ export class PolicyService {
       .toPromise();
   }
 
-  async getPolicy(policy: Policy): Promise<Policy> {
-    return await this.http.post<Policy>(this.getPolicyUrl, policy).toPromise();
+  async getPolicy(policy: Object): Promise<Object> {
+    return await this.http.post<Object>(this.getPolicyUrl, policy).toPromise();
   }
 
   async searchPolicy(policy: Policy): Promise<Policy[]> {
     return await this.http.post<Policy[]>(this.searchPolicyUrl, policy).toPromise();
+  }
+
+  async updatePolicy(policy: Policy): Promise<Policy> {
+    return await this.http.post<Policy>(this.updatePolicyUrl, policy).toPromise();
   }
 
   async createPolicyLine(policyLine: Object): Promise<PolicyLine> {
@@ -100,6 +110,14 @@ export class PolicyService {
     return await this.http
       .post<PolicyLine>(this.getPolicyLineUrl, policyLine)
       .toPromise();
+  }
+
+  async searchPolicyLine(policyLine: PolicyLine): Promise<PolicyLine> {
+    return await this.http.post<PolicyLine>(this.searchPolicyLineUrl, policyLine).toPromise();
+  }
+
+  async updatePolicyLine(policyLine: PolicyLine): Promise<PolicyLine> {
+    return await this.http.post<PolicyLine>(this.updatePolicyLineUrl, policyLine).toPromise();
   }
 
   async getObjectRisksConfig(
@@ -125,6 +143,24 @@ export class PolicyService {
   async getInsuredObject(insuredObj: Object): Promise<InsuredObject> {
     return await this.http
       .post<InsuredObject>(this.createInsuredObjectUrl, insuredObj)
+      .toPromise();
+  }
+
+  async searchInsuredObject(insuredObj: Object): Promise<InsuredObject> {
+    return await this.http
+      .post<InsuredObject>(this.searchInsuredObjectUrl, insuredObj)
+      .toPromise();
+  }
+
+  async updateInsuredObject(insuredObj: Object): Promise<InsuredObject> {
+    return await this.http
+      .post<InsuredObject>(this.updateInsuredVehicleUrl, insuredObj)
+      .toPromise();
+  }
+
+  async searchVehicle(vehicle: Vehicle): Promise<Vehicle> {
+    return await this.http
+      .post<Vehicle>(this.searchVehicleUrl, vehicle)
       .toPromise();
   }
 
