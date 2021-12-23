@@ -14,6 +14,7 @@ import { InsuredObject } from 'src/app/models/insuredObject';
 import { ObjectRisksConfig } from 'src/app/models/objectRisksConfig';
 import { ObjectRisks } from 'src/app/models/objectRisks';
 import { VehicleTypesConfig } from 'src/app/models/vehicleTypesConfig';
+import { Vehicles } from './../../../models/vehicles';
 
 @Component({
   selector: 'app-create-policy',
@@ -36,7 +37,7 @@ export class CreatePolicyComponent implements OnInit {
   objects: ObjectsConfig[];
   objectRisksConfig: ObjectRisksConfig[];
   customerSelected: Object = new Object();
-  vehicles: Vehicle[];
+  vehicles: Vehicles = new Vehicles();
   vehicleTypesObject: VehicleTypesConfig = new VehicleTypesConfig();
   vehicleTypesConfig: VehicleTypesConfig[];
   driverCreated: boolean = false;
@@ -44,8 +45,8 @@ export class CreatePolicyComponent implements OnInit {
   totalPremium: number = 0;
 
   constructor(
-    private policyService: PolicyService,
-    private customerService: CustomerService
+    public policyService: PolicyService,
+    public customerService: CustomerService
   ) { }
 
   configuration = {
@@ -78,47 +79,42 @@ export class CreatePolicyComponent implements OnInit {
       .then((data) => (this.vehicleTypesConfig = data));
   }
 
-  //TO BE RESOLVED IN ANOTHER TASK
-  // async chooseVehicleProperty(iteration: number) {
-  //   await this.policyService.getVehicles(this.vehicle).then((data) => {
-  //     this.vehicles = data;
-  //   });
-  // }
-
-  async chooseVehicleType() {
+  async chooseVeh(vehicleProperties: string) {
+    switch (vehicleProperties) {
+      case 'brand': {
+        this.vehicle.brand = null;
+        this.vehicle.vehicleModel = null;
+        this.vehicle.generation = null;
+        this.vehicle.engineType = null;
+        this.vehicle.engine = null;
+        break;
+      }
+      case 'vehicleModel': {
+        this.vehicle.vehicleModel = null;
+        this.vehicle.generation = null;
+        this.vehicle.engineType = null;
+        this.vehicle.engine = null;
+        break;
+      }
+      case 'generation': {
+        this.vehicle.generation = null;
+        this.vehicle.engineType = null;
+        this.vehicle.engine = null;
+        break;
+      }
+      case 'engineType': {
+        this.vehicle.engineType = null;
+        this.vehicle.engine = null;
+        break;
+      }
+      case 'engine': {
+        this.vehicle.engine = null;
+        break;
+      }
+    }
     await this.policyService.getVehicles(this.vehicle).then((data) => {
-      this.vehicles = data;
-    });
-  }
-
-  async chooseVehicleBrand() {
-    await this.policyService
-      .getVehicles(this.vehicle)
-      .then((data) => (this.vehicles = data));
-  }
-
-  async chooseVehicleModel() {
-    await this.policyService
-      .getVehicles(this.vehicle)
-      .then((data) => (this.vehicles = data));
-  }
-
-  async chooseGeneration() {
-    await this.policyService
-      .getVehicles(this.vehicle)
-      .then((data) => (this.vehicles = data));
-  }
-
-  async chooseEngineType() {
-    await this.policyService
-      .getVehicles(this.vehicle)
-      .then((data) => (this.vehicles = data));
-  }
-
-  async chooseEngine() {
-    await this.policyService
-      .getVehicles(this.vehicle)
-      .then((data) => (this.vehicles = data));
+      this.vehicles[vehicleProperties] = data
+    })
   }
 
   async createTransaction() {
@@ -163,7 +159,7 @@ export class CreatePolicyComponent implements OnInit {
   async createInsuredVehicle() {
     this.vehicleObject.policyLineId = this.policyLine.policyLineId;
     this.vehicleObject.transactionId = this.transaction.transactionId;
-    this.vehicleObject.n01 = Number(this.vehicles[0]);
+    this.vehicleObject.n01 = this.vehicles.vehicleId[0];
     this.vehicleObject.type = 'VEH';
     this.vehicleObject.version = this.policyLine.version;
     this.vehicleObject = await this.policyService
