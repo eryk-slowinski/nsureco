@@ -1,47 +1,48 @@
-import { Vehicle } from './../../../models/vehicle';
-import { InsuredObject } from './../../../models/insuredObject';
+import { Component, OnInit } from '@angular/core';
+import { CreatePolicyComponent } from './../create-policy/create-policy.component';
 import { CustomerService } from './../../../services/customer.service';
 import { PolicyService } from 'src/app/services/policy.service';
-import { Component, OnInit } from '@angular/core';
-import { Policy } from 'src/app/models/policy';
-import { PolicyLine } from 'src/app/models/policyLine';
+//models
+import { InsuredObject } from './../../../models/insuredObject';
 
 @Component({
   selector: 'app-edit-policy',
   templateUrl: './edit-policy.component.html',
   styleUrls: ['./edit-policy.component.css']
 })
-export class EditPolicyComponent implements OnInit {
+export class EditPolicyComponent extends CreatePolicyComponent implements OnInit {
 
-  constructor(private policyService: PolicyService, private customerService: CustomerService) { }
+  constructor(public policyService: PolicyService, public customerService: CustomerService) { super(policyService, customerService); }
   policySelected: Object = new Object();
   customerSelected: Object = new Object();
-  policyLine: PolicyLine = new PolicyLine();
-  policy: Policy = new Policy();
   insuredVehicle: InsuredObject = new InsuredObject();
   insuredDriver: InsuredObject = new InsuredObject();
-  vehicle: Vehicle = new Vehicle();
+  editState: boolean = false;
 
   async getPolicy() {
     this.policy = await this.policyService.getPolicy(this.policySelected).then();
   }
 
   async getPolicyLine() {
+    this.choosePolicyLine(this.policy.productType);
     this.policyLine.policyId = this.policySelected['policyId'];
     this.policyLine.transactionId = this.policySelected['transactionId'];
     this.policyLine = await this.policyService.getPolicyLine(this.policyLine).then();
   }
 
-  async searchInsuredObjects() {
+  async getInsuredVehicle() {
     this.insuredVehicle.policyLineId = this.policyLine.policyLineId;
     this.insuredVehicle.type = 'VEH';
     this.insuredVehicle = await this.policyService.searchInsuredObject(this.insuredVehicle).then();
+  }
+
+  async getInsuredDriver() {
     this.insuredDriver.policyLineId = this.policyLine.policyLineId;
     this.insuredDriver.type = 'DRI';
     this.insuredDriver = await this.policyService.searchInsuredObject(this.insuredDriver).then();
   }
 
-  async searchVehicle() {
+  async getVehicle() {
     this.vehicle.vehicleId = this.insuredVehicle.n01;
     this.vehicle = await this.policyService.searchVehicle(this.vehicle).then();
   }
@@ -49,16 +50,43 @@ export class EditPolicyComponent implements OnInit {
   async getAllData() {
     await this.getPolicy();
     await this.getPolicyLine();
-    await this.searchInsuredObjects();
-    await this.searchVehicle();
+    await this.getInsuredVehicle()
+    await this.getInsuredDriver();
+    await this.getVehicle();
+    await this.reloadCoverages(this.insuredVehicle);
   }
 
-
-
-
   async updatePolicy() {
-    this.policy.type = 'Quote';
     await this.policyService.updatePolicy(this.policy).then();
+    await this.resetCoverages();
+  }
+
+  async updatePolicyLine() {
+    await this.policyService.updatePolicyLine(this.policyLine);
+    await this.resetCoverages();
+  }
+
+  async updateInsuredVehicle() {
+    this.vehicle = await this.policyService.searchVehicle(this.vehicle).then();
+    this.insuredVehicle.n01 = this.vehicles.vehicleId[0];
+    await this.policyService.updateInsuredObject(this.insuredVehicle).then();
+    await this.getVehicle();
+    await this.resetCoverages();
+  }
+
+  async updateInsuredDriver() {
+    await this.policyService.updateInsuredObject(this.insuredDriver).then();
+    await this.resetCoverages();
+  }
+
+  //to be resolved in another task
+  async resetCoverages() {
+    this.risks.forEach(async (risk) => {
+      risk.isSelected = 'false';
+      risk.premium = null;
+      risk.premiumForPeriod = null;
+      await this.policyService.changeCoverage(risk).then();
+    })
   }
 
   ngOnInit(): void {
@@ -69,5 +97,7 @@ export class EditPolicyComponent implements OnInit {
       this.customerSelected = customer;
     });
     this.getAllData();
+    this.chooseProduct();
+    this.getRisksConfig(this.insuredVehicle);
   }
 }
