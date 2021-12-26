@@ -1,7 +1,7 @@
-import { VehicleTypesConfig } from './../models/vehicleTypesConfig';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 //models
 import { InsuredObject } from 'src/app/models/insuredObject';
 import { PolicyLine } from 'src/app/models/policyLine';
@@ -13,7 +13,7 @@ import { ObjectRisksConfig } from 'src/app/models/objectRisksConfig';
 import { ObjectRisks } from 'src/app/models/objectRisks';
 import { PolicyLinesConfig } from 'src/app/models/policyLinesConfig';
 import { ProductsConfig } from 'src/app/models/productsConfig';
-import { BehaviorSubject } from 'rxjs';
+import { VehicleTypesConfig } from './../models/vehicleTypesConfig';
 
 @Injectable({
   providedIn: 'root',
