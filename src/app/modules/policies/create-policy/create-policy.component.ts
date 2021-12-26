@@ -49,11 +49,6 @@ export class CreatePolicyComponent implements OnInit {
     public customerService: CustomerService
   ) { }
 
-  configuration = {
-    productId: null,
-    policyLineId: null,
-  };
-
   async chooseProduct() {
     await this.policyService
       .getProducts()
@@ -73,7 +68,7 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   async getVehicleTypes(object: VehicleTypesConfig) {
-    object.productLineType = this.configuration.policyLineId;
+    object.productLineType = this.policyLine.productLineType;
     await this.policyService
       .getVehicleTypes(object)
       .then((data) => (this.vehicleTypesConfig = data));
@@ -135,7 +130,7 @@ export class CreatePolicyComponent implements OnInit {
   async createPolicyLine() {
     this.policyLine.transactionId = this.transaction['transactionId'];
     this.policyLine.policyId = this.policy['policyId'];
-    this.policyLine.productLineType = this.configuration.policyLineId;
+    // this.policyLine.productLineType = this.configuration.policyLineId;
     this.policyLine.version = '1.0';
     await this.policyService.createPolicyLine(this.policyLine).then();
     this.policyLine = await this.policyService
@@ -149,7 +144,7 @@ export class CreatePolicyComponent implements OnInit {
     this.policy.ownerId = this.customerSelected[0];
     this.policy.type = 'Vehicle insurance';
     this.policy.status = 'quotation';
-    this.policy.productType = this.configuration.productId;
+    // this.policy.productType = this.configuration.productId;
     this.policy.altNo = this.policy.productType + this.policy.ownerId;
     this.policy.version = '1.0';
     await this.policyService.createPolicy(this.policy).then();
@@ -205,10 +200,14 @@ export class CreatePolicyComponent implements OnInit {
     this.risks.sort((a, b) => a.riskId.localeCompare(b.riskId));
   }
 
-  async calculation(policyLine: PolicyLine) {
+  async calculation(policyLine: PolicyLine, vehicle: InsuredObject) {
     this.totalPremium = 0;
+    this.risks.forEach((risk) => {
+      risk.premium = null;
+      risk.premiumForPeriod = null;
+    })
     await this.policyService.calculation(policyLine);
-    await this.reloadCoverages(this.vehicleObject);
+    await this.reloadCoverages(vehicle);
     this.risks.forEach((risk) => {
       if (risk.premium != NaN)
         this.totalPremium += risk.premium;
