@@ -4,5 +4,5 @@ export class ObjectRisks {
   objectId: number;
   premium: number;
   premiumForPeriod: number;
-  isSelected: boolean;
+  isSelected: string;
 }

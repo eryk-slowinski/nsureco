@@ -371,9 +371,9 @@
         <tbody>
           <tr *ngFor="let risk of risks">
             <td>
-              <input class="form-check-input" checked type="checkbox" *ngIf="risk.isSelected"
+              <input class="form-check-input" checked type="checkbox" *ngIf="risk.isSelected === 'true'"
                 (change)="toggleCoverage(risk.riskId)">
-              <input class="form-check-input" type="checkbox" *ngIf="!risk.isSelected"
+              <input class="form-check-input" type="checkbox" *ngIf="risk.isSelected === 'false'"
                 (change)="toggleCoverage(risk.riskId)">
             </td>
             <td>{{risk.isSelected}}</td>
