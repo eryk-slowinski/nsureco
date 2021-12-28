@@ -14,7 +14,7 @@ export class InsuredObject {
   n05: number;
   n06: number;
   n07: number;
-  d01: Date;
+  d01: string;
   d02: Date;
   d03: Date;
   version: string;
