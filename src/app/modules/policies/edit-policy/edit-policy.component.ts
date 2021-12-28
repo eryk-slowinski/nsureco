@@ -1,9 +1,11 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CreatePolicyComponent } from './../create-policy/create-policy.component';
 import { CustomerService } from './../../../services/customer.service';
 import { PolicyService } from 'src/app/services/policy.service';
 //models
 import { InsuredObject } from './../../../models/insuredObject';
+
 
 @Component({
   selector: 'app-edit-policy',
@@ -18,6 +20,7 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
   insuredVehicle: InsuredObject = new InsuredObject();
   insuredDriver: InsuredObject = new InsuredObject();
   editState: boolean = false;
+  driversLicenceDate: Date = new Date();
 
   async getPolicy() {
     this.policy = await this.policyService.getPolicy(this.policySelected).then();
@@ -34,12 +37,14 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
     this.insuredVehicle.policyLineId = this.policyLine.policyLineId;
     this.insuredVehicle.type = 'VEH';
     this.insuredVehicle = await this.policyService.searchInsuredObject(this.insuredVehicle).then();
+    this.insuredVehicle.d01 = this.insuredVehicle.d01.slice(0, 10);
   }
 
   async getInsuredDriver() {
     this.insuredDriver.policyLineId = this.policyLine.policyLineId;
     this.insuredDriver.type = 'DRI';
     this.insuredDriver = await this.policyService.searchInsuredObject(this.insuredDriver).then();
+    this.insuredDriver.d01 = this.insuredDriver.d01.slice(0, 10);
   }
 
   async getVehicle() {
@@ -79,12 +84,12 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
     await this.resetCoverages();
   }
 
-  //to be resolved in another task
   async resetCoverages() {
     this.risks.forEach(async (risk) => {
       risk.isSelected = 'false';
       risk.premium = null;
       risk.premiumForPeriod = null;
+      this.totalPremium = 0;
       await this.policyService.changeCoverage(risk).then();
     })
   }

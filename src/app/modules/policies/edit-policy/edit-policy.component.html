@@ -223,16 +223,16 @@
       <label for="startDate">Select policy start date:</label>
       <input class="form-control" id="startDate" type="date" [(ngModel)]="policy.startDate">
       <label for="endDate">Select policy end date:</label>
-      <input class="form-control" id="startDate" type="date" [(ngModel)]="policy.endDate">
+      <input class="form-control" id="endDate" type="date" [(ngModel)]="policy.endDate">
       <label for="product">Select product:</label>
       <select class="d-inline" id="product" class="form-control" [(ngModel)]="policy.productType"
-        (change)="choosePolicyLine(policy.productType); updatePolicy()">
+        (change)="choosePolicyLine(policy.productType)">
         <option selected hidden>Product</option>
         <option *ngFor="let product of products">{{product.productId}}</option>
       </select>
       <label for="policyLine">Select policy line:</label>
       <select id="policyLine" class="form-control" [(ngModel)]="policyLine.productLineType"
-        (change)="getRequiredObjects(policyLine.productLineType); getVehicleTypes(vehicleTypesObject); updatePolicyLine(); chooseVeh('brand'); vehicle.vehicleType = null">
+        (change)="getRequiredObjects(policyLine.productLineType); getVehicleTypes(vehicleTypesObject); chooseVeh('brand'); vehicle.vehicleType = null">
         <option selected hidden>Policy line</option>
         <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineId}}</option>
       </select>
@@ -283,8 +283,6 @@
           <option selected hidden>{{vehicle.engine}}</option>
           <option *ngFor="let engine of vehicles.engine">{{engine}}</option>
         </select>
-        <button class="btn btn-primary" type="submit" (click)="updateInsuredVehicle()">Update
-          insured vehicle</button>
       </div>
 
       <div class="col-sm">
@@ -301,8 +299,6 @@
         <input class="form-control" id="vehVal" type="text" [(ngModel)]="insuredVehicle.n02">
         <label for="insDep">Sum of an insurance deposit:</label>
         <input class="form-control" id="insDep" type="text" [(ngModel)]="insuredVehicle.n05">
-        <button class="btn btn-primary" type="submit" (click)="updateInsuredVehicle()">Update vehicle
-          properties</button>
       </div>
 
       <div class="col-sm">
@@ -312,12 +308,9 @@
         <label for="claims">How many claims driver had:</label>
         <input class="form-control" id="claims" type="text" [(ngModel)]="insuredDriver.n03">
         <label for="licDate">Please enter driver's license date:</label>
-        <input class="form-control" id="mfgYear" type="date" [(ngModel)]="insuredDriver.d01">
-        <button class="btn btn-primary" type="submit" (click)="updateInsuredDriver()">Update insured driver</button>
+        <input class="form-control" id="licDate" type="date" [(ngModel)]="insuredDriver.d01">
       </div>
     </div>
-    <button class="btn btn-primary mt-3" type="submit"
-      (click)="getVehicleTypes(vehicleTypesObject); editState = false">View policy</button>
   </ng-template>
 
   <ng-template #trailer>
@@ -346,19 +339,19 @@
         <label for="rgnum">Please enter registration number:</label>
         <input class="form-control" id="rgnum" type="text" [(ngModel)]="insuredVehicle.c02">
         <label for="mfgYear">Please enter year of manufacturing:</label>
-        <input class="form-control" id="mfgYear" type="text" [(ngModel)]="insuredVehicle.n01">
+        <input class="form-control" id="mfgYear" type="date" [(ngModel)]="insuredVehicle.d01">
         <label for="vehVal">Value of a vehicle:</label>
         <input class="form-control" id="vehVal" type="text" [(ngModel)]="insuredVehicle.n02">
         <label for="insDep">Sum of an insurance deposit:</label>
         <input class="form-control" id="insDep" type="text" [(ngModel)]="insuredVehicle.n05">
-        <button class="btn btn-primary" type="submit" (click)="updateInsuredVehicle()">Update
-          insured trailer</button>
       </div>
     </div>
-    <button class="btn btn-primary mt-3" type="submit" (click)="editState = false">View policy</button>
 
   </ng-template>
-
+  <button class="btn btn-primary mt-3" type="submit" (click)="getAllData(); editState = false">Back</button>
+  <button class="btn btn-primary mt-3" type="submit" [disabled]="!vehicle.engine || !vehicle.vehicleModel"
+    (click)="updatePolicy(); updatePolicyLine(); updateInsuredVehicle(); updateInsuredDriver(); getAllData(); editState = false">Save
+    policy</button>
 </ng-template>
 <ng-template #calculate>
   <div class="container mt-4">
