@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 import { PolicyService } from 'src/app/services/policy.service';
 import { CustomerService } from 'src/app/services/customer.service';
 //models
@@ -25,6 +25,8 @@ export class CreatePolicyComponent implements OnInit {
   userName: string = 'Slowik'; // this is hardcoded name of user so in testing you dont have to log in, in production version it will be username of whoever is logged in
   transaction: Transaction = new Transaction();
   policy: Policy = new Policy();
+  startDate: Date;
+  endDate: Date = new Date();
   policyLine: PolicyLine = new PolicyLine();
   vehicle: Vehicle = new Vehicle();
   driverObject: InsuredObject = new InsuredObject();
@@ -130,7 +132,6 @@ export class CreatePolicyComponent implements OnInit {
   async createPolicyLine() {
     this.policyLine.transactionId = this.transaction['transactionId'];
     this.policyLine.policyId = this.policy['policyId'];
-    // this.policyLine.productLineType = this.configuration.policyLineId;
     this.policyLine.version = '1.0';
     await this.policyService.createPolicyLine(this.policyLine).then();
     this.policyLine = await this.policyService
@@ -138,13 +139,22 @@ export class CreatePolicyComponent implements OnInit {
       .then();
   }
 
+  setEndDate(date: Date) {
+    var result = new Date(date);
+    result.setFullYear(result.getFullYear() + 1);
+    result.setDate(result.getDate() - 1);
+    return result;
+  }
+
   async createPolicy() {
     await this.createTransaction();
+    this.endDate = this.setEndDate(this.startDate);
+    this.policy.startDate = this.datepipe.transform(this.startDate, 'yyyy-MM-dd');
+    this.policy.endDate = this.datepipe.transform(this.endDate, 'yyyy-MM-dd')
     this.policy.transactionId = this.transaction.transactionId;
     this.policy.ownerId = this.customerSelected[0];
     this.policy.type = 'Vehicle insurance';
     this.policy.status = 'quotation';
-    // this.policy.productType = this.configuration.productId;
     this.policy.altNo = this.policy.productType + this.policy.ownerId;
     this.policy.version = '1.0';
     await this.policyService.createPolicy(this.policy).then();

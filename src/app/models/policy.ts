@@ -4,8 +4,8 @@ export class Policy {
   ownerId: number;
   type: string;
   status: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   productType: string;
   altNo: string;
   version: string;
