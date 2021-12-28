@@ -198,7 +198,7 @@ export class CreatePolicyComponent implements OnInit {
     this.objectRisksConfig.forEach(async (element) => {
       this.risk.riskId = element.objectRisks; // NAZWA DO ZMIANY => czarny
       this.risk.objectId = object.objectId;
-      this.risk.isSelected = 'false';
+      this.risk.isSelected = false;
       await this.policyService.createRisks(this.risk).then();
     });
     await this.delay(300);
@@ -230,9 +230,9 @@ export class CreatePolicyComponent implements OnInit {
         this.risk = riskFromList;
       }
     });
-    this.risk.isSelected == 'false'
-      ? (this.risk.isSelected = 'true')
-      : (this.risk.isSelected = 'false');
+    this.risk.isSelected == false
+      ? (this.risk.isSelected = true)
+      : (this.risk.isSelected = false);
     await this.policyService.changeCoverage(this.risk).then();
   }
 

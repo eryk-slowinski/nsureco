@@ -361,19 +361,7 @@
         <thead>
           <tr>
             <th scope="col">Covered</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let objectRisk of objectRisksConfig">
-            <td>
-              <input class="form-check-input" type="checkbox" id="checkbox_id" name="checkbox-list"
-                (change)="toggleCoverage(objectRisk.objectRisks)">
-            </td>
-          </tr>
-      </table>
-      <table class=" table table-bordered w-auto">
-        <thead>
-          <tr>
+            <th scope="col">Is covered?</th>
             <th scope="col">Id</th>
             <th scope="col">Risk</th>
             <th scope="col">Premium</th>
@@ -382,6 +370,13 @@
         </thead>
         <tbody>
           <tr *ngFor="let risk of risks">
+            <td>
+              <input class="form-check-input" checked type="checkbox" *ngIf="risk.isSelected"
+                (change)="toggleCoverage(risk.riskId)">
+              <input class="form-check-input" type="checkbox" *ngIf="!risk.isSelected"
+                (change)="toggleCoverage(risk.riskId)">
+            </td>
+            <td>{{risk.isSelected}}</td>
             <td>{{risk.id}}</td>
             <td>{{risk.riskId}}</td>
             <td>{{risk.premium}}</td>

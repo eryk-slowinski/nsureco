@@ -63,12 +63,10 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
 
   async updatePolicy() {
     await this.policyService.updatePolicy(this.policy).then();
-    await this.resetCoverages();
   }
 
   async updatePolicyLine() {
     await this.policyService.updatePolicyLine(this.policyLine);
-    await this.resetCoverages();
   }
 
   async updateInsuredVehicle() {
@@ -76,22 +74,10 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
     this.insuredVehicle.n01 = this.vehicles.vehicleId[0];
     await this.policyService.updateInsuredObject(this.insuredVehicle).then();
     await this.getVehicle();
-    await this.resetCoverages();
   }
 
   async updateInsuredDriver() {
     await this.policyService.updateInsuredObject(this.insuredDriver).then();
-    await this.resetCoverages();
-  }
-
-  async resetCoverages() {
-    this.risks.forEach(async (risk) => {
-      risk.isSelected = 'false';
-      risk.premium = null;
-      risk.premiumForPeriod = null;
-      this.totalPremium = 0;
-      await this.policyService.changeCoverage(risk).then();
-    })
   }
 
   ngOnInit(): void {
