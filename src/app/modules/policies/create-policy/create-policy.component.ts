@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe, formatDate } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { PolicyService } from 'src/app/services/policy.service';
 import { CustomerService } from 'src/app/services/customer.service';
 //models
@@ -143,14 +143,13 @@ export class CreatePolicyComponent implements OnInit {
     var result = new Date(date);
     result.setFullYear(result.getFullYear() + 1);
     result.setDate(result.getDate() - 1);
-    return result;
+    this.endDate = result;
+    this.policy.endDate = this.datepipe.transform(this.endDate, 'yyyy-MM-dd');
   }
 
   async createPolicy() {
     await this.createTransaction();
-    this.endDate = this.setEndDate(this.startDate);
     this.policy.startDate = this.datepipe.transform(this.startDate, 'yyyy-MM-dd');
-    this.policy.endDate = this.datepipe.transform(this.endDate, 'yyyy-MM-dd')
     this.policy.transactionId = this.transaction.transactionId;
     this.policy.ownerId = this.customerSelected[0];
     this.policy.type = 'Vehicle insurance';
