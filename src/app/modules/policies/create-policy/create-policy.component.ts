@@ -45,6 +45,7 @@ export class CreatePolicyComponent implements OnInit {
   driverCreated: boolean = false;
   vehicleCreated: boolean = false;
   totalPremium: number = 0;
+  vehicleId: number;
 
   constructor(
     public policyService: PolicyService,
@@ -110,7 +111,10 @@ export class CreatePolicyComponent implements OnInit {
       }
     }
     await this.policyService.getVehicles(this.vehicle).then((data) => {
-      this.vehicles[vehicleProperties] = data
+      this.vehicles[vehicleProperties] = data;
+      if (this.vehicles.vehicleId) {
+        this.vehicleId = this.vehicles.vehicleId[0];
+      }
     })
   }
 
@@ -130,9 +134,9 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   async createPolicyLine() {
-    this.policyLine.transactionId = this.transaction['transactionId'];
-    this.policyLine.policyId = this.policy['policyId'];
-    this.policyLine.version = '1.0';
+    this.policyLine.transactionId = this.transaction.transactionId;
+    this.policyLine.policyId = this.policy.policyId;
+    this.policyLine.version = this.policy.version;
     await this.policyService.createPolicyLine(this.policyLine).then();
     this.policyLine = await this.policyService
       .getPolicyLine(this.policyLine)
@@ -158,14 +162,20 @@ export class CreatePolicyComponent implements OnInit {
     this.policy.version = '1.0';
     await this.policyService.createPolicy(this.policy).then();
     this.policy = await this.policyService.getPolicy(this.policy).then();
+    await this.createRequiredObjects();
+  }
+
+  async createRequiredObjects() {
+    await this.createPolicyLine();
+    await this.createInsuredVehicle();
+    await this.createInsuredDriver();
   }
 
   async createInsuredVehicle() {
     this.vehicleObject.policyLineId = this.policyLine.policyLineId;
     this.vehicleObject.transactionId = this.transaction.transactionId;
-    this.vehicleObject.n01 = this.vehicles.vehicleId[0];
     this.vehicleObject.type = 'VEH';
-    this.vehicleObject.version = this.policyLine.version;
+    this.vehicleObject.version = this.policy.version;
     this.vehicleObject = await this.policyService
       .createInsuredObject(this.vehicleObject)
       .then();
@@ -180,7 +190,7 @@ export class CreatePolicyComponent implements OnInit {
     this.driverObject.type = 'DRI';
     this.driverObject.version = this.policyLine.version;
     this.driverObject.n01 = this.customerSelected[0];
-    await this.policyService.createInsuredObject(this.driverObject).then();
+    this.driverObject = await this.policyService.createInsuredObject(this.driverObject).then();
   }
 
   async getRisksConfig(object: InsuredObject) {
@@ -203,7 +213,23 @@ export class CreatePolicyComponent implements OnInit {
     await this.delay(300);
   }
 
-  //delay a bit to prevent spamming checkbox
+  async updatePolicy() {
+    await this.policyService.updatePolicy(this.policy).then();
+  }
+
+  async updatePolicyLine() {
+    await this.policyService.updatePolicyLine(this.policyLine);
+  }
+
+  async updateInsuredVehicle() {
+    this.vehicleObject.n01 = this.vehicleId;
+    await this.policyService.updateInsuredObject(this.vehicleObject).then();
+  }
+
+  async updateInsuredDriver() {
+    await this.policyService.updateInsuredObject(this.driverObject).then();
+  }
+
   async reloadCoverages(object: InsuredObject) {
     this.risks = await this.policyService.getRisks(object);
     this.risks.sort((a, b) => a.riskId.localeCompare(b.riskId));

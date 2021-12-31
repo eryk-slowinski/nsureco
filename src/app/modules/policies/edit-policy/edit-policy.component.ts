@@ -1,10 +1,7 @@
-import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CreatePolicyComponent } from './../create-policy/create-policy.component';
 import { CustomerService } from './../../../services/customer.service';
 import { PolicyService } from 'src/app/services/policy.service';
-//models
-import { InsuredObject } from './../../../models/insuredObject';
 
 
 @Component({
@@ -17,8 +14,6 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
   constructor(public policyService: PolicyService, public customerService: CustomerService) { super(policyService, customerService); }
   policySelected: Object = new Object();
   customerSelected: Object = new Object();
-  insuredVehicle: InsuredObject = new InsuredObject();
-  insuredDriver: InsuredObject = new InsuredObject();
   editState: boolean = false;
   driversLicenceDate: Date = new Date();
 
@@ -28,56 +23,55 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
 
   async getPolicyLine() {
     this.choosePolicyLine(this.policy.productType);
-    this.policyLine.policyId = this.policySelected['policyId'];
-    this.policyLine.transactionId = this.policySelected['transactionId'];
+    this.policyLine.policyId = this.policy.policyId;
+    this.policyLine.transactionId = this.policy.transactionId;
+    this.policyLine.version = this.policy.version;
     this.policyLine = await this.policyService.getPolicyLine(this.policyLine).then();
   }
 
   async getInsuredVehicle() {
-    this.insuredVehicle.policyLineId = this.policyLine.policyLineId;
-    this.insuredVehicle.type = 'VEH';
-    this.insuredVehicle = await this.policyService.searchInsuredObject(this.insuredVehicle).then();
-    this.insuredVehicle.d01 = this.insuredVehicle.d01.slice(0, 10);
+    this.vehicleObject.policyLineId = this.policyLine.policyLineId;
+    this.vehicleObject.type = 'VEH';
+    this.vehicleObject = await this.policyService.searchInsuredObject(this.vehicleObject).then();
+    if (this.vehicleObject.d01) {
+      this.vehicleObject.d01 = this.vehicleObject.d01.slice(0, 10);
+    }
+    if (this.vehicleObject.n01) {
+      this.vehicle.vehicleId = this.vehicleObject.n01;
+      this.vehicle = await this.policyService.searchVehicle(this.vehicle).then();
+    }
   }
 
   async getInsuredDriver() {
-    this.insuredDriver.policyLineId = this.policyLine.policyLineId;
-    this.insuredDriver.type = 'DRI';
-    this.insuredDriver = await this.policyService.searchInsuredObject(this.insuredDriver).then();
-    this.insuredDriver.d01 = this.insuredDriver.d01.slice(0, 10);
+    this.driverObject.policyLineId = this.policyLine.policyLineId;
+    this.driverObject.type = 'DRI';
+    this.driverObject = await this.policyService.searchInsuredObject(this.driverObject).then();
+    if (this.driverObject.d01) {
+      this.driverObject.d01 = this.driverObject.d01.slice(0, 10);
+    }
   }
 
-  async getVehicle() {
-    this.vehicle.vehicleId = this.insuredVehicle.n01;
-    this.vehicle = await this.policyService.searchVehicle(this.vehicle).then();
-  }
-
-  async getAllData() {
+  async getAllObjects() {
     await this.getPolicy();
     await this.getPolicyLine();
     await this.getInsuredVehicle()
     await this.getInsuredDriver();
-    await this.getVehicle();
-    await this.reloadCoverages(this.insuredVehicle);
+    await this.reloadCoverages(this.vehicleObject);
   }
 
-  async updatePolicy() {
-    await this.policyService.updatePolicy(this.policy).then();
+  async updateVehicle() {
+    if (this.vehicleId) {
+      this.vehicleObject.n01 = this.vehicleId;
+    }
+    await this.policyService.updateInsuredObject(this.vehicleObject).then();
   }
 
-  async updatePolicyLine() {
-    await this.policyService.updatePolicyLine(this.policyLine);
-  }
-
-  async updateInsuredVehicle() {
-    this.vehicle = await this.policyService.searchVehicle(this.vehicle).then();
-    this.insuredVehicle.n01 = this.vehicles.vehicleId[0];
-    await this.policyService.updateInsuredObject(this.insuredVehicle).then();
-    await this.getVehicle();
-  }
-
-  async updateInsuredDriver() {
-    await this.policyService.updateInsuredObject(this.insuredDriver).then();
+  async updateObjects() {
+    await this.updatePolicy();
+    await this.updatePolicyLine();
+    await this.updateVehicle();
+    await this.updateInsuredDriver();
+    await this.getAllObjects();
   }
 
   ngOnInit(): void {
@@ -87,8 +81,8 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
     this.customerService.customerSelected.subscribe((customer) => {
       this.customerSelected = customer;
     });
-    this.getAllData();
+    this.getAllObjects();
     this.chooseProduct();
-    this.getRisksConfig(this.insuredVehicle);
+    this.getRisksConfig(this.vehicleObject);
   }
 }

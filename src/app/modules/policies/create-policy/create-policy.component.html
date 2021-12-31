@@ -48,7 +48,7 @@
       <label for="policyLine">Select policy line:</label>
       <select [disabled]="!policy.productType || policyLine.productLineType != null" id="policyLine"
         class="form-control" [(ngModel)]="policyLine.productLineType"
-        (change)="chooseVeh('brand'); getRequiredObjects(policyLine.productLineType); getVehicleTypes(vehicleTypesObject); createPolicyLine(); vehicle.vehicleType = null">
+        (change)="chooseVeh('brand'); getRequiredObjects(policyLine.productLineType); getVehicleTypes(vehicleTypesObject); updatePolicyLine(); vehicle.vehicleType = null">
         <option selected hidden>Policy line</option>
         <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineId}}</option>
       </select>
@@ -108,7 +108,7 @@
         <option *ngFor="let engine of vehicles.engine">{{engine}}</option>
       </select>
       <button class="btn btn-primary" type="submit"
-        (click)="createInsuredVehicle(); reloadCoverages(vehicleObject); vehicleCreated = true"
+        (click)="updateInsuredVehicle(); reloadCoverages(vehicleObject); vehicleCreated = true"
         [disabled]="!vehicleObject.n05 || vehicleCreated">Create
         insured vehicle</button>
     </div>
@@ -142,7 +142,7 @@
       <input class="form-control" id="mfgYear" type="date" [disabled]="!driverObject.n03"
         [(ngModel)]="driverObject.d01">
       <button class="btn btn-primary" type="submit"
-        (click)="createInsuredDriver(); reloadCoverages(vehicleObject); driverCreated = true"
+        (click)="updateInsuredDriver(); reloadCoverages(vehicleObject); driverCreated = true"
         [disabled]="!driverObject.d01 || driverCreated">Create
         insured driver</button>
     </div>
@@ -152,9 +152,6 @@
 </ng-template>
 
 <ng-template #trailer>
-  <!--  -->
-  <!-- Selecting TRA is not necessery unless client decides to have multiple types of trailers -->
-  <!--  -->
   <div class="row justify-content-md-center">
     <div class="col-sm-5">
       <h4 class="text-center mt-3">Vehicle</h4>

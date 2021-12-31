@@ -1,4 +1,4 @@
-<h3 class="text-center mt-3">Edit policy</h3>
+<h3 class="text-center mt-3">Policy details</h3>
 
 <div *ngIf="editState; then editPolicy else policyView"></div>
 
@@ -129,27 +129,27 @@
         <tbody>
           <tr>
             <th scope="row">VIN</th>
-            <td>{{insuredVehicle.c01}}</td>
+            <td>{{vehicleObject.c01}}</td>
           </tr>
           <tr>
             <th scope="row">Registration number</th>
-            <td>{{insuredVehicle.c02}}</td>
+            <td>{{vehicleObject.c02}}</td>
           </tr>
           <tr>
             <th scope="row">Vehicle value</th>
-            <td>{{insuredVehicle.n02}}</td>
+            <td>{{vehicleObject.n02}}</td>
           </tr>
           <tr>
             <th scope="row">Year of manufacturing</th>
-            <td>{{insuredVehicle.d01 | date: "mediumDate"}}</td>
+            <td>{{vehicleObject.d01 | date: "mediumDate"}}</td>
           </tr>
           <tr>
             <th scope="row">Mileage</th>
-            <td>{{insuredVehicle.n04}}</td>
+            <td>{{vehicleObject.n04}}</td>
           </tr>
           <tr>
             <th scope="row">Amount of insurance deposit</th>
-            <td>{{insuredVehicle.n05}}</td>
+            <td>{{vehicleObject.n05}}</td>
           </tr>
         </tbody>
       </table>
@@ -161,21 +161,21 @@
         <tbody>
           <tr>
             <th scope="row">How many years insured</th>
-            <td>{{insuredDriver.n02}}</td>
+            <td>{{driverObject.n02}}</td>
           </tr>
           <tr>
             <th scope="row">How many claims</th>
-            <td>{{insuredDriver.n03}}</td>
+            <td>{{driverObject.n03}}</td>
           </tr>
           <tr>
             <th scope="row">License date</th>
-            <td>{{insuredDriver.d01| date: "mediumDate"}}</td>
+            <td>{{driverObject.d01| date: "mediumDate"}}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <div class="row" *ngIf="true; then calculate"></div>
+  <div class="row" *ngIf="true; then viewRisks"></div>
 </ng-template>
 
 <ng-template #noPolicy>
@@ -288,27 +288,27 @@
       <div class="col-sm">
         <h4 class="text-center mt-3">Vehicle properties</h4>
         <label for="VIN">Please enter VIN:</label>
-        <input class="form-control" id="VIN" type="text" [(ngModel)]="insuredVehicle.c01">
+        <input class="form-control" id="VIN" type="text" [(ngModel)]="vehicleObject.c01">
         <label for="rgnum">Please enter registration number:</label>
-        <input class="form-control" id="rgnum" type="text" [(ngModel)]="insuredVehicle.c02">
+        <input class="form-control" id="rgnum" type="text" [(ngModel)]="vehicleObject.c02">
         <label for="mfgYear">Please enter date of manufacturing:</label>
-        <input class="form-control" id="mfgYear" type="date" [(ngModel)]="insuredVehicle.d01">
+        <input class="form-control" id="mfgYear" type="date" [(ngModel)]="vehicleObject.d01">
         <label for="mileage">Please enter mileage:</label>
-        <input class="form-control" id="mileage" type="text" [(ngModel)]="insuredVehicle.n04">
+        <input class="form-control" id="mileage" type="text" [(ngModel)]="vehicleObject.n04">
         <label for="vehVal">Value of a vehicle:</label>
-        <input class="form-control" id="vehVal" type="text" [(ngModel)]="insuredVehicle.n02">
+        <input class="form-control" id="vehVal" type="text" [(ngModel)]="vehicleObject.n02">
         <label for="insDep">Sum of an insurance deposit:</label>
-        <input class="form-control" id="insDep" type="text" [(ngModel)]="insuredVehicle.n05">
+        <input class="form-control" id="insDep" type="text" [(ngModel)]="vehicleObject.n05">
       </div>
 
       <div class="col-sm">
         <h4 class="text-center mt-3">Driver</h4>
         <label for="yearsOC">How many years driver has been insured:</label>
-        <input class="form-control" id="yearsOC" type="text" [(ngModel)]="insuredDriver.n02">
+        <input class="form-control" id="yearsOC" type="text" [(ngModel)]="driverObject.n02">
         <label for="claims">How many claims driver had:</label>
-        <input class="form-control" id="claims" type="text" [(ngModel)]="insuredDriver.n03">
+        <input class="form-control" id="claims" type="text" [(ngModel)]="driverObject.n03">
         <label for="licDate">Please enter driver's license date:</label>
-        <input class="form-control" id="licDate" type="date" [(ngModel)]="insuredDriver.d01">
+        <input class="form-control" id="licDate" type="date" [(ngModel)]="driverObject.d01">
       </div>
     </div>
   </ng-template>
@@ -335,24 +335,56 @@
           <option *ngFor="let vehicleModel of vehicles.vehicleModel">{{vehicleModel}}</option>
         </select>
         <label for="VIN">Please enter VIN:</label>
-        <input class="form-control" id="VIN" type="text" [(ngModel)]="insuredVehicle.c01">
+        <input class="form-control" id="VIN" type="text" [(ngModel)]="vehicleObject.c01">
         <label for="rgnum">Please enter registration number:</label>
-        <input class="form-control" id="rgnum" type="text" [(ngModel)]="insuredVehicle.c02">
+        <input class="form-control" id="rgnum" type="text" [(ngModel)]="vehicleObject.c02">
         <label for="mfgYear">Please enter year of manufacturing:</label>
-        <input class="form-control" id="mfgYear" type="date" [(ngModel)]="insuredVehicle.d01">
+        <input class="form-control" id="mfgYear" type="date" [(ngModel)]="vehicleObject.d01">
         <label for="vehVal">Value of a vehicle:</label>
-        <input class="form-control" id="vehVal" type="text" [(ngModel)]="insuredVehicle.n02">
+        <input class="form-control" id="vehVal" type="text" [(ngModel)]="vehicleObject.n02">
         <label for="insDep">Sum of an insurance deposit:</label>
-        <input class="form-control" id="insDep" type="text" [(ngModel)]="insuredVehicle.n05">
+        <input class="form-control" id="insDep" type="text" [(ngModel)]="vehicleObject.n05">
       </div>
     </div>
 
   </ng-template>
-  <button class="btn btn-primary mt-3" type="submit" (click)="getAllData(); editState = false">Back</button>
+  <button class="btn btn-primary mt-3" type="submit" (click)="getAllObjects(); editState = false">Back</button>
   <button class="btn btn-primary mt-3" type="submit" [disabled]="!vehicle.engine || !vehicle.vehicleModel"
-    (click)="updatePolicy(); updatePolicyLine(); updateInsuredVehicle(); updateInsuredDriver(); getAllData(); editState = false">Save
+    (click)="updateObjects(); getAllObjects(); editState = false">Save
     policy</button>
+  <div class="row" *ngIf="true; then calculate"></div>
+
 </ng-template>
+
+<ng-template #viewRisks>
+  <div class="container mt-4">
+    <h4 class="mt-3">Select risks</h4>
+    <div class="row">
+      <table class=" table table-bordered w-auto">
+        <thead>
+          <tr>
+            <th scope="col">Covered</th>
+            <th scope="col">Id</th>
+            <th scope="col">Risk</th>
+            <th scope="col">Premium</th>
+            <th scope="col">Premium for period</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let risk of risks">
+            <td>{{risk.isSelected}}</td>
+            <td>{{risk.id}}</td>
+            <td>{{risk.riskId}}</td>
+            <td>{{risk.premium}}</td>
+            <td>{{risk.premiumForPeriod}}</td>
+          </tr>
+      </table>
+    </div>
+    <h5 class="mt-3">TOTAL PREMIUM: {{totalPremium}}</h5>
+  </div>
+</ng-template>
+
+
 <ng-template #calculate>
   <div class="container mt-4">
     <h4 class="mt-3">Select risks</h4>
@@ -361,7 +393,6 @@
         <thead>
           <tr>
             <th scope="col">Covered</th>
-            <th scope="col">Is covered?</th>
             <th scope="col">Id</th>
             <th scope="col">Risk</th>
             <th scope="col">Premium</th>
@@ -376,7 +407,6 @@
               <input class="form-check-input" type="checkbox" *ngIf="risk.isSelected === 'false'"
                 (change)="toggleCoverage(risk.riskId)">
             </td>
-            <td>{{risk.isSelected}}</td>
             <td>{{risk.id}}</td>
             <td>{{risk.riskId}}</td>
             <td>{{risk.premium}}</td>
@@ -385,7 +415,7 @@
       </table>
     </div>
     <button class="btn btn-primary" type="submit"
-      (click)="getAllData(); calculation(policyLine, insuredVehicle)">Calculate
+      (click)="getAllObjects(); calculation(policyLine, vehicleObject)">Calculate
       premium</button>
     <h5 class="mt-3">TOTAL PREMIUM: {{totalPremium}}</h5>
 
