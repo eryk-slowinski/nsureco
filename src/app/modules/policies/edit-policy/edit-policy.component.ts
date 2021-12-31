@@ -15,7 +15,6 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
   policySelected: Object = new Object();
   customerSelected: Object = new Object();
   editState: boolean = false;
-  driversLicenceDate: Date = new Date();
 
   async getPolicy() {
     this.policy = await this.policyService.getPolicy(this.policySelected).then();
@@ -34,7 +33,7 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
     this.vehicleObject.type = 'VEH';
     this.vehicleObject = await this.policyService.searchInsuredObject(this.vehicleObject).then();
     if (this.vehicleObject.d01) {
-      this.vehicleObject.d01 = this.vehicleObject.d01.slice(0, 10);
+      this.vehicleObject.d01 = this.datepipe.transform(this.vehicleObject.d01, 'yyyy-MM-dd');
     }
     if (this.vehicleObject.n01) {
       this.vehicle.vehicleId = this.vehicleObject.n01;
@@ -47,7 +46,7 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
     this.driverObject.type = 'DRI';
     this.driverObject = await this.policyService.searchInsuredObject(this.driverObject).then();
     if (this.driverObject.d01) {
-      this.driverObject.d01 = this.driverObject.d01.slice(0, 10);
+      this.driverObject.d01 = this.datepipe.transform(this.driverObject.d01, 'yyyy-MM-dd');
     }
   }
 
