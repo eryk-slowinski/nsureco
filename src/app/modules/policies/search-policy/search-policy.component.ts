@@ -19,6 +19,7 @@ export class SearchPolicyComponent implements OnInit {
   async searchPolicy() {
     this.policy.ownerId = this.customerSelected[0];
     this.policiesList = await this.policyService.searchPolicy(this.policy).then();
+    this.policiesList.sort((a, b) => b.policyId - a.policyId)
   }
 
   editPolicy(policySelected: Object) {

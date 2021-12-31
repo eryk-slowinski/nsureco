@@ -57,7 +57,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let result of policiesList; let i = index">
-      <td>{{ i }}</td>
+      <td>{{ result['policyId'] }}</td>
       <td>{{ result['type'] }}</td>
       <td>{{ result['status'] }}</td>
       <td>{{ result['startDate'] | date: "mediumDate" }}</td>
