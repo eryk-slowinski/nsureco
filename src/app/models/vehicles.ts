@@ -4,5 +4,5 @@ export class Vehicles {
   generation: string[];
   engineType: string[];
   engine: string[];
-  vehicleId: number;
+  vehicleId: number[];
 }
