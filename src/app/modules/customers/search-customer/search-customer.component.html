@@ -5,30 +5,27 @@
         <div class="col-auto">Search by:</div>
         <div class="col-auto">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="searchBy" id="custName" value="name"
+            <input class="form-check-input" type="radio" name="searchBy" id="name" value="name"
               formControlName="searchBy" />
-            <label class="form-check-label" for="Name">Name</label>
+            <label class="form-check-label" for="name">Name</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="searchBy" id="customer_id" value="customer_id"
+            <input class="form-check-input" type="radio" name="searchBy" id="customerId" value="customerId"
               formControlName="searchBy" />
-            <label class="form-check-label" for="customer_id">ID</label>
+            <label class="form-check-label" for="customerId">ID</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="searchBy" id="custPesel" value="pesel"
+            <input class="form-check-input" type="radio" name="searchBy" id="pesel" value="pesel"
               formControlName="searchBy" />
             <label class="form-check-label" for="pesel">PESEL</label>
           </div>
-        </div>
-        <div class="col-auto">
-          <i class="fas fa-search h4 text-body"></i>
         </div>
         <div class="col">
           <input class="form-control form-control-borderless" type="search" placeholder="Search..."
             formControlName="searchValue" />
         </div>
         <div class="col-auto">
-          <button class="btn btn-primary" type="submit" (click)="onSubmit()" [disabled]="searchForm.invalid">
+          <button class="btn btn-primary" type="submit" (click)="search()" [disabled]="searchForm.invalid">
             Search
           </button>
         </div>
@@ -50,13 +47,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let result of searchResults; let i = index">
-      <td>{{ result[0] }}</td>
-      <td>{{ result[1] }}</td>
-      <td>{{ result[2] }}</td>
-      <td>{{ result[3] | date: "mediumDate" }}</td>
-      <td>{{ result[4] }}</td>
-      <td>{{ result[5] }}</td>
+    <tr *ngFor="let result of searchResults">
+      <td>{{ result.customerId }}</td>
+      <td>{{ result.name }}</td>
+      <td>{{ result.pesel }}</td>
+      <td>{{ result.birthDate | date: "mediumDate" }}</td>
+      <td>{{ result.phoneNum }}</td>
+      <td>{{ result.address }}</td>
       <td>
         <div class="dropdown">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -70,6 +67,9 @@
                 <li>
                   <a routerLink="/createpolicy" (click)="selectCustomer(result)" class="dropdown-item">Create
                     policy</a>
+                </li>
+                <li>
+                  <a routerLink="/customer" (click)="selectCustomer(result)" class="dropdown-item">Edit customer</a>
                 </li>
               </ul>
             </li>
