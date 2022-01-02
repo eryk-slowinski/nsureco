@@ -3,45 +3,40 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Customers } from '../models/customers';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  urlStatus: string = environment.customerService + 'serviceStatus';
-  urlName: string = environment.customerService + 'customerSearchByName';
-  urlId: string = environment.customerService + 'customerSearchByID';
-  urlPesel: string = environment.customerService + 'customerSearchByPesel';
-  urlAddCustomer: string = environment.customerService + 'addCustomer';
-  customerSelected: BehaviorSubject<Object> = new BehaviorSubject<any>(Object); //variable declared to handle customer selected between independent components
+  statusUrl: string = environment.customerService + 'serviceStatus';
+  searchCustomersUrl: string = environment.customerService + 'searchcustomers';
+  createCustomerUrl: string = environment.customerService + 'createcustomer';
+  modifyCustomerUrl: string = environment.customerService + 'modifycustomer';
+  deleteCustomerUrl: string = environment.customerService + 'deletecustomer';
+  customerSelected: BehaviorSubject<Object> = new BehaviorSubject<any>(Object);
 
-  setUrl(searchForm: FormGroup): string {
-    if (searchForm.value.searchBy == 'name') {
-      return this.urlName;
-    } else if (searchForm.value.searchBy == 'pesel') {
-      return this.urlPesel;
-    } else {
-      return this.urlId;
-    }
+  async searchCustomer(customer: Customers): Promise<Customers[]> {
+    return await this.http.post<Customers[]>(this.searchCustomersUrl, customer).toPromise();
   }
 
-  async searchCustomer(searchForm: FormGroup): Promise<any> {
-    let url = this.setUrl(searchForm);
-    let searchJson = {
-      [searchForm.value.searchBy]: searchForm.value.searchValue,
-    };
-    return await this.http.post<any>(url, searchJson).toPromise();
-  }
-
-  async addCustomer(createCustomerForm: FormGroup) {
+  async createCustomer(customer: Customers) {
     return await this.http
-      .post<any>(this.urlAddCustomer, createCustomerForm.value)
+      .post<any>(this.createCustomerUrl, customer)
       .toPromise();
   }
 
+  async modifyCustomer(customer: Customers) {
+    return await this.http.post<Customers>(this.modifyCustomerUrl, customer).toPromise();
+  }
+
+  async deleteCustomer(customer: Customers) {
+    return await this.http.post<Customers>(this.deleteCustomerUrl, customer).toPromise();
+  }
+
   async checkStatus(): Promise<String> {
-    return await this.http.get(this.urlStatus, {responseType: 'text'}).toPromise();
+    return await this.http.get(this.statusUrl, { responseType: 'text' }).toPromise();
   }
 }
