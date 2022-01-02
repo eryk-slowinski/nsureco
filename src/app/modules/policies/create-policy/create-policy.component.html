@@ -1,6 +1,6 @@
 <h3 class="text-center mt-3">Create policy</h3>
 
-<div class="container" *ngIf="customerSelected[0] != null; else noCustomer">
+<div class="container" *ngIf="customerSelected['customerId']; else noCustomer">
   <div class="row justify-content-center">
     <div class="col-auto">
       <h4 class="mt-3 text-center">Policy owner</h4>
@@ -8,27 +8,27 @@
         <tbody>
           <tr>
             <th scope="row">ID</th>
-            <td>{{customerSelected[0]}}</td>
+            <td>{{customerSelected['customerId']}}</td>
           </tr>
           <tr>
             <th scope="row">Name</th>
-            <td>{{customerSelected[1]}}</td>
+            <td>{{customerSelected['name']}}</td>
           </tr>
           <tr>
             <th scope="row">PESEL</th>
-            <td>{{customerSelected[2]}}</td>
+            <td>{{customerSelected['pesel']}}</td>
           </tr>
           <tr>
             <th scope="row">Birth date</th>
-            <td>{{customerSelected[3] | date: "mediumDate"}}</td>
+            <td>{{customerSelected['birthDate'] | date: "mediumDate"}}</td>
           </tr>
           <tr>
             <th scope="row">Phone number</th>
-            <td>{{customerSelected[4]}}</td>
+            <td>{{customerSelected['phoneNum']}}</td>
           </tr>
           <tr>
             <th scope="row">Address</th>
-            <td>{{customerSelected[5]}}</td>
+            <td>{{customerSelected['address']}}</td>
           </tr>
         </tbody>
       </table>
