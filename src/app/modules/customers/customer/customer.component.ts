@@ -19,7 +19,6 @@ export class CustomerComponent implements OnInit {
   editState: boolean = false;
   customer: Customers = new Customers();
   error: string;
-  success: string;
 
   async chooseCustomer() {
     if (this.customerSelected['customerId']) {
@@ -38,7 +37,6 @@ export class CustomerComponent implements OnInit {
 
   async modifyCustomer() {
     this.error = null;
-    this.success = null;
     await this.customerService.modifyCustomer(this.customer).then().catch((error) => this.error = error.error);
     if (this.error == null) {
       this.customer = await this.customerService.modifyCustomer(this.customer).then();
