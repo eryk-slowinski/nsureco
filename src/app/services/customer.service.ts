@@ -1,9 +1,8 @@
-import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Customers } from '../models/customers';
+import { Customers } from 'src/app/models/customers';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +23,7 @@ export class CustomerService {
 
   async createCustomer(customer: Customers) {
     return await this.http
-      .post<any>(this.createCustomerUrl, customer)
+      .post<any>(this.createCustomerUrl, customer, { observe: 'response' })
       .toPromise();
   }
 
