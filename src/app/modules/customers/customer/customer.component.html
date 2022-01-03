@@ -87,12 +87,8 @@
     <input class="form-control" id="address" type="text" [(ngModel)]="customer.address">
   </div>
   <button class="btn btn-primary" type="submit" (click)="modifyCustomer()">Edit customer</button>
-  <div class="container">
-    <h4 class="text-danger justify-content-center">{{error}}</h4>
-  </div>
-  <div class="container">
-    <h4 class="text-success justify-content-center">{{success}}</h4>
-  </div>
+  <h4 class="text-danger justify-content-center">{{error}}</h4>
+  <h4 class="text-success justify-content-center">{{success}}</h4>
 </ng-template>
 
 
