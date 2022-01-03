@@ -7,7 +7,7 @@
     </div>
     <div class="mb-3 p-2">
       <label for="birthDate" class="form-label">Birth date:</label>
-      <input type="text" class="form-control" id="birthDate" placeholder="dd-mm-yyyy" formControlName="birthDate">
+      <input type="date" class="form-control" id="birthDate" placeholder="dd-mm-yyyy" formControlName="birthDate">
       <span class="text-danger" *ngIf="birth_date.invalid && birth_date.touched">Birth date is required</span>
     </div>
     <div class="mb-3 p-2">

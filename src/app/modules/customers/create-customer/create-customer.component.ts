@@ -30,7 +30,8 @@ export class CreateCustomerComponent implements OnInit {
     this.customer.phoneNum = this.createCustomerForm.value.phoneNum;
     this.error = null;
     this.success = null;
-    await this.customerService.createCustomer(this.customer).then().catch((error) => this.error = error.error);
+    await this.customerService.createCustomer(this.customer).then().catch(
+      (error) => this.error = error.error);
     if (this.error == null) {
       this.success = 'Customer successfully created';
     }
