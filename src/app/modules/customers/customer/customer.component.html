@@ -1,1 +1,104 @@
-<p>customer works!</p>
+<div class="row justify-content-center" *ngIf="!editState; else editCustomer">
+  <div class="col-auto justify-content-center" *ngIf="customerSelected['customerId']; else noCustomer">
+    <h4 class="mt-3 text-center">Customer</h4>
+    <table class="table table-bordered w-auto">
+      <tbody>
+        <tr>
+          <th scope="row">ID</th>
+          <td>{{customerSelected['customerId']}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Name</th>
+          <td>{{customerSelected['name']}}</td>
+        </tr>
+        <tr>
+          <th scope="row">PESEL</th>
+          <td>{{customerSelected['pesel']}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Birth date</th>
+          <td>{{customerSelected['birthDate'] | date: "mediumDate"}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Phone number</th>
+          <td>{{customerSelected['phoneNum']}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Address</th>
+          <td>{{customerSelected['address']}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary" type="submit" (click)="editState = true">Edit customer</button>
+  </div>
+  <div class="container" *ngIf="customerSelected['customerId']">
+    <h4 class="mt-3 text-center">Policies list</h4>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Policy type</th>
+          <th scope="col">Status</th>
+          <th scope="col">Start date</th>
+          <th scope="col">End date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let result of policiesList">
+          <td>{{ result['policyId'] }}</td>
+          <td>{{ result['type'] }}</td>
+          <td>{{ result['status'] }}</td>
+          <td>{{ result['startDate'] | date: "mediumDate" }}</td>
+          <td>{{ result['endDate'] | date: "mediumDate" }}</td>
+          <td>
+            <div class="dropdown">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false"></a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                      <a routerLink="/editpolicy" (click)="editPolicy(result)" class="dropdown-item">Policy details</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #editCustomer>
+  <div class="col-sm">
+    <h4 class="text-center mt-3">Edit customer</h4>
+    <label for="name">Please enter customer name:</label>
+    <input class="form-control" id="name" type="text" [(ngModel)]="customer.name">
+    <label for="pesel">Please enter PESEL:</label>
+    <input class="form-control" id="pesel" type="text" [(ngModel)]="customer.pesel">
+    <label for="birthDate">Please enter birth date:</label>
+    <input class="form-control" id="birthDate" type="date" [(ngModel)]="customer.birthDate">
+    <label for="phoneNum">Please enter phone number:</label>
+    <input class="form-control" id="phoneNum" type="text" [(ngModel)]="customer.phoneNum">
+    <label for="address">Please enter address:</label>
+    <input class="form-control" id="address" type="text" [(ngModel)]="customer.address">
+  </div>
+  <button class="btn btn-primary" type="submit" (click)="modifyCustomer()">Edit customer</button>
+  <div class="container">
+    <h4 class="text-danger justify-content-center">{{error}}</h4>
+  </div>
+  <div class="container">
+    <h4 class="text-success justify-content-center">{{success}}</h4>
+  </div>
+</ng-template>
+
+
+<ng-template #noCustomer>
+  <div class="container text-center mt-5">
+    <h5 class="text-danger">No customer choosen</h5>
+    <a class="btn btn-md btn-primary" routerLink="/searchcustomer" role="button">Go to customer search &raquo;</a>
+  </div>
+</ng-template>
