@@ -10,38 +10,38 @@
   <div class="row justify-content-center">
     <div class="col-auto">
       <h4 class="mt-3 text-center">Policy owner</h4>
-      <table class="table table-bordered w-auto">
+      <table class="table table-borderless w-auto">
         <tbody>
           <tr>
             <th scope="row">ID</th>
-            <td>{{customerSelected[0]}}</td>
+            <td>{{customerSelected['customerId']}}</td>
           </tr>
           <tr>
             <th scope="row">Name</th>
-            <td>{{customerSelected[1]}}</td>
+            <td>{{customerSelected['name']}}</td>
           </tr>
           <tr>
             <th scope="row">PESEL</th>
-            <td>{{customerSelected[2]}}</td>
+            <td>{{customerSelected['pesel']}}</td>
           </tr>
           <tr>
             <th scope="row">Birth date</th>
-            <td>{{customerSelected[3] | date: "mediumDate"}}</td>
+            <td>{{customerSelected['birthDate'] | date: "mediumDate"}}</td>
           </tr>
           <tr>
             <th scope="row">Phone number</th>
-            <td>{{customerSelected[4]}}</td>
+            <td>{{customerSelected['phoneNum']}}</td>
           </tr>
           <tr>
             <th scope="row">Address</th>
-            <td>{{customerSelected[5]}}</td>
+            <td>{{customerSelected['address']}}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="col-auto">
       <h4 class="mt-3 text-center">Policy</h4>
-      <table class="table table-bordered w-auto">
+      <table class="table table-borderless w-auto">
         <tbody>
           <tr>
             <th scope="row">Policy ID</th>
@@ -72,7 +72,7 @@
     </div>
     <div class="col-auto">
       <h4 class="mt-3 text-center">Policy line</h4>
-      <table class="table table-bordered w-auto">
+      <table class="table table-borderless w-auto">
         <tbody>
           <tr>
             <th scope="row">Policy line ID</th>
@@ -91,7 +91,7 @@
 
     <div class="col-auto">
       <h4 class="mt-3 text-center">Vehicle</h4>
-      <table class="table table-bordered w-auto">
+      <table class="table table-borderless w-auto">
         <tbody>
           <tr>
             <th scope="row">Vehicle type</th>
@@ -125,7 +125,7 @@
 
     <div class="col-auto">
       <h4 class="mt-3 text-center">Vehicle properties</h4>
-      <table class="table table-bordered w-auto">
+      <table class="table table-borderless w-auto">
         <tbody>
           <tr>
             <th scope="row">VIN</th>
@@ -157,7 +157,7 @@
 
     <div class="col-auto">
       <h4 class="mt-3 text-center">Driver</h4>
-      <table class="table table-bordered w-auto">
+      <table class="table table-borderless w-auto">
         <tbody>
           <tr>
             <th scope="row">How many years insured</th>
@@ -181,7 +181,7 @@
 <ng-template #noPolicy>
   <div class="container text-center mt-5">
     <h5 class="text-danger">No policy choosen</h5>
-    <a class="btn btn-md btn-primary" routerLink="/searchpolicy" role="button">Go to policy search &raquo;</a>
+    <a class="btn btn-md btn-primary" routerLink="/searchcustomer" role="button">Go to customer search &raquo;</a>
   </div>
 </ng-template>
 
@@ -189,7 +189,7 @@
   <div class="row justify-content-center">
     <div class="col-auto">
       <h4 class="mt-3 text-center">Policy owner</h4>
-      <table class="table table-bordered w-auto">
+      <table class="table table-borderless w-auto">
         <tbody>
           <tr>
             <th scope="row">ID</th>
@@ -360,7 +360,7 @@
   <div class="container mt-4">
     <h4 class="mt-3">Select risks</h4>
     <div class="row">
-      <table class=" table table-bordered w-auto">
+      <table class=" table table-borderless w-auto">
         <thead>
           <tr>
             <th scope="col">Covered</th>
@@ -389,7 +389,7 @@
   <div class="container mt-4">
     <h4 class="mt-3">Select risks</h4>
     <div class="row">
-      <table class=" table table-bordered w-auto">
+      <table class=" table table-borderless w-auto">
         <thead>
           <tr>
             <th scope="col">Covered</th>
