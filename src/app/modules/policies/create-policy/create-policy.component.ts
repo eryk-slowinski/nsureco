@@ -189,7 +189,7 @@ export class CreatePolicyComponent implements OnInit {
     this.driverObject.transactionId = this.transaction.transactionId;
     this.driverObject.type = 'DRI';
     this.driverObject.version = this.policyLine.version;
-    this.driverObject.n01 = this.customerSelected[0];
+    this.driverObject.n01 = this.customerSelected['customerId'];
     this.driverObject = await this.policyService.createInsuredObject(this.driverObject).then();
   }
 
