@@ -30,4 +30,9 @@ export class VehiclesComponent implements OnInit {
       .addVehicle(this.newVehicle).then();
   }
 
+  async setVehicle(vehicle: Vehicle) {
+    this.newVehicle = vehicle;
+    console.log(this.newVehicle);
+  }
+
 }
