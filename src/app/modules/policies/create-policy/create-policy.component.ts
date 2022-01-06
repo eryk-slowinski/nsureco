@@ -46,6 +46,8 @@ export class CreatePolicyComponent implements OnInit {
   vehicleCreated: boolean = false;
   totalPremium: number = 0;
   vehicleId: number;
+  statuses: String[] = ["quotation", "policy"]
+  status: String;
 
   constructor(
     public policyService: PolicyService,
@@ -236,7 +238,7 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   async calculation(policyLine: PolicyLine, vehicle: InsuredObject) {
-    this.totalPremium = 0;
+    let totalPremium = 0;
     this.risks.forEach((risk) => {
       risk.premium = null;
       risk.premiumForPeriod = null;
@@ -245,8 +247,9 @@ export class CreatePolicyComponent implements OnInit {
     await this.reloadCoverages(vehicle);
     this.risks.forEach((risk) => {
       if (risk.premium != NaN)
-        this.totalPremium += risk.premium;
+        totalPremium += risk.premium;
     })
+    this.totalPremium = totalPremium;
   }
 
   async toggleCoverage(riskId: string) {
@@ -270,5 +273,20 @@ export class CreatePolicyComponent implements OnInit {
       this.customerSelected = customer;
     });
     this.chooseProduct();
+  }
+
+
+  displayStyle = "none";
+
+  async openPopup() {
+    await this.calculation(this.policyLine, this.vehicleObject)
+    this.displayStyle = "block";
+  }
+  async completePolicy() {
+    await this.updatePolicy();
+    this.displayStyle = "none";
+  }
+  async closePopup() {
+    this.displayStyle = "none";
   }
 }

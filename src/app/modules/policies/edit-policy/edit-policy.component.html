@@ -350,8 +350,7 @@
   </ng-template>
   <button class="btn btn-primary mt-3" type="submit" (click)="getAllObjects(); editState = false">Back</button>
   <button class="btn btn-primary mt-3" type="submit" [disabled]="!vehicle.engine || !vehicle.vehicleModel"
-    (click)="updateObjects(); getAllObjects(); editState = false">Save
-    policy</button>
+    (click)="updateObjects(); getAllObjects(); openPopup();">Accept Changes</button>
   <div class="row" *ngIf="true; then calculate"></div>
 
 </ng-template>
@@ -421,3 +420,32 @@
 
   </div>
 </ng-template>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Summary of Policy no: {{policy.policyId}}</h4>
+      </div>
+      <div class="modal-body">
+        <p class="fw-bold">Policy holder: {{customerSelected['name']}}</p>
+        <p class="fw-bold">Start date: {{policy.startDate | date: "mediumDate"}}</p>
+        <p class="fw-bold">End date: {{policy.endDate | date: "mediumDate"}}</p>
+        <p class="fw-bold">Premium to Paid: {{totalPremium}}</p>
+        <p class="fw-bold"><label>Policy status:</label>
+          <select class="form-control" style="width:100px" [(ngModel)]="policy.status">
+            <option *ngFor="let status of statuses">{{status}}</option>
+          </select>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="completePolicy(); editState = false">
+          Complete
+        </button>
+        <button type="button" class="btn btn-primary" (click)="closePopup()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

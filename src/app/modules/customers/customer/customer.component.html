@@ -45,7 +45,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let result of policiesList">
+        <tr class="policyRow"
+          [ngStyle]="{'background-color': result['status']=='policy' ?'rgb(216, 243, 216)':'rgb(255, 255, 230)'}"
+          *ngFor="let result of policiesList">
           <td>{{ result['policyId'] }}</td>
           <td>{{ result['type'] }}</td>
           <td>{{ result['status'] }}</td>
