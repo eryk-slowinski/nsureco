@@ -1,0 +1,115 @@
+<div>
+    <h4 class="mb-3 mt-3 text-center">Vehicles</h4>
+    <div *ngIf="!editState; then vehicleLookup else addVeh"></div>
+    <ng-template #vehicleLookup>
+        <div class="editbtn">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary btn-lg btn-block" (click)="editState=true">Edit</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" routerLink="..">Back</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #addVeh>
+        <div class="container mt-50">
+            <div class="row mb-2">
+                <div class="col-lg-1">
+                    <label for="vehicleType">Vehicle Type</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="brand">Brand</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="model">Model</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="generation">Generation</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="engineType">Engine Type</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="engine">Engine</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="power">Power</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="protectionClass">Protection Class</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="partsAvailability">Parts Availability</label>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-lg-1">
+                    <input class="form-control" id="vehicleType" type="text" [(ngModel)]="newVehicle.vehicleType">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="brand" type="text" [(ngModel)]="newVehicle.brand">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="vehicleModel" type="text" [(ngModel)]="newVehicle.vehicleModel">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="generation" type="text" [(ngModel)]="newVehicle.generation">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="engineType" type="text" [(ngModel)]="newVehicle.engineType">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="engine" type="text" [(ngModel)]="newVehicle.engine">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="power" type="text" [(ngModel)]="newVehicle.power">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="protectionClass" type="text"
+                        [(ngModel)]="newVehicle.protectionClass">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="partsAvailability" type="text"
+                        [(ngModel)]="newVehicle.partsAvailability">
+                </div>
+                <div class="col-lg-1">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-primary"
+                            (click)="mergeVehicle(); editState=false">Add/Change</button>
+                        <button type="button" class="btn btn-primary" (click)="editState=false">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col1">Vehicle id</th>
+                <th scope="col2">Vehicle type</th>
+                <th scope="col3">Brand</th>
+                <th scope="col4">Vehicle model</th>
+                <th scope="col5">Generation</th>
+                <th scope="col6">Engine type</th>
+                <th scope="col7">Engine</th>
+                <th scope="col8">Power</th>
+                <th scope="col9">Protection class</th>
+                <th scope="col10">Parts availability</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="clickable" (click)="setVehicle(result)" *ngFor="let result of vehicles">
+                <td>{{ result['vehicleId'] }}</td>
+                <td>{{ result['vehicleType'] }}</td>
+                <td>{{ result['brand'] }}</td>
+                <td>{{ result['vehicleModel']}}</td>
+                <td>{{ result['generation']}}</td>
+                <td>{{ result['engineType']}}</td>
+                <td>{{ result['engine']}}</td>
+                <td>{{ result['power']}}</td>
+                <td>{{ result['protectionClass']}}</td>
+                <td>{{ result['partsAvailability']}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

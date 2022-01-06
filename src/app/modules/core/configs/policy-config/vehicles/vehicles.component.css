@@ -1,0 +1,25 @@
+.col-lg-1{
+    width: 110px;
+    margin-right: 10px;
+}
+.table{
+    margin-bottom: 35px;
+}
+
+.container{
+    margin-left: 35px;
+}
+
+.clickable{
+     cursor: pointer; 
+}
+.btn{
+    width: 110px;
+}
+
+.editbtn{
+    float: right;
+    margin-top: 1%;
+    margin-left: 20%;
+}
+

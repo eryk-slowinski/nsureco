@@ -14,6 +14,9 @@ import { ObjectRisks } from 'src/app/models/objectRisks';
 import { PolicyLinesConfig } from 'src/app/models/policyLinesConfig';
 import { ProductsConfig } from 'src/app/models/productsConfig';
 import { VehicleTypesConfig } from './../models/vehicleTypesConfig';
+import { ObjectFlexfieldsConfig } from '../models/objectFlexfieldsConfig';
+import { PremiumCalcConfigHeaders } from '../models/premiumCalcConfigHeaders';
+import { PremiumCalcConfigValues } from '../models/premiumCalcConfigValues';
 
 @Injectable({
   providedIn: 'root',
@@ -48,6 +51,19 @@ export class PolicyService {
   updateInsuredVehicleUrl: string = environment.policyService + 'updateinsuredvehicle';
   searchInsuredObjectUrl: string = environment.policyService + 'searchinsuredobject';
   searchVehicleUrl: string = environment.policyService + 'getvehicle';
+  allVehiclesUrl: string = environment.policyService + 'allvehicles';
+  mergeVehicleUrl: string = environment.policyService + 'mergevehicle';
+  allObjectFlexfieldsUrl: string = environment.policyService + 'allobjectflexfields';
+  mergeObjectFlexfieldUrl: string = environment.policyService + 'mergeobjectflexfield';
+  allObjectRiskConfigUrl: string = environment.policyService + 'allobjectriskconfig';
+  mergeObjectRiskConfigUrl: string = environment.policyService + 'mergeobjectriskconfig';
+  mergeProductConfigUrl: string = environment.policyService + 'mergeproductConfig';
+  getAllPolicyLineTypesUrl: string = environment.policyService + 'allpolicylinetypesconfig';
+  mergePolicyLineTypeConfigUrl: string = environment.policyService + 'mergepolicylinetypeconfig';
+  getAllPremiumHeadersUrl: string = environment.policyService + 'allpremiumheadersconfig';
+  mergePremiumHeadersUrl: string = environment.policyService + 'mergepremiumheadersconfig';
+  getAllPremiumValuesUrl: string = environment.policyService + 'allpremiumvaluesconfig';
+  mergePremiumValuesUrl: string = environment.policyService + 'mergepremiumvaluesconfig';
   policySelected: BehaviorSubject<Object> = new BehaviorSubject<any>(Object);
 
   constructor(private http: HttpClient) { }
@@ -197,4 +213,77 @@ export class PolicyService {
   async checkStatus(): Promise<String> {
     return await this.http.get(this.urlStatus, { responseType: 'text' }).toPromise();
   }
+
+  async getAllVehicles(): Promise<Vehicle[]> {
+    return await this.http.get<Vehicle[]>(this.allVehiclesUrl).toPromise();
+  }
+
+  async mergeVehicle(vehicle: Vehicle): Promise<Vehicle> {
+    return await this.http
+      .post<Vehicle>(this.mergeVehicleUrl, vehicle)
+      .toPromise();
+  }
+
+  async getAllObjectFlexfields(): Promise<ObjectFlexfieldsConfig[]> {
+    return await this.http.get<ObjectFlexfieldsConfig[]>(this.allObjectFlexfieldsUrl).toPromise();
+  }
+
+  async mergeObjectFlexfield(flexfield: ObjectFlexfieldsConfig): Promise<ObjectFlexfieldsConfig> {
+    return await this.http
+      .post<ObjectFlexfieldsConfig>(this.mergeObjectFlexfieldUrl, flexfield)
+      .toPromise();
+  }
+
+  async getAllObjectRiskConfig(): Promise<ObjectRisksConfig[]> {
+    return await this.http.get<ObjectRisksConfig[]>(this.allObjectRiskConfigUrl).toPromise();
+  }
+
+  async mergeObjectRiskConfig(risk: ObjectRisksConfig): Promise<ObjectRisksConfig> {
+    return await this.http
+      .post<ObjectRisksConfig>(this.mergeObjectRiskConfigUrl, risk)
+      .toPromise();
+  }
+
+  async mergeProductConfig(product: ProductsConfig): Promise<ProductsConfig> {
+    return await this.http
+      .post<ProductsConfig>(this.mergeProductConfigUrl, product)
+      .toPromise();
+  }
+
+  async getAllPolicyLines(): Promise<PolicyLinesConfig[]> {
+    return await this.http
+      .get<PolicyLinesConfig[]>(this.getAllPolicyLineTypesUrl)
+      .toPromise();
+  }
+
+  async mergePolicyLineTypeConfig(policyLineType: PolicyLinesConfig): Promise<PolicyLinesConfig> {
+    return await this.http
+      .post<PolicyLinesConfig>(this.mergePolicyLineTypeConfigUrl, policyLineType)
+      .toPromise();
+  }
+
+  async getAllPremiumCalcHeaders(): Promise<PremiumCalcConfigHeaders[]> {
+    return await this.http
+      .get<PremiumCalcConfigHeaders[]>(this.getAllPremiumHeadersUrl)
+      .toPromise();
+  }
+
+  async mergePremiumCalcHeadersConfig(premiumCalcHeaders: PremiumCalcConfigHeaders): Promise<PremiumCalcConfigHeaders> {
+    return await this.http
+      .post<PremiumCalcConfigHeaders>(this.mergePremiumHeadersUrl, premiumCalcHeaders)
+      .toPromise();
+  }
+
+  async getAllPremiumCalcValues(): Promise<PremiumCalcConfigValues[]> {
+    return await this.http
+      .get<PremiumCalcConfigValues[]>(this.getAllPremiumValuesUrl)
+      .toPromise();
+  }
+
+  async mergePremiumCalcValuesConfig(premiumCalcValues: PremiumCalcConfigValues): Promise<PremiumCalcConfigValues> {
+    return await this.http
+      .post<PremiumCalcConfigValues>(this.mergePremiumValuesUrl, premiumCalcValues)
+      .toPromise();
+  }
+
 }
