@@ -1,0 +1,46 @@
+.col-lg-1{
+    width: 240px;
+    margin-right: 10px;
+}
+.table{
+    margin-bottom: 35px;
+}
+
+.container{
+    margin-left: 35px;
+}
+
+.clickable{
+     cursor: pointer; 
+}
+.btn{
+    width: 110px;
+}
+
+.editbtn{
+    float: right;
+    margin-top: 1%;
+    margin-left: 20%;
+}
+
+.FixedHeightContainer
+{
+  float:right;
+  height: 280px;
+  width: 1200px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  border-radius: 10px;
+  border-color: black;
+}
+.FixedHeightContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+.FixedHeightContainer::-webkit-scrollbar-thumb {
+    background: #909090;
+    border-radius: 8px;
+}
+.FixedHeightContainer::-webkit-scrollbar-track {
+    background: #FFFFFF;
+}

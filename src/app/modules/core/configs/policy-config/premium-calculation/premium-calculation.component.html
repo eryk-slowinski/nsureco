@@ -1,1 +1,134 @@
-<p>premium-calculation works!</p>
+<div>
+    <h4 class="mb-3 mt-3 text-center">Premium Calc Config</h4>
+    <div class="editbtn">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary btn-lg btn-block" (click)="editState=true">Edit</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" routerLink="..">Back</button>
+        </div>
+    </div>
+
+    <div class="FixedHeightContainer">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col1">Id</th>
+                    <th scope="col2">Combination id</th>
+                    <th scope="col3">Risk id</th>
+                    <th scope="col4">Combination name</th>
+
+                    <th scope="col3">Header1</th>
+                    <th scope="col3">Header2</th>
+                    <th scope="col3">Header3</th>
+                    <th scope="col3">Header4</th>
+                    <th scope="col3">Header5</th>
+                    <th scope="col3">Header6</th>
+                    <th scope="col3">Header7</th>
+                    <th scope="col3">Header8</th>
+                    <th scope="col3">Header9</th>
+                    <th scope="col3">Header10</th>
+                    <th scope="col3">Header11</th>
+                    <th scope="col3">Header12</th>
+
+                    <th scope="col4">Version</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="clickable" (click)="setHeaderConfig(result); setValueConfig(result['id'])"
+                    *ngFor="let result of headers">
+                    <td>{{ result['id'] }}</td>
+                    <td>{{ result['comboId'] }}</td>
+                    <td>{{ result['riskId'] }}</td>
+                    <td>{{ result['combinationName'] }}</td>
+                    <td>{{ result['header1'] }}</td>
+                    <td>{{ result['header2'] }}</td>
+                    <td>{{ result['header3'] }}</td>
+                    <td>{{ result['header4'] }}</td>
+                    <td>{{ result['header5'] }}</td>
+                    <td>{{ result['header6'] }}</td>
+                    <td>{{ result['header7'] }}</td>
+                    <td>{{ result['header8'] }}</td>
+                    <td>{{ result['header9'] }}</td>
+                    <td>{{ result['header10'] }}</td>
+                    <td>{{ result['header11'] }}</td>
+                    <td>{{ result['header12'] }}</td>
+                    <td>{{ result['version']}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="FixedHeightContainer mt-50">
+        <div class="row mb-2">
+            <div class="col-lg-1">
+                <label class="fw-bold" for="comboId">Combo id</label>
+                <input class="form-control" id="comboId" type="text" [(ngModel)]="newValue.comboId">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="riskId">Risk id</label>
+                <input class="form-control" id="riskId" type="text" [(ngModel)]="newValue.riskId">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="combinationName">Combo name</label>
+                <input class="form-control" id="combinationName" type="text" [(ngModel)]="newValue.combinationName">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="version">Version</label>
+                <input class="form-control" id="version" type="text" [(ngModel)]="newValue.version">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-lg-1">
+                <label class="fw-bold" for="header1">{{newHeader.header1}}</label>
+                <input class="form-control" id="value1" type="text" [(ngModel)]="newValue.value1">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="header2">{{newHeader.header2}}</label>
+                <input class="form-control" id="value2" type="text" [(ngModel)]="newValue.value2">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="header3">{{newHeader.header3}}</label>
+                <input class="form-control" id="value3" type="text" [(ngModel)]="newValue.value3">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="header4">{{newHeader.header4}}</label>
+                <input class="form-control" id="value4" type="text" [(ngModel)]="newValue.value4">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-lg-1">
+                <label class="fw-bold" for="header5">{{newHeader.header5}}</label>
+                <input class="form-control" id="header5" type="text" [(ngModel)]="newValue.value5">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="header6">{{newHeader.header6}}</label>
+                <input class="form-control" id="header6" type="text" [(ngModel)]="newValue.value6">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="header7">{{newHeader.header7}}</label>
+                <input class="form-control" id="header7" type="text" [(ngModel)]="newValue.value7">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="header8">{{newHeader.header8}}</label>
+                <input class="form-control" id="header8" type="text" [(ngModel)]="newValue.value8">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-lg-1">
+                <label class="fw-bold" for="value9">{{newHeader.header9}}</label>
+                <input class="form-control" id="value9" type="text" [(ngModel)]="newValue.value9">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="value10">{{newHeader.header10}}</label>
+                <input class="form-control" id="value10" type="text" [(ngModel)]="newValue.value10">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="value11">{{newHeader.header11}}</label>
+                <input class="form-control" id="value11" type="text" [(ngModel)]="newValue.value11">
+            </div>
+            <div class="col-lg-1">
+                <label class="fw-bold" for="value12">{{newHeader.header12}}</label>
+                <input class="form-control" id="value12" type="text" [(ngModel)]="newValue.value12">
+            </div>
+        </div>
+    </div>
+</div>

@@ -25,9 +25,9 @@ export class VehiclesComponent implements OnInit {
       .then((data) => (this.vehicles = data));
   }
 
-  async addVehicle() {
+  public async mergeVehicle() {
     await this.policyService
-      .addVehicle(this.newVehicle).then();
+      .mergeVehicle(this.newVehicle).then();
   }
 
   async setVehicle(vehicle: Vehicle) {

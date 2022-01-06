@@ -10,6 +10,11 @@ import { CustomerComponent } from './modules/customers/customer/customer.compone
 import { PolicyConfigComponent } from './modules/core/configs/policy-config/policy-config.component';
 import { ClaimConfigComponent } from './modules/core/configs/claim-config/claim-config.component';
 import { VehiclesComponent } from './modules/core/configs/policy-config/vehicles/vehicles.component';
+import { ObjectFlexfieldsComponent } from './modules/core/configs/policy-config/object-flexfields/object-flexfields.component';
+import { ObjectRisksComponent } from './modules/core/configs/policy-config/object-risks/object-risks.component';
+import { ProductsConfigComponent } from './modules/core/configs/policy-config/products-config/products-config.component';
+import { PolicyLineTypesComponent } from './modules/core/configs/policy-config/policy-line-types/policy-line-types.component';
+import { PremiumCalculationComponent } from './modules/core/configs/policy-config/premium-calculation/premium-calculation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'userlogin', pathMatch: 'full' },
@@ -30,6 +35,11 @@ const routes: Routes = [
   { path: 'policyconfig', component: PolicyConfigComponent },
   { path: 'claimconfig', component: ClaimConfigComponent },
   { path: 'policyconfig/vehicles', component: VehiclesComponent },
+  { path: 'policyconfig/objectflexfields', component: ObjectFlexfieldsComponent },
+  { path: 'policyconfig/objectrisks', component: ObjectRisksComponent },
+  { path: 'policyconfig/product', component: ProductsConfigComponent },
+  { path: 'policyconfig/policyline', component: PolicyLineTypesComponent },
+  { path: 'policyconfig/premiumcalc', component: PremiumCalculationComponent },
 ];
 
 @NgModule({

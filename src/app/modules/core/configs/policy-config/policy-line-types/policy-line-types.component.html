@@ -1,1 +1,71 @@
-<p>policy-line-types works!</p>
+<div>
+    <h4 class="mb-3 mt-3 text-center">Policy Line Config</h4>
+    <div *ngIf="!editState; then policyLineConfigLookup else addPolicyLineConfig"></div>
+    <ng-template #policyLineConfigLookup>
+        <div class="editbtn">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary btn-lg btn-block" (click)="editState=true">Edit</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" routerLink="..">Back</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #addPolicyLineConfig>
+        <div class="container mt-50">
+            <div class="row mb-2">
+                <div class="col-lg-1">
+                    <label for="id">Id</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="productId">Product id</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="startDate">Product line id</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="version">Version</label>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-lg-1">
+                    <input class="form-control" id="id" type="text" [(ngModel)]="newProductLine.id">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="productId" type="text" [(ngModel)]="newProductLine.productId">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="policyLineId" type="text" [(ngModel)]="newProductLine.policyLineId">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="version" type="text" [(ngModel)]="newProductLine.version">
+                </div>
+                <div class="col-lg-1">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-primary"
+                            (click)="mergePolicyLineTypeConfig(); editState=false">Add/Change</button>
+                        <button type="button" class="btn btn-primary" (click)="editState=false">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col1">Id</th>
+                <th scope="col2">Product id</th>
+                <th scope="col3">Product line id</th>
+                <th scope="col4">Version</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="clickable" (click)="setPolicyLineTypeConfig(result)" *ngFor="let result of productLines">
+                <td>{{ result['id'] }}</td>
+                <td>{{ result['productId'] }}</td>
+                <td>{{ result['policyLineId']}}</td>
+                <td>{{ result['version']}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
