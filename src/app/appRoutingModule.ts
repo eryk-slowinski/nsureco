@@ -7,6 +7,9 @@ import { CreatePolicyComponent } from './modules/policies/create-policy/create-p
 import { UserLoginComponent } from './modules/users/user-login/user-login.component';
 import { HomeComponent } from './modules/core/home/home.component';
 import { CustomerComponent } from './modules/customers/customer/customer.component';
+import { PolicyConfigComponent } from './modules/core/configs/policy-config/policy-config.component';
+import { ClaimConfigComponent } from './modules/core/configs/claim-config/claim-config.component';
+import { VehiclesComponent } from './modules/core/configs/policy-config/vehicles/vehicles.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'userlogin', pathMatch: 'full' },
@@ -24,6 +27,9 @@ const routes: Routes = [
   { path: 'createcustomer', component: CreateCustomerComponent },
   { path: 'searchcustomer', component: SearchCustomerComponent },
   { path: 'customer', component: CustomerComponent },
+  { path: 'policyconfig', component: PolicyConfigComponent },
+  { path: 'claimconfig', component: ClaimConfigComponent },
+  { path: 'policyconfig/vehicles', component: VehiclesComponent },
 ];
 
 @NgModule({

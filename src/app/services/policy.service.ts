@@ -48,6 +48,8 @@ export class PolicyService {
   updateInsuredVehicleUrl: string = environment.policyService + 'updateinsuredvehicle';
   searchInsuredObjectUrl: string = environment.policyService + 'searchinsuredobject';
   searchVehicleUrl: string = environment.policyService + 'getvehicle';
+  allVehiclesUrl: string = environment.policyService + 'allvehicles';
+  addVehicleUrl: string = environment.policyService + 'addvehicle';
   policySelected: BehaviorSubject<Object> = new BehaviorSubject<any>(Object);
 
   constructor(private http: HttpClient) { }
@@ -196,5 +198,15 @@ export class PolicyService {
 
   async checkStatus(): Promise<String> {
     return await this.http.get(this.urlStatus, { responseType: 'text' }).toPromise();
+  }
+
+  async getAllVehicles(): Promise<Vehicle[]> {
+    return await this.http.get<Vehicle[]>(this.allVehiclesUrl).toPromise();
+  }
+
+  async addVehicle(vehicle: Vehicle): Promise<Vehicle> {
+    return await this.http
+      .post<Vehicle>(this.addVehicleUrl, vehicle)
+      .toPromise();
   }
 }
