@@ -14,7 +14,7 @@ export class PremiumCalculationComponent implements OnInit {
 
   headers: PremiumCalcConfigHeaders[] = [];
   values: PremiumCalcConfigValues[] = [];
-  newHeader: PremiumCalcConfigHeaders;
+  newHeader: PremiumCalcConfigHeaders = new PremiumCalcConfigHeaders();
   newValue: PremiumCalcConfigValues = new PremiumCalcConfigValues();
   editState: boolean = false;
 
@@ -46,12 +46,9 @@ export class PremiumCalculationComponent implements OnInit {
     this.newHeader = header;
   }
   async setValueConfig(value: number) {
-    console.log(value);
     this.values.forEach(element => {
-      console.log(value);
       if (element.id === value) {
         this.newValue = element;
-        console.log(element);
       }
     });
   }
