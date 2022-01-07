@@ -2,13 +2,15 @@ import { Customers } from './../../../models/customers';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomerService } from 'src/app/services/customer.service';
+import { SharedModule } from '../../shared/shared.module';
+import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-create-customer',
   templateUrl: './create-customer.component.html',
 })
 export class CreateCustomerComponent implements OnInit {
-  constructor(private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService, private sharedService: SharedService) { }
 
   customer: Customers = new Customers();
   error: string;
@@ -34,6 +36,8 @@ export class CreateCustomerComponent implements OnInit {
       (error) => this.error = error.error);
     if (this.error == null) {
       this.success = 'Customer successfully created';
+      let customers = await this.customerService.searchCustomer(this.customer).then();
+      this.sharedService.customer = customers[0];
     }
   }
 
@@ -55,6 +59,17 @@ export class CreateCustomerComponent implements OnInit {
 
   get phone_num() {
     return this.createCustomerForm.get('phoneNum');
+  }
+
+  async getRoute(): Promise<string> {
+    if (this.success != null) {
+      console.log("success");
+      return '/customer';
+    }
+    else {
+      console.log("fail");
+      return '/createcustomer';
+    }
   }
 
   ngOnInit(): void { }

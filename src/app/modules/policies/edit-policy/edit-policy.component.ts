@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CreatePolicyComponent } from './../create-policy/create-policy.component';
 import { CustomerService } from './../../../services/customer.service';
 import { PolicyService } from 'src/app/services/policy.service';
+import { SharedService } from '../../shared/shared.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { PolicyService } from 'src/app/services/policy.service';
 })
 export class EditPolicyComponent extends CreatePolicyComponent implements OnInit {
 
-  constructor(public policyService: PolicyService, public customerService: CustomerService) { super(policyService, customerService); }
+  constructor(public policyService: PolicyService, public customerService: CustomerService, public sharedService: SharedService) { super(policyService, customerService, sharedService); }
   policySelected: Object = new Object();
   customerSelected: Object = new Object();
   editState: boolean = false;

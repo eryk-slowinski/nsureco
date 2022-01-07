@@ -4,13 +4,14 @@ import { Policy } from 'src/app/models/policy';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Customers } from 'src/app/models/customers';
 import { DatePipe } from '@angular/common';
+import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
 })
 export class CustomerComponent implements OnInit {
-  constructor(private customerService: CustomerService, private policyService: PolicyService) { }
+  constructor(private customerService: CustomerService, private policyService: PolicyService, private sharedService: SharedService) { }
   datepipe: DatePipe = new DatePipe('en-US');
   customerSelected: Object = new Object();
   policySelected: Object = new Object();
@@ -51,7 +52,11 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerService.customerSelected.subscribe((customer) => {
-      this.customerSelected = customer;
+      if (this.sharedService.customer != null) {
+        this.customerSelected = this.sharedService.customer;
+      }
+      else
+        this.customerSelected = customer;
     });
     this.searchPolicy();
     this.chooseCustomer();

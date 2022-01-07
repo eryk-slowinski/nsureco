@@ -30,8 +30,12 @@
             <th scope="row">Address</th>
             <td>{{customerSelected['address']}}</td>
           </tr>
+          <button class="btn btn-primary" routerLink="/customer">
+            Cancel
+          </button>
         </tbody>
       </table>
+
     </div>
     <div class="col-auto">
       <h4 class="mt-3 text-center">Product & policy line</h4>
@@ -251,7 +255,7 @@
         </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="completePolicy();">
+        <button type="button" class="btn btn-primary" (click)="completePolicy();" routerLink="/customer">
           Complete
         </button>
         <button type="button" class="btn btn-primary" (click)="closePopup()">
