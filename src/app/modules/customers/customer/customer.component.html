@@ -30,6 +30,8 @@
       </tbody>
     </table>
     <button class="btn btn-primary" type="submit" (click)="editState = true">Edit customer</button>
+    <button class="btn btn-primary" type="submit" routerLink='/createpolicy'>Create policy</button>
+    <button class="btn btn-primary" type="submit" routerLink='/createclaim' [disabled]="true">Create claim</button>
   </div>
   <div class="container" *ngIf="customerSelected['customerId']">
     <h4 class="mt-3 text-center">Policies list</h4>

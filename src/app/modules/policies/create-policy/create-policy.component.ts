@@ -46,10 +46,12 @@ export class CreatePolicyComponent implements OnInit {
   vehicleCreated: boolean = false;
   totalPremium: number = 0;
   vehicleId: number;
+  statuses: String[] = ["quotation", "policy"]
+  status: String;
 
   constructor(
     public policyService: PolicyService,
-    public customerService: CustomerService
+    public customerService: CustomerService,
   ) { }
 
   async chooseProduct() {
@@ -155,7 +157,7 @@ export class CreatePolicyComponent implements OnInit {
     await this.createTransaction();
     this.policy.startDate = this.datepipe.transform(this.startDate, 'yyyy-MM-dd');
     this.policy.transactionId = this.transaction.transactionId;
-    this.policy.ownerId = this.customerSelected[0];
+    this.policy.ownerId = this.customerSelected['customerId'];
     this.policy.type = 'Vehicle insurance';
     this.policy.status = 'quotation';
     this.policy.altNo = this.policy.productType + this.policy.ownerId;
@@ -236,7 +238,7 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   async calculation(policyLine: PolicyLine, vehicle: InsuredObject) {
-    this.totalPremium = 0;
+    let totalPremium = 0;
     this.risks.forEach((risk) => {
       risk.premium = null;
       risk.premiumForPeriod = null;
@@ -245,8 +247,9 @@ export class CreatePolicyComponent implements OnInit {
     await this.reloadCoverages(vehicle);
     this.risks.forEach((risk) => {
       if (risk.premium != NaN)
-        this.totalPremium += risk.premium;
+        totalPremium += risk.premium;
     })
+    this.totalPremium = totalPremium;
   }
 
   async toggleCoverage(riskId: string) {
@@ -270,5 +273,20 @@ export class CreatePolicyComponent implements OnInit {
       this.customerSelected = customer;
     });
     this.chooseProduct();
+  }
+
+
+  displayStyle = "none";
+
+  async openPopup() {
+    await this.calculation(this.policyLine, this.vehicleObject)
+    this.displayStyle = "block";
+  }
+  async completePolicy() {
+    await this.updatePolicy();
+    this.displayStyle = "none";
+  }
+  async closePopup() {
+    this.displayStyle = "none";
   }
 }

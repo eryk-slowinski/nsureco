@@ -34,6 +34,8 @@ export class CreateCustomerComponent implements OnInit {
       (error) => this.error = error.error);
     if (this.error == null) {
       this.success = 'Customer successfully created';
+      let customers = await this.customerService.searchCustomer(this.customer).then();
+      this.customerService.customerSelected.next(customers[0]);
     }
   }
 
