@@ -165,7 +165,6 @@ export class CreatePolicyComponent implements OnInit {
     await this.policyService.createPolicy(this.policy).then();
     this.policy = await this.policyService.getPolicy(this.policy).then();
     await this.createRequiredObjects();
-    console.log(this.policy);
   }
 
   async createRequiredObjects() {
