@@ -27,8 +27,8 @@
       <span class="text-danger " *ngIf="phone_num.invalid && phone_num.touched">Phone number is required</span>
     </div>
     <div class="col-auto p-2">
-      <button class="btn btn-primary" type="submit" (click)="createCustomer();" [disabled]="createCustomerForm.invalid"
-        routerLink=getRoute()>Add customer
+      <button class="btn btn-primary" type="submit" (click)="createCustomer();"
+        [disabled]="createCustomerForm.invalid">Add customer
       </button>
       <button class="btn btn-primary" type="submit" [disabled]="error!=null || success == null"
         routerLink='/customer'>Customer screen

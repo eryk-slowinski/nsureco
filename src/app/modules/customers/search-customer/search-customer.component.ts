@@ -2,7 +2,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomerService } from '../../../services/customer.service';
 import { Component } from '@angular/core';
 import { Customers } from 'src/app/models/customers';
-import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-search-customer',

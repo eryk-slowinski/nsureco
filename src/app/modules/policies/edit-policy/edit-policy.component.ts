@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CreatePolicyComponent } from './../create-policy/create-policy.component';
 import { CustomerService } from './../../../services/customer.service';
 import { PolicyService } from 'src/app/services/policy.service';
-import { SharedService } from '../../shared/shared.service';
 
 
 @Component({
@@ -12,7 +11,7 @@ import { SharedService } from '../../shared/shared.service';
 })
 export class EditPolicyComponent extends CreatePolicyComponent implements OnInit {
 
-  constructor(public policyService: PolicyService, public customerService: CustomerService, public sharedService: SharedService) { super(policyService, customerService, sharedService); }
+  constructor(public policyService: PolicyService, public customerService: CustomerService) { super(policyService, customerService); }
   policySelected: Object = new Object();
   customerSelected: Object = new Object();
   editState: boolean = false;
@@ -81,6 +80,7 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
     this.customerService.customerSelected.subscribe((customer) => {
       this.customerSelected = customer;
     });
+    this.customerService.customerSelected.next(this.customerSelected);
     this.getAllObjects();
     this.chooseProduct();
     this.getRisksConfig(this.vehicleObject);

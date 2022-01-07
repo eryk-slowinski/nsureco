@@ -31,7 +31,6 @@ export class ObjectFlexfieldsComponent implements OnInit {
 
   async setFlexfield(flexfield: ObjectFlexfieldsConfig) {
     this.newFlexfield = flexfield;
-    console.log(this.newFlexfield);
   }
 
 }

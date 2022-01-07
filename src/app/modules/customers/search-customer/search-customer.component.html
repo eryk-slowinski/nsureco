@@ -47,35 +47,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let result of searchResults">
+    <tr class="clickable" *ngFor="let result of searchResults" routerLink="/customer" (click)="selectCustomer(result)">
       <td>{{ result.customerId }}</td>
       <td>{{ result.name }}</td>
       <td>{{ result.pesel }}</td>
       <td>{{ result.birthDate | date: "mediumDate" }}</td>
       <td>{{ result.phoneNum }}</td>
       <td>{{ result.address }}</td>
-      <td>
-        <div class="dropdown">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false"></a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a routerLink="/createpolicy" (click)="selectCustomer(result)" class="dropdown-item">Create
-                    policy</a>
-                </li>
-                <li>
-                  <a routerLink="/createclaim" (click)="selectCustomer(result)" class="dropdown-item">Create claim</a>
-                </li>
-                <li>
-                  <a routerLink="/customer" (click)="selectCustomer(result)" class="dropdown-item">Select customer</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </td>
     </tr>
   </tbody>
 </table>

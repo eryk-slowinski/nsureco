@@ -32,6 +32,5 @@ export class ProductsConfigComponent implements OnInit {
 
   async setProductConfig(product: ProductsConfig) {
     this.newProduct = product;
-    console.log(this.newProduct);
   }
 }

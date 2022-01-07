@@ -31,7 +31,6 @@ export class ObjectRisksComponent implements OnInit {
 
   async setObjectRisk(risk: ObjectRisksConfig) {
     this.newRisk = risk;
-    console.log(this.newRisk);
   }
 
 }

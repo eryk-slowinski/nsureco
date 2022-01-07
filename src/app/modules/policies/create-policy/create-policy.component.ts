@@ -15,7 +15,6 @@ import { ObjectRisksConfig } from 'src/app/models/objectRisksConfig';
 import { ObjectRisks } from 'src/app/models/objectRisks';
 import { VehicleTypesConfig } from 'src/app/models/vehicleTypesConfig';
 import { Vehicles } from './../../../models/vehicles';
-import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-create-policy',
@@ -52,8 +51,7 @@ export class CreatePolicyComponent implements OnInit {
 
   constructor(
     public policyService: PolicyService,
-    public customerService: CustomerService,
-    public sharedService: SharedService
+    public customerService: CustomerService
   ) { }
 
   async chooseProduct() {
@@ -274,9 +272,7 @@ export class CreatePolicyComponent implements OnInit {
     this.customerService.customerSelected.subscribe((customer) => {
       this.customerSelected = customer;
     });
-    if (this.customerSelected == null) {
-      this.customerSelected = this.sharedService.customer;
-    }
+    this.customerService.customerSelected.next(this.customerSelected);
     this.chooseProduct();
   }
 

@@ -47,7 +47,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="policyRow"
+        <tr class="policyRow" class="clickable" (click)="editPolicy(result)" routerLink="/editpolicy"
           [ngStyle]="{'background-color': result['status']=='policy' ?'rgb(216, 243, 216)':'rgb(255, 255, 230)'}"
           *ngFor="let result of policiesList">
           <td>{{ result['policyId'] }}</td>
@@ -55,21 +55,6 @@
           <td>{{ result['status'] }}</td>
           <td>{{ result['startDate'] | date: "mediumDate" }}</td>
           <td>{{ result['endDate'] | date: "mediumDate" }}</td>
-          <td>
-            <div class="dropdown">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false"></a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li>
-                      <a routerLink="/editpolicy" (click)="editPolicy(result)" class="dropdown-item">Policy details</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </td>
         </tr>
       </tbody>
     </table>
