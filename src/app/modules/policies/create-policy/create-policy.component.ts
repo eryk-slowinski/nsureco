@@ -157,7 +157,7 @@ export class CreatePolicyComponent implements OnInit {
     await this.createTransaction();
     this.policy.startDate = this.datepipe.transform(this.startDate, 'yyyy-MM-dd');
     this.policy.transactionId = this.transaction.transactionId;
-    this.policy.ownerId = this.customerSelected[0];
+    this.policy.ownerId = this.customerSelected['customerId'];
     this.policy.type = 'Vehicle insurance';
     this.policy.status = 'quotation';
     this.policy.altNo = this.policy.productType + this.policy.ownerId;
@@ -165,6 +165,7 @@ export class CreatePolicyComponent implements OnInit {
     await this.policyService.createPolicy(this.policy).then();
     this.policy = await this.policyService.getPolicy(this.policy).then();
     await this.createRequiredObjects();
+    console.log(this.policy);
   }
 
   async createRequiredObjects() {
