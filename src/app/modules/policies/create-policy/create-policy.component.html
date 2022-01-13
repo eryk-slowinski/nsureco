@@ -54,7 +54,7 @@
         class="form-control" [(ngModel)]="policyLine.productLineType"
         (change)="chooseVeh('brand'); getRequiredObjects(policyLine.productLineType); getVehicleTypes(vehicleTypesObject); updatePolicyLine(); vehicle.vehicleType = null">
         <option selected hidden>Policy line</option>
-        <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineId}}</option>
+        <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineType}}</option>
       </select>
     </div>
   </div>

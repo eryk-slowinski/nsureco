@@ -235,7 +235,7 @@
       <select id="policyLine" class="form-control" [(ngModel)]="policyLine.productLineType"
         (change)="getRequiredObjects(policyLine.productLineType); getVehicleTypes(vehicleTypesObject); chooseVeh('brand'); vehicle.vehicleType = null">
         <option selected hidden>Policy line</option>
-        <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineId}}</option>
+        <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineType}}</option>
       </select>
     </div>
 
