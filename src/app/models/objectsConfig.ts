@@ -1,6 +1,6 @@
 export interface ObjectsConfig {
   id: number;
-  policyLineId: string;
+  policyLineType: string;
   objType: string;
   version: string;
 }
