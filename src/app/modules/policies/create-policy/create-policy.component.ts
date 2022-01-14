@@ -73,7 +73,7 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   async getVehicleTypes(object: VehicleTypesConfig) {
-    object.productLineType = this.policyLine.policyLineType;
+    object.policyLineType = this.policyLine.policyLineType;
     await this.policyService
       .getVehicleTypes(object)
       .then((data) => (this.vehicleTypesConfig = data));

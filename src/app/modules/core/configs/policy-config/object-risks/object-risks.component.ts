@@ -24,12 +24,12 @@ export class ObjectRisksComponent implements OnInit {
       .then((data) => (this.risks = data));
   }
 
-  async mergeObjectRisk() {
+  async mergeRisk() {
     await this.policyService
       .mergeObjectRiskConfig(this.newRisk).then();
   }
 
-  async setObjectRisk(risk: ObjectRisksConfig) {
+  async setRisk(risk: ObjectRisksConfig) {
     this.newRisk = risk;
   }
 

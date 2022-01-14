@@ -20,7 +20,7 @@
                     <label for="objectType">Object Type</label>
                 </div>
                 <div class="col-lg-1">
-                    <label for="objectRisk">Object Risk</label>
+                    <label for="riskId">Object Risk</label>
                 </div>
                 <div class="col-lg-1">
                     <label for="value">Version</label>
@@ -42,7 +42,7 @@
                 <div class="col-lg-1">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-primary"
-                            (click)="mergeObjectRisk(); editState=false">Add/Change</button>
+                            (click)="mergeRisk(); editState=false">Add/Change</button>
                         <button type="button" class="btn btn-primary" (click)="editState=false">Cancel</button>
                     </div>
                 </div>
@@ -60,10 +60,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="clickable" (click)="setObjectRisk(result)" *ngFor="let result of risks">
+            <tr class="clickable" (click)="setRisk(result)" *ngFor="let result of risks">
                 <td>{{ result['id'] }}</td>
                 <td>{{ result['objectType'] }}</td>
-                <td>{{ result['objectRisks'] }}</td>
+                <td>{{ result['riskId'] }}</td>
                 <td>{{ result['version']}}</td>
             </tr>
         </tbody>
