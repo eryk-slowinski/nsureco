@@ -1,71 +1,79 @@
 <div>
-    <h4 class="mb-3 mt-3 text-center">Object Risks</h4>
-    <div *ngIf="!editState; then riskConfigLookup else addRisk"></div>
-    <ng-template #riskConfigLookup>
-        <div class="editbtn">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary btn-lg btn-block" (click)="editState=true">Edit</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block" routerLink="..">Back</button>
-            </div>
-        </div>
-    </ng-template>
+  <h4 class="mb-3 mt-3 text-center">Object Risks</h4>
+  <div *ngIf="!editState; then riskConfigLookup else addRisk"></div>
+  <ng-template #riskConfigLookup>
+    <div class="editbtn">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary btn-lg btn-block" (click)="editState=true">Edit</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block" routerLink="..">Back</button>
+      </div>
+    </div>
+  </ng-template>
 
-    <ng-template #addRisk>
-        <div class="container mt-50">
-            <div class="row mb-2">
-                <div class="col-lg-1">
-                    <label for="id">Id</label>
-                </div>
-                <div class="col-lg-1">
-                    <label for="objectType">Object Type</label>
-                </div>
-                <div class="col-lg-1">
-                    <label for="objectRisk">Object Risk</label>
-                </div>
-                <div class="col-lg-1">
-                    <label for="value">Version</label>
-                </div>
-            </div>
-            <div class="row mb-2">
-                <div class="col-lg-1">
-                    <input class="form-control" id="id" type="text" [(ngModel)]="newRisk.id">
-                </div>
-                <div class="col-lg-1">
-                    <input class="form-control" id="objectType" type="text" [(ngModel)]="newRisk.objectType">
-                </div>
-                <div class="col-lg-1">
-                    <input class="form-control" id="riskId" type="text" [(ngModel)]="newRisk.riskId">
-                </div>
-                <div class="col-lg-1">
-                    <input class="form-control" id="version" type="text" [(ngModel)]="newRisk.version">
-                </div>
-                <div class="col-lg-1">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary"
-                            (click)="mergeObjectRisk(); editState=false">Add/Change</button>
-                        <button type="button" class="btn btn-primary" (click)="editState=false">Cancel</button>
-                    </div>
-                </div>
-            </div>
+  <ng-template #addRisk>
+    <div class="container mt-50">
+      <div class="row mb-2">
+        <div class="col-lg-1">
+          <label for="id">Id</label>
         </div>
-    </ng-template>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col1">Id</th>
-                <th scope="col2">Type</th>
-                <th scope="col3">Object Key</th>
-                <th scope="col4">Object Value</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="clickable" (click)="setObjectRisk(result)" *ngFor="let result of risks">
-                <td>{{ result['id'] }}</td>
-                <td>{{ result['objectType'] }}</td>
-                <td>{{ result['objectRisks'] }}</td>
-                <td>{{ result['version']}}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="col-lg-1">
+          <label for="objectType">Object Type</label>
+        </div>
+        <div class="col-lg-1">
+          <label for="objectRisk">Object Risk</label>
+        </div>
+        <div class="col-lg-1">
+          <label for="required">Required</label>
+        </div>
+        <div class="col-lg-1">
+          <label for="value">Version</label>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-lg-1">
+          <input class="form-control" id="id" type="text" [(ngModel)]="newRisk.id">
+        </div>
+        <div class="col-lg-1">
+          <input class="form-control" id="objectType" type="text" [(ngModel)]="newRisk.objectType">
+        </div>
+        <div class="col-lg-1">
+          <input class="form-control" id="objectRisks" type="text" [(ngModel)]="newRisk.riskId">
+        </div>
+        <div class="col-lg-1">
+          <input class="form-control" id="required" type="text" [(ngModel)]="newRisk.required">
+        </div>
+        <div class="col-lg-1">
+          <input class="form-control" id="version" type="text" [(ngModel)]="newRisk.version">
+        </div>
+        <div class="col-lg-1">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary"
+              (click)="mergeObjectRisk(); editState=false">Add/Change</button>
+            <button type="button" class="btn btn-primary" (click)="editState=false">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col1">Id</th>
+        <th scope="col2">Type</th>
+        <th scope="col3">Object Key</th>
+        <th scope="col4">Required</th>
+        <th scope="col4">Version</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="clickable" (click)="setObjectRisk(result)" *ngFor="let result of risks">
+        <td>{{ result['id'] }}</td>
+        <td>{{ result['objectType'] }}</td>
+        <td>{{ result['objectRisks'] }}</td>
+        <td>{{ result['required'] }}</td>
+        <td>{{ result['version']}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
