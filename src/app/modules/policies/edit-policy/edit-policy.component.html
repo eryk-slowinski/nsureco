@@ -80,7 +80,7 @@
           </tr>
           <tr>
             <th scope="row">Product line type</th>
-            <td>{{policyLine.productLineType}}</td>
+            <td>{{policyLine.policyLineType}}</td>
           </tr>
         </tbody>
       </table>
@@ -232,16 +232,16 @@
         <option *ngFor="let product of products">{{product.productId}}</option>
       </select>
       <label for="policyLine">Select policy line:</label>
-      <select id="policyLine" class="form-control" [(ngModel)]="policyLine.productLineType"
-        (change)="getRequiredObjects(policyLine.productLineType); getVehicleTypes(vehicleTypesObject); chooseVeh('brand'); vehicle.vehicleType = null">
+      <select id="policyLine" class="form-control" [(ngModel)]="policyLine.policyLineType"
+        (change)="getRequiredObjects(policyLine.policyLineType); getVehicleTypes(vehicleTypesObject); chooseVeh('brand'); vehicle.vehicleType = null">
         <option selected hidden>Policy line</option>
         <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineType}}</option>
       </select>
     </div>
 
     <div class="row justify-content-center">
-      <div class="mb-5" *ngIf="policyLine.productLineType === 'MOT'; then motorVehicle"></div>
-      <div class="mb-5" *ngIf="policyLine.productLineType === 'TRA'; then trailer"></div>
+      <div class="mb-5" *ngIf="policyLine.policyLineType === 'MOT'; then motorVehicle"></div>
+      <div class="mb-5" *ngIf="policyLine.policyLineType === 'TRA'; then trailer"></div>
     </div>
   </div>
 

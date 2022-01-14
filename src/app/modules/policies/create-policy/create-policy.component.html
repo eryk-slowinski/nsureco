@@ -50,9 +50,9 @@
         <option *ngFor="let product of products">{{product.productId}}</option>
       </select>
       <label for="policyLine">Select policy line:</label>
-      <select [disabled]="!policy.productType || policyLine.productLineType != null" id="policyLine"
-        class="form-control" [(ngModel)]="policyLine.productLineType"
-        (change)="chooseVeh('brand'); getRequiredObjects(policyLine.productLineType); getVehicleTypes(vehicleTypesObject); updatePolicyLine(); vehicle.vehicleType = null">
+      <select [disabled]="!policy.productType || policyLine.policyLineType != null" id="policyLine" class="form-control"
+        [(ngModel)]="policyLine.policyLineType"
+        (change)="chooseVeh('brand'); getRequiredObjects(policyLine.policyLineType); getVehicleTypes(vehicleTypesObject); updatePolicyLine(); vehicle.vehicleType = null">
         <option selected hidden>Policy line</option>
         <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineType}}</option>
       </select>
@@ -68,8 +68,8 @@
 </ng-template>
 
 <div class="container mb-5">
-  <div *ngIf="policyLine.productLineType === 'MOT'; then motorVehicle"></div>
-  <div *ngIf="policyLine.productLineType === 'TRA'; then trailer"></div>
+  <div *ngIf="policyLine.policyLineType === 'MOT'; then motorVehicle"></div>
+  <div *ngIf="policyLine.policyLineType === 'TRA'; then trailer"></div>
 </div>
 
 <ng-template #motorVehicle>
