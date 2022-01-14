@@ -48,6 +48,8 @@ export class CreatePolicyComponent implements OnInit {
   vehicleId: number;
   statuses: String[] = ["quotation", "policy"]
   status: String;
+  displayStyle = 'none';
+  requiredRisks: ObjectRisks[] = [];
 
   constructor(
     public policyService: PolicyService,
@@ -268,6 +270,31 @@ export class CreatePolicyComponent implements OnInit {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
+  openPopup() {
+    // await this.calculation(this.policyLine, this.vehicleObject);
+    this.requiredRisks = [];
+    this.objectRisksConfig.forEach(or => {
+      this.risks.forEach(risk => {
+        if (risk.riskId == or.riskId) {
+          if (risk.isSelected == 'false' && or.required.toString() == 'true') {
+            this.requiredRisks.push(risk);
+          }
+        }
+      })
+    });
+    this.displayStyle = 'block';
+  }
+
+  async closePopup() {
+    this.displayStyle = 'none';
+  }
+
+  async completePolicy() {
+    await this.updatePolicy();
+    this.closePopup();
+  }
+
+
   ngOnInit() {
     this.customerService.customerSelected.subscribe((customer) => {
       this.customerSelected = customer;
@@ -276,18 +303,4 @@ export class CreatePolicyComponent implements OnInit {
     this.chooseProduct();
   }
 
-
-  displayStyle = "none";
-
-  async openPopup() {
-    await this.calculation(this.policyLine, this.vehicleObject)
-    this.displayStyle = "block";
-  }
-  async completePolicy() {
-    await this.updatePolicy();
-    this.displayStyle = "none";
-  }
-  async closePopup() {
-    this.displayStyle = "none";
-  }
 }

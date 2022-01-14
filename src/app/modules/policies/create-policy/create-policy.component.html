@@ -236,32 +236,57 @@
   <h5 class="mt-3">TOTAL PREMIUM: {{totalPremium}}</h5>
 </ng-template>
 
-
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Summary of Policy no: {{policy.policyId}}</h4>
-      </div>
-      <div class="modal-body">
-        <p class="fw-bold">Policy holder: {{customerSelected['name']}}</p>
-        <p class="fw-bold">Start date: {{policy.startDate | date: "mediumDate"}}</p>
-        <p class="fw-bold">End date: {{policy.endDate | date: "mediumDate"}}</p>
-        <p class="fw-bold">Premium to Paid: {{totalPremium}}</p>
-        <p class="fw-bold"><label>Policy status:</label>
-          <select class="form-control" style="width:100px" [(ngModel)]="policy.status">
-            <option *ngFor="let status of statuses">{{status}}</option>
-          </select>
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="completePolicy();" routerLink="/customer">
-          Complete
-        </button>
-        <button type="button" class="btn btn-primary" (click)="closePopup()">
-          Cancel
-        </button>
+  <div *ngIf="!requiredRisks[0]; else requiredRisksModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Summary of Policy no: {{policy.policyId}}</h4>
+        </div>
+        <div class="modal-body">
+          <p class="fw-bold">Policy holder: {{customerSelected['name']}}</p>
+          <p class="fw-bold">Start date: {{policy.startDate | date: "mediumDate"}}</p>
+          <p class="fw-bold">End date: {{policy.endDate | date: "mediumDate"}}</p>
+          <p class="fw-bold">Premium to Paid: {{totalPremium}}</p>
+          <p class="fw-bold"><label>Policy status:</label>
+            <select class="form-control" style="width:100px" [(ngModel)]="policy.status">
+              <option *ngFor="let status of statuses">{{status}}</option>
+            </select>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="completePolicy();" routerLink="/customer">
+            Complete
+          </button>
+          <button type="button" class="btn btn-primary" (click)="closePopup()">
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #requiredRisksModal>
+  <div class="modal" tabindex="-1" role="dialog" aria-labelledby="requiredRisksModal" aria-hidden="true"
+    [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="requiredRisksModal">Required risks!</h5>
+        </div>
+        <div class="modal-body">
+          <p>
+            To complete policy you have to select required risks for this type of policy:
+          </p>
+          <ul>
+            <li *ngFor="let requiredRisk of requiredRisks">{{requiredRisk.riskId}}</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closePopup()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
