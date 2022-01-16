@@ -271,7 +271,6 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   openPopup() {
-    // await this.calculation(this.policyLine, this.vehicleObject);
     this.requiredRisks = [];
     this.objectRisksConfig.forEach(or => {
       this.risks.forEach(risk => {
