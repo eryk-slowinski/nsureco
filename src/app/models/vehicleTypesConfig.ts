@@ -1,6 +1,6 @@
 export class VehicleTypesConfig {
   id: number;
-  productLineType: string;
+  policyLineType: string;
   vehicleType: string;
   version: string;
 }

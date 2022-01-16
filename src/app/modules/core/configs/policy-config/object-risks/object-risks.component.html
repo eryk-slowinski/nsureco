@@ -47,8 +47,7 @@
         </div>
         <div class="col-lg-1">
           <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary"
-              (click)="mergeObjectRisk(); editState=false">Add/Change</button>
+            <button type="button" class="btn btn-primary" (click)="mergeRisk(); editState=false">Add/Change</button>
             <button type="button" class="btn btn-primary" (click)="editState=false">Cancel</button>
           </div>
         </div>
@@ -67,10 +66,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="clickable" (click)="setObjectRisk(result)" *ngFor="let result of risks">
+      <tr class="clickable" (click)="setRisk(result)" *ngFor="let result of risks">
         <td>{{ result['id'] }}</td>
         <td>{{ result['objectType'] }}</td>
-        <td>{{ result['objectRisks'] }}</td>
+        <td>{{ result['riskId'] }}</td>
         <td>{{ result['required'] }}</td>
         <td>{{ result['version']}}</td>
       </tr>
