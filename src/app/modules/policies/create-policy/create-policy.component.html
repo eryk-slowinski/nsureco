@@ -40,12 +40,13 @@
     <div class="col-auto">
       <h4 class="mt-3 text-center">Product & policy line</h4>
       <label for="startDate">Select policy start date:</label>
-      <input class="form-control" id="startDate" type="date" [(ngModel)]="startDate" (change)="setEndDate(startDate)">
+      <input class="form-control" id="startDate" type="date" [(ngModel)]="startDate"
+        (change)="setEndDate(startDate); chooseProduct()">
       <label for="endDate">Select policy end date:</label>
       <input class="form-control" id="endDate" type="date" [disabled]="!startDate" [(ngModel)]="policy.endDate">
       <label for="product">Select product:</label>
       <select [disabled]="!startDate || policy.productType != null" class="d-inline" id="product" class="form-control"
-        [(ngModel)]="policy.productType" (change)="choosePolicyLine(policy.productType); createPolicy()">
+        [(ngModel)]="policy.productType" (change)="choosePolicyLine(productType); createPolicy()">
         <option selected hidden>Product</option>
         <option *ngFor="let product of products">{{product.productId}}</option>
       </select>

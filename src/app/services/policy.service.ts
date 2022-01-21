@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
@@ -17,6 +17,7 @@ import { VehicleTypesConfig } from './../models/vehicleTypesConfig';
 import { ObjectFlexfieldsConfig } from '../models/objectFlexfieldsConfig';
 import { PremiumCalcConfigHeaders } from '../models/premiumCalcConfigHeaders';
 import { PremiumCalcConfigValues } from '../models/premiumCalcConfigValues';
+
 
 @Injectable({
   providedIn: 'root',
@@ -57,6 +58,7 @@ export class PolicyService {
   mergeObjectFlexfieldUrl: string = environment.policyService + 'mergeobjectflexfield';
   allObjectRiskConfigUrl: string = environment.policyService + 'allobjectriskconfig';
   mergeObjectRiskConfigUrl: string = environment.policyService + 'mergeobjectriskconfig';
+  getAllProductConfigUrl: string = environment.policyService + 'allproductconfig';
   mergeProductConfigUrl: string = environment.policyService + 'mergeproductConfig';
   getAllPolicyLineTypesUrl: string = environment.policyService + 'allpolicylinetypesconfig';
   mergePolicyLineTypeConfigUrl: string = environment.policyService + 'mergepolicylinetypeconfig';
@@ -68,15 +70,27 @@ export class PolicyService {
 
   constructor(private http: HttpClient) { }
 
-  async getProducts(): Promise<ProductsConfig[]> {
+  async getProducts(startDate: string): Promise<ProductsConfig[]> {
+    console.log(startDate);
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }
     return await this.http
-      .get<ProductsConfig[]>(this.getProductsUrl)
+      .post<ProductsConfig[]>(this.getProductsUrl, { "startDate": startDate }, httpOptions)
       .toPromise();
   }
 
-  async getPolicyLines(product: string): Promise<PolicyLinesConfig[]> {
+  async getProductConfig(): Promise<ProductsConfig[]> {
     return await this.http
-      .post<PolicyLinesConfig[]>(this.getPolicyLinesUrl, { productId: product })
+      .get<ProductsConfig[]>(this.getAllProductConfigUrl)
+      .toPromise();
+  }
+
+  async getPolicyLines(policyLineConfig: PolicyLinesConfig): Promise<PolicyLinesConfig[]> {
+    console.log('im in');
+
+    return await this.http
+      .post<PolicyLinesConfig[]>(this.getPolicyLinesUrl, policyLineConfig)
       .toPromise();
   }
 

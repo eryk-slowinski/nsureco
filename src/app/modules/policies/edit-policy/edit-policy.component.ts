@@ -21,7 +21,7 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
   }
 
   async getPolicyLine() {
-    this.choosePolicyLine(this.policy.productType);
+    this.choosePolicyLine(this.productType);
     this.policyLine.policyId = this.policy.policyId;
     this.policyLine.transactionId = this.policy.transactionId;
     this.policyLine.version = this.policy.version;

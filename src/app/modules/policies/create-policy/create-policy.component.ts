@@ -15,6 +15,7 @@ import { ObjectRisksConfig } from 'src/app/models/objectRisksConfig';
 import { ObjectRisks } from 'src/app/models/objectRisks';
 import { VehicleTypesConfig } from 'src/app/models/vehicleTypesConfig';
 import { Vehicles } from './../../../models/vehicles';
+import { PolicyLineTypesComponent } from '../../core/configs/policy-config/policy-line-types/policy-line-types.component';
 
 @Component({
   selector: 'app-create-policy',
@@ -27,6 +28,7 @@ export class CreatePolicyComponent implements OnInit {
   policy: Policy = new Policy();
   startDate: Date;
   endDate: Date = new Date();
+  productType: string;
   policyLine: PolicyLine = new PolicyLine();
   vehicle: Vehicle = new Vehicle();
   driverObject: InsuredObject = new InsuredObject();
@@ -55,15 +57,30 @@ export class CreatePolicyComponent implements OnInit {
   ) { }
 
   async chooseProduct() {
+
     await this.policyService
-      .getProducts()
+      .getProducts(this.startDate + "")
       .then((data) => (this.products = data));
+    this.productType = this.products[0].productId;
+    console.log(this.productType);
+
   }
 
   async choosePolicyLine(product: string) {
+
+    let policyLineConfig: PolicyLinesConfig;
+    policyLineConfig.productId = product;
+    policyLineConfig.version = this.policy.version;
+
+    console.log('im before 0');
+
     await this.policyService
-      .getPolicyLines(product)
+      .getPolicyLines(policyLineConfig)
       .then((data) => (this.policyLines = data));
+    console.log('im after');
+
+    console.log(this.policyLines);
+
   }
 
   async getRequiredObjects(policyLine: string) {
@@ -273,7 +290,6 @@ export class CreatePolicyComponent implements OnInit {
       this.customerSelected = customer;
     });
     this.customerService.customerSelected.next(this.customerSelected);
-    this.chooseProduct();
   }
 
 

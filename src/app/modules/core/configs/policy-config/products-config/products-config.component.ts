@@ -21,7 +21,7 @@ export class ProductsConfigComponent implements OnInit {
 
   async loadProductConfig() {
     await this.policyService
-      .getProducts()
+      .getProductConfig()
       .then((data) => (this.products = data));
   }
 
