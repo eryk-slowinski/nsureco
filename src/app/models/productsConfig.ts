@@ -1,4 +1,4 @@
-export interface ProductsConfig {
+export class ProductsConfig {
   id: number;
   productId: string;
   version: string;

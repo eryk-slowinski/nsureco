@@ -1,4 +1,4 @@
-export interface PolicyLinesConfig {
+export class PolicyLinesConfig {
   id: number;
   productId: string;
   policyLineType: string;
