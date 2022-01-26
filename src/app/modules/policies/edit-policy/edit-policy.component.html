@@ -351,7 +351,8 @@
   </ng-template>
   <button class="btn btn-primary mt-3" type="submit" (click)="getAllObjects(); editState = false">Back</button>
   <button class="btn btn-primary mt-3" type="submit" [disabled]="!vehicle.engine || !vehicle.vehicleModel"
-    (click)="getRisksConfig(vehicleObject); openPopup(); updateObjects(); getAllObjects()">Accept Changes</button>
+    (click)="getRisksConfig(vehicleObject); openPopup(); getRequiredRisks(); updateObjects(); getAllObjects()">Accept
+    Changes</button>
   <div class="row" *ngIf="true; then calculate"></div>
 
 </ng-template>

@@ -231,7 +231,7 @@
   </div>
   <button class="btn btn-primary" type="submit" (click)="calculation(policyLine, vehicleObject)">Calculate
     premium</button>
-  <button type="button" class="btn btn-primary" (click)="openPopup();">Complete
+  <button type="button" class="btn btn-primary" (click)="openPopup(); getRequiredRisks()">Complete
     Policy</button>
   <h5 class="mt-3">TOTAL PREMIUM: {{totalPremium}}</h5>
 </ng-template>
