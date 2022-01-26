@@ -70,13 +70,13 @@ export class PolicyService {
 
   constructor(private http: HttpClient) { }
 
-  async getProducts(startDate: string): Promise<ProductsConfig[]> {
-    console.log(startDate);
+  async getProducts(productsConfig: ProductsConfig): Promise<ProductsConfig[]> {
+    console.log(productsConfig);
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
     return await this.http
-      .post<ProductsConfig[]>(this.getProductsUrl, { "startDate": startDate }, httpOptions)
+      .post<ProductsConfig[]>(this.getProductsUrl, productsConfig)
       .toPromise();
   }
 
@@ -87,7 +87,6 @@ export class PolicyService {
   }
 
   async getPolicyLines(policyLineConfig: PolicyLinesConfig): Promise<PolicyLinesConfig[]> {
-    console.log('im in');
 
     return await this.http
       .post<PolicyLinesConfig[]>(this.getPolicyLinesUrl, policyLineConfig)
@@ -113,6 +112,7 @@ export class PolicyService {
   }
 
   async createPolicy(policy: Policy): Promise<Policy> {
+
     return await this.http
       .post<Policy>(this.createPolicyUrl, policy)
       .toPromise();
@@ -130,13 +130,13 @@ export class PolicyService {
     return await this.http.post<Policy>(this.updatePolicyUrl, policy).toPromise();
   }
 
-  async createPolicyLine(policyLine: Object): Promise<PolicyLine> {
+  async createPolicyLine(policyLine: PolicyLine): Promise<PolicyLine> {
     return await this.http
       .post<PolicyLine>(this.createPolicyLineUrl, policyLine)
       .toPromise();
   }
 
-  async getPolicyLine(policyLine: Object): Promise<PolicyLine> {
+  async getPolicyLine(policyLine: PolicyLine): Promise<PolicyLine> {
     return await this.http
       .post<PolicyLine>(this.getPolicyLineUrl, policyLine)
       .toPromise();
