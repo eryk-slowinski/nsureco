@@ -32,7 +32,6 @@ export class VehiclesComponent implements OnInit {
 
   async setVehicle(vehicle: Vehicle) {
     this.newVehicle = vehicle;
-    console.log(this.newVehicle);
   }
 
 }

@@ -53,6 +53,7 @@ export class CustomerComponent implements OnInit {
     this.customerService.customerSelected.subscribe((customer) => {
       this.customerSelected = customer;
     });
+    this.customerService.customerSelected.next(this.customerSelected);
     this.searchPolicy();
     this.chooseCustomer();
   }

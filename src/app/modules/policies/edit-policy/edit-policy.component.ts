@@ -80,6 +80,7 @@ export class EditPolicyComponent extends CreatePolicyComponent implements OnInit
     this.customerService.customerSelected.subscribe((customer) => {
       this.customerSelected = customer;
     });
+    this.customerService.customerSelected.next(this.customerSelected);
     this.getAllObjects();
     this.chooseProduct();
     this.getRisksConfig(this.vehicleObject);

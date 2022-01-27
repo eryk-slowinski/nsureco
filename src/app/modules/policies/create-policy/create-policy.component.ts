@@ -73,7 +73,7 @@ export class CreatePolicyComponent implements OnInit {
   }
 
   async getVehicleTypes(object: VehicleTypesConfig) {
-    object.productLineType = this.policyLine.productLineType;
+    object.policyLineType = this.policyLine.policyLineType;
     await this.policyService
       .getVehicleTypes(object)
       .then((data) => (this.vehicleTypesConfig = data));
@@ -200,14 +200,14 @@ export class CreatePolicyComponent implements OnInit {
       .getObjectRisksConfig(object)
       .then((data) => (this.objectRisksConfig = data));
     this.objectRisksConfig.sort((a, b) =>
-      a.objectRisks.localeCompare(b.objectRisks)
+      a.riskId.localeCompare(b.riskId)
     );
   }
 
   async createRisks(object: InsuredObject) {
     await this.getRisksConfig(object);
     this.objectRisksConfig.forEach(async (element) => {
-      this.risk.riskId = element.objectRisks; // NAZWA DO ZMIANY => czarny
+      this.risk.riskId = element.riskId;
       this.risk.objectId = object.objectId;
       this.risk.isSelected = 'false';
       await this.policyService.createRisks(this.risk).then();
@@ -272,6 +272,7 @@ export class CreatePolicyComponent implements OnInit {
     this.customerService.customerSelected.subscribe((customer) => {
       this.customerSelected = customer;
     });
+    this.customerService.customerSelected.next(this.customerSelected);
     this.chooseProduct();
   }
 

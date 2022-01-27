@@ -1,6 +1,6 @@
 export class ObjectRiskConfig {
   id: number;
   objectType: string;
-  objectRisks: string;
+  riskId: string;
   version: string;
 }

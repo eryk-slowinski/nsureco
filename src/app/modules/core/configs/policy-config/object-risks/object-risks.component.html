@@ -20,7 +20,7 @@
                     <label for="objectType">Object Type</label>
                 </div>
                 <div class="col-lg-1">
-                    <label for="objectRisk">Object Risk</label>
+                    <label for="riskId">Object Risk</label>
                 </div>
                 <div class="col-lg-1">
                     <label for="value">Version</label>
@@ -34,7 +34,7 @@
                     <input class="form-control" id="objectType" type="text" [(ngModel)]="newRisk.objectType">
                 </div>
                 <div class="col-lg-1">
-                    <input class="form-control" id="objectRisks" type="text" [(ngModel)]="newRisk.objectRisks">
+                    <input class="form-control" id="riskId" type="text" [(ngModel)]="newRisk.riskId">
                 </div>
                 <div class="col-lg-1">
                     <input class="form-control" id="version" type="text" [(ngModel)]="newRisk.version">
@@ -42,7 +42,7 @@
                 <div class="col-lg-1">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-primary"
-                            (click)="mergeObjectRisk(); editState=false">Add/Change</button>
+                            (click)="mergeRisk(); editState=false">Add/Change</button>
                         <button type="button" class="btn btn-primary" (click)="editState=false">Cancel</button>
                     </div>
                 </div>
@@ -60,10 +60,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="clickable" (click)="setObjectRisk(result)" *ngFor="let result of risks">
+            <tr class="clickable" (click)="setRisk(result)" *ngFor="let result of risks">
                 <td>{{ result['id'] }}</td>
                 <td>{{ result['objectType'] }}</td>
-                <td>{{ result['objectRisks'] }}</td>
+                <td>{{ result['riskId'] }}</td>
                 <td>{{ result['version']}}</td>
             </tr>
         </tbody>

@@ -80,7 +80,7 @@
           </tr>
           <tr>
             <th scope="row">Product line type</th>
-            <td>{{policyLine.productLineType}}</td>
+            <td>{{policyLine.policyLineType}}</td>
           </tr>
         </tbody>
       </table>
@@ -121,6 +121,7 @@
       </table>
       <button class="btn btn-primary" type="submit" (click)="getVehicleTypes(vehicleTypesObject); editState = true">Edit
         policy</button>
+      <button class="btn btn-primary" type="submit" routerLink="/customer">Back</button>
     </div>
 
     <div class="col-auto">
@@ -231,16 +232,16 @@
         <option *ngFor="let product of products">{{product.productId}}</option>
       </select>
       <label for="policyLine">Select policy line:</label>
-      <select id="policyLine" class="form-control" [(ngModel)]="policyLine.productLineType"
-        (change)="getRequiredObjects(policyLine.productLineType); getVehicleTypes(vehicleTypesObject); chooseVeh('brand'); vehicle.vehicleType = null">
+      <select id="policyLine" class="form-control" [(ngModel)]="policyLine.policyLineType"
+        (change)="getRequiredObjects(policyLine.policyLineType); getVehicleTypes(vehicleTypesObject); chooseVeh('brand'); vehicle.vehicleType = null">
         <option selected hidden>Policy line</option>
-        <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineId}}</option>
+        <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineType}}</option>
       </select>
     </div>
 
     <div class="row justify-content-center">
-      <div class="mb-5" *ngIf="policyLine.productLineType === 'MOT'; then motorVehicle"></div>
-      <div class="mb-5" *ngIf="policyLine.productLineType === 'TRA'; then trailer"></div>
+      <div class="mb-5" *ngIf="policyLine.policyLineType === 'MOT'; then motorVehicle"></div>
+      <div class="mb-5" *ngIf="policyLine.policyLineType === 'TRA'; then trailer"></div>
     </div>
   </div>
 
@@ -350,8 +351,7 @@
   </ng-template>
   <button class="btn btn-primary mt-3" type="submit" (click)="getAllObjects(); editState = false">Back</button>
   <button class="btn btn-primary mt-3" type="submit" [disabled]="!vehicle.engine || !vehicle.vehicleModel"
-    (click)="updateObjects(); getAllObjects(); editState = false">Save
-    policy</button>
+    (click)="updateObjects(); getAllObjects(); openPopup();">Accept Changes</button>
   <div class="row" *ngIf="true; then calculate"></div>
 
 </ng-template>
@@ -421,3 +421,32 @@
 
   </div>
 </ng-template>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Summary of Policy no: {{policy.policyId}}</h4>
+      </div>
+      <div class="modal-body">
+        <p class="fw-bold">Policy holder: {{customerSelected['name']}}</p>
+        <p class="fw-bold">Start date: {{policy.startDate | date: "mediumDate"}}</p>
+        <p class="fw-bold">End date: {{policy.endDate | date: "mediumDate"}}</p>
+        <p class="fw-bold">Premium to Paid: {{totalPremium}}</p>
+        <p class="fw-bold"><label>Policy status:</label>
+          <select class="form-control" style="width:100px" [(ngModel)]="policy.status">
+            <option *ngFor="let status of statuses">{{status}}</option>
+          </select>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="completePolicy(); editState = false">
+          Complete
+        </button>
+        <button type="button" class="btn btn-primary" (click)="closePopup()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

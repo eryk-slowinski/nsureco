@@ -31,6 +31,5 @@ export class PolicyLineTypesComponent implements OnInit {
 
   async setPolicyLineTypeConfig(productLine: PolicyLinesConfig) {
     this.newProductLine = productLine;
-    console.log(this.newProductLine);
   }
 }
