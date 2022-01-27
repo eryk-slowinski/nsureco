@@ -1,7 +1,7 @@
 export class PolicyLine {
-  policyLineId: number;
+  id: number;
   transactionId: number;
   policyId: number;
-  productLineType: string;
+  policyLineType: string;
   version: string;
 }

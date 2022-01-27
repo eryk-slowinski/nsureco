@@ -1,7 +1,7 @@
-export interface ProductsConfig {
+export class ProductConfig {
   id: number;
   productId: string;
-  version: string;
   startDate: Date;
   endDate: Date;
+  version: string;
 }

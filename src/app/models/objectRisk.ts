@@ -1,4 +1,4 @@
-export class ObjectRisks {
+export class ObjectRisk {
   id: number;
   riskId: string;
   objectId: number;
