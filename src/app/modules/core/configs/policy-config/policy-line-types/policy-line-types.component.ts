@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PolicyLinesConfig } from 'src/app/models/policyLinesConfig';
+import { PolicyLineTypeConfig } from 'src/app/models/policyLineTypeConfig';
 import { PolicyService } from 'src/app/services/policy.service';
 
 @Component({
@@ -10,8 +10,8 @@ import { PolicyService } from 'src/app/services/policy.service';
 export class PolicyLineTypesComponent implements OnInit {
   constructor(public policyService: PolicyService) { }
 
-  productLines: PolicyLinesConfig[] = [];
-  newProductLine: PolicyLinesConfig;
+  productLines: PolicyLineTypeConfig[] = [];
+  newProductLine: PolicyLineTypeConfig;
   editState: boolean = false;
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class PolicyLineTypesComponent implements OnInit {
       .mergePolicyLineTypeConfig(this.newProductLine).then();
   }
 
-  async setPolicyLineTypeConfig(productLine: PolicyLinesConfig) {
+  async setPolicyLineTypeConfig(productLine: PolicyLineTypeConfig) {
     this.newProductLine = productLine;
   }
 }

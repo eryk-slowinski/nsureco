@@ -48,7 +48,7 @@
   </thead>
   <tbody>
     <tr class="clickable" *ngFor="let result of searchResults" routerLink="/customer" (click)="selectCustomer(result)">
-      <td>{{ result.customerId }}</td>
+      <td>{{ result.id }}</td>
       <td>{{ result.name }}</td>
       <td>{{ result.pesel }}</td>
       <td>{{ result.birthDate | date: "mediumDate" }}</td>

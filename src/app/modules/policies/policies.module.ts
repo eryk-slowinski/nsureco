@@ -6,7 +6,7 @@ import { EditPolicyComponent } from './edit-policy/edit-policy.component';
 
 @NgModule({
   declarations: [CreatePolicyComponent, EditPolicyComponent],
-  exports: [CreatePolicyComponent],
+  exports: [CreatePolicyComponent, EditPolicyComponent],
   imports: [CommonModule, SharedModule],
 })
 export class PoliciesModule { }

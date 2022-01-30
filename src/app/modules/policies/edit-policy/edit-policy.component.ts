@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CreatePolicyComponent } from './../create-policy/create-policy.component';
-import { CustomerService } from './../../../services/customer.service';
-import { PolicyService } from 'src/app/services/policy.service';
+import { PolicyComponent } from '../policy/policy.component';
 
 
 @Component({
@@ -9,40 +7,41 @@ import { PolicyService } from 'src/app/services/policy.service';
   templateUrl: './edit-policy.component.html',
   styleUrls: ['./edit-policy.component.css']
 })
-export class EditPolicyComponent extends CreatePolicyComponent implements OnInit {
+export class EditPolicyComponent extends PolicyComponent implements OnInit {
 
-  constructor(public policyService: PolicyService, public customerService: CustomerService) { super(policyService, customerService); }
   policySelected: Object = new Object();
   customerSelected: Object = new Object();
   editState: boolean = false;
+  statuses: string[] = ['quotation', 'policy'];
+
 
   async getPolicy() {
     this.policy = await this.policyService.getPolicy(this.policySelected).then();
   }
 
   async getPolicyLine() {
-    this.choosePolicyLine(this.policy.productType);
-    this.policyLine.policyId = this.policy.policyId;
+    this.choosePolicyLine();
+    this.policyLine.policyId = this.policy.id;
     this.policyLine.transactionId = this.policy.transactionId;
     this.policyLine.version = this.policy.version;
     this.policyLine = await this.policyService.getPolicyLine(this.policyLine).then();
   }
 
   async getInsuredVehicle() {
-    this.vehicleObject.policyLineId = this.policyLine.policyLineId;
+    this.vehicleObject.policyLineId = this.policyLine.id;
     this.vehicleObject.type = 'VEH';
     this.vehicleObject = await this.policyService.searchInsuredObject(this.vehicleObject).then();
     if (this.vehicleObject.d01) {
       this.vehicleObject.d01 = this.datepipe.transform(this.vehicleObject.d01, 'yyyy-MM-dd');
     }
     if (this.vehicleObject.n01) {
-      this.vehicle.vehicleId = this.vehicleObject.n01;
+      this.vehicle.id = this.vehicleObject.n01;
       this.vehicle = await this.policyService.searchVehicle(this.vehicle).then();
     }
   }
 
   async getInsuredDriver() {
-    this.driverObject.policyLineId = this.policyLine.policyLineId;
+    this.driverObject.policyLineId = this.policyLine.id;
     this.driverObject.type = 'DRI';
     this.driverObject = await this.policyService.searchInsuredObject(this.driverObject).then();
     if (this.driverObject.d01) {

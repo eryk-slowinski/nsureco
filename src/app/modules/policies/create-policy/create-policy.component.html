@@ -1,6 +1,6 @@
 <h3 class="text-center mt-3">Create policy</h3>
 
-<div class="container" *ngIf="customerSelected['customerId']; else noCustomer">
+<div class="container" *ngIf="customerSelected['id']; else noCustomer">
   <div class="row justify-content-center">
     <div class="col-auto">
       <h4 class="mt-3 text-center">Policy owner</h4>
@@ -8,7 +8,7 @@
         <tbody>
           <tr>
             <th scope="row">ID</th>
-            <td>{{customerSelected['customerId']}}</td>
+            <td>{{customerSelected['id']}}</td>
           </tr>
           <tr>
             <th scope="row">Name</th>
@@ -30,9 +30,7 @@
             <th scope="row">Address</th>
             <td>{{customerSelected['address']}}</td>
           </tr>
-          <button class="btn btn-primary" routerLink="/customer">
-            Cancel
-          </button>
+          <button class="btn btn-primary" routerLink="/customer">Cancel</button>
         </tbody>
       </table>
 
@@ -40,19 +38,21 @@
     <div class="col-auto">
       <h4 class="mt-3 text-center">Product & policy line</h4>
       <label for="startDate">Select policy start date:</label>
-      <input class="form-control" id="startDate" type="date" [(ngModel)]="startDate" (change)="setEndDate(startDate)">
+      <input class="form-control" id="startDate" type="date" [(ngModel)]="productConfig.startDate"
+        (change)="setEndDate(productConfig.startDate); chooseProduct()">
       <label for="endDate">Select policy end date:</label>
-      <input class="form-control" id="endDate" type="date" [disabled]="!startDate" [(ngModel)]="policy.endDate">
+      <input class="form-control" id="endDate" type="date" [disabled]="!productConfig.startDate"
+        [(ngModel)]="policy.endDate">
       <label for="product">Select product:</label>
-      <select [disabled]="!startDate || policy.productType != null" class="d-inline" id="product" class="form-control"
-        [(ngModel)]="policy.productType" (change)="choosePolicyLine(policy.productType); createPolicy()">
+      <select [disabled]="!productConfig.startDate || policy.productType != null" class="d-inline" id="product"
+        class="form-control" [(ngModel)]="policy.productType" (change)="choosePolicyLine(); createPolicy()">
         <option selected hidden>Product</option>
         <option *ngFor="let product of products">{{product.productId}}</option>
       </select>
       <label for="policyLine">Select policy line:</label>
       <select [disabled]="!policy.productType || policyLine.policyLineType != null" id="policyLine" class="form-control"
         [(ngModel)]="policyLine.policyLineType"
-        (change)="chooseVeh('brand'); getRequiredObjects(policyLine.policyLineType); getVehicleTypes(vehicleTypesObject); updatePolicyLine(); vehicle.vehicleType = null">
+        (change)="chooseVeh('brand'); getRequiredObjects(policyLine.policyLineType); getVehicleTypes(vehicleTypeObject); updatePolicyLine(); vehicle.vehicleType = null">
         <option selected hidden>Policy line</option>
         <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineType}}</option>
       </select>
@@ -79,7 +79,7 @@
       <label>Choose a vehicle type:</label>
       <select class="form-control" [(ngModel)]="vehicle.vehicleType" (change)="chooseVeh('brand')">
         <option selected hidden>{{vehicle.vehicleType}}</option>
-        <option *ngFor="let vehicleType of vehicleTypesConfig">{{ vehicleType.vehicleType }}
+        <option *ngFor="let vehicleType of vehicleTypeConfig">{{ vehicleType.vehicleType }}
       </select>
       <label>Choose a brand:</label>
       <select class="form-control" [disabled]="!vehicle.vehicleType" [(ngModel)]="vehicle.brand"
@@ -162,7 +162,7 @@
       <label>Choose a trailer type:</label>
       <select class="form-control" [(ngModel)]="vehicle.vehicleType" (change)="chooseVeh('brand')">
         <option selected hidden>{{vehicle.vehicleType}}</option>
-        <option *ngFor="let vehicleType of vehicleTypesConfig">{{ vehicleType.vehicleType }}
+        <option *ngFor="let vehicleType of vehicleTypeConfig">{{ vehicleType.vehicleType }}
       </select>
       <label>Choose a brand:</label>
       <select class="form-control" [disabled]="!vehicle.vehicleType" [(ngModel)]="vehicle.brand"
@@ -241,7 +241,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Summary of Policy no: {{policy.policyId}}</h4>
+        <h4 class="modal-title">Summary of Policy no: {{policy.id}}</h4>
       </div>
       <div class="modal-body">
         <p class="fw-bold">Policy holder: {{customerSelected['name']}}</p>

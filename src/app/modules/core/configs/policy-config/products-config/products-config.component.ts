@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsConfig } from 'src/app/models/productsConfig';
+import { ProductConfig } from 'src/app/models/productConfig';
 import { PolicyService } from 'src/app/services/policy.service';
 
 @Component({
@@ -11,8 +11,8 @@ export class ProductsConfigComponent implements OnInit {
 
   constructor(public policyService: PolicyService) { }
 
-  products: ProductsConfig[] = [];
-  newProduct: ProductsConfig;
+  products: ProductConfig[] = [];
+  newProduct: ProductConfig;
   editState: boolean = false;
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class ProductsConfigComponent implements OnInit {
 
   async loadProductConfig() {
     await this.policyService
-      .getProducts()
+      .getProducts(new ProductConfig())
       .then((data) => (this.products = data));
   }
 
@@ -30,7 +30,7 @@ export class ProductsConfigComponent implements OnInit {
       .mergeProductConfig(this.newProduct).then();
   }
 
-  async setProductConfig(product: ProductsConfig) {
+  async setProductConfig(product: ProductConfig) {
     this.newProduct = product;
   }
 }
