@@ -1,7 +1,7 @@
 export class ProductConfig {
   id: number;
   productId: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   version: string;
 }
