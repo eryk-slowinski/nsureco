@@ -1,6 +1,6 @@
 //Angular modules
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe } from '@angular/core';
 import { AppRoutingModule } from './appRoutingModule';
 //Feature modules
 import { SharedModule } from './modules/shared/shared.module';
@@ -12,10 +12,12 @@ import { LayoutModule } from './modules/layout/layout.module';
 import { BrowserModule } from '@angular/platform-browser';
 //Components
 import { AppComponent } from './app.component';
+import { FilteringPipe } from './pipes/filtering.pipe';
+import { SortingPipe } from './pipes/sorting.pipe';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FilteringPipe, SortingPipe],
   imports: [
     //Angular modules
     BrowserModule,
@@ -28,6 +30,10 @@ import { AppComponent } from './app.component';
     PoliciesModule,
     UsersModule,
     SharedModule,
+    FilteringPipe,
+    SortingPipe
+
+
   ],
   providers: [],
   bootstrap: [AppComponent],

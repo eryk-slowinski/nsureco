@@ -13,6 +13,8 @@ export class ObjectRisksComponent implements OnInit {
   risks: ObjectRisksConfig[] = [];
   newRisk: ObjectRisksConfig = new ObjectRisksConfig();
   editState: boolean = false;
+  Filter = '';
+  userInput = '';
 
   ngOnInit(): void {
     this.loadRisks();
@@ -31,6 +33,10 @@ export class ObjectRisksComponent implements OnInit {
 
   async setRisk(risk: ObjectRisksConfig) {
     this.newRisk = risk;
+  }
+
+  async onRiskFilter() {
+    this.userInput = this.Filter;
   }
 
 }

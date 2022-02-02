@@ -6,7 +6,20 @@
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary btn-lg btn-block" (click)="editState=true">Edit</button>
                 <button type="button" class="btn btn-primary btn-lg btn-block" routerLink="..">Back</button>
+
             </div>
+
+        </div>
+
+        <label>Filter: &nbsp;</label>
+        <input [(ngModel)]='Filter'>
+        <button type="button" class="btn btn-primary btn-lg btn-block" (click)="onRiskFilter()">Filter</button>
+        <div class="filterfield">
+            <div *ngFor="let userInput of ObjectRisksComponent|filtering:Filter:'Risk'" class="filterfield" role="group"
+                aria-label="Basic example">
+
+            </div>
+
         </div>
     </ng-template>
 
