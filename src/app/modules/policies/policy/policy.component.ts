@@ -45,9 +45,11 @@ export abstract class PolicyComponent {
   vehicleTypeConfig: VehicleTypeConfig[];
   policyLineTypeConfig: PolicyLineTypeConfig = new PolicyLineTypeConfig();
   datepipe: DatePipe = new DatePipe('en-US');
-
+  statuses: string[] = ['quotation', 'policy'];
   vehicleId: number;
   totalPremium: number = 0;
+  displayStyle: string = 'none'
+
 
   async chooseProduct() {
     this.productConfig.endDate = this.policy.endDate;
@@ -70,13 +72,13 @@ export abstract class PolicyComponent {
       .then((data) => (this.objects = data));
   }
 
-  async createTransaction() {
+  async createTransaction(transactionType: string) {
     let currentTime = new Date();
     let currentDate = this.datepipe.transform(
       currentTime,
       'yyyy-MM-dd HH:mm:ss'
     );
-    this.transaction.transactionType = 'create';
+    this.transaction.transactionType = transactionType;
     this.transaction.modifiedBy = this.userName;
     this.transaction.timestamp = currentDate;
     await this.policyService.createTransaction(this.transaction).then();
@@ -85,21 +87,11 @@ export abstract class PolicyComponent {
       .then();
   }
 
-  async createPolicyLine() {
-    this.policyLine.transactionId = this.transaction.id;
-    this.policyLine.policyId = this.policy.id;
-    this.policyLine.version = this.policy.version;
-    await this.policyService.createPolicyLine(this.policyLine).then();
-    this.policyLine = await this.policyService
-      .getPolicyLine(this.policyLine)
-      .then();
-  }
-
-
-  async getVehicleTypes(object: VehicleTypeConfig) {
-    object.policyLineType = this.policyLine.policyLineType;
+  async getVehicleTypes(vehicleTypeConfig: VehicleTypeConfig) {
+    vehicleTypeConfig.policyLineType = this.policyLine.policyLineType;
+    vehicleTypeConfig.version = this.policy.version;
     await this.policyService
-      .getVehicleTypes(object)
+      .getVehicleTypes(vehicleTypeConfig)
       .then((data) => (this.vehicleTypeConfig = data));
   }
 
@@ -138,8 +130,8 @@ export abstract class PolicyComponent {
     }
     await this.policyService.getVehicles(this.vehicle).then((data) => {
       this.vehicles[vehicleProperties] = data;
-      if (this.vehicles.vehicleId) {
-        this.vehicleId = this.vehicles.vehicleId[0];
+      if (this.vehicles.id) {
+        this.vehicleId = this.vehicles.id[0];
       }
     })
   }
@@ -202,8 +194,6 @@ export abstract class PolicyComponent {
     this.totalPremium = totalPremium;
   }
 
-  displayStyle = "none";
-
   async openPopup() {
     await this.calculation(this.policyLine, this.vehicleObject)
     this.displayStyle = "block";
@@ -214,5 +204,9 @@ export abstract class PolicyComponent {
   }
   async closePopup() {
     this.displayStyle = "none";
+  }
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

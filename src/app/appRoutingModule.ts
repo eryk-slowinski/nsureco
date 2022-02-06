@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 //components
-import { CreatePolicyComponent } from './modules/policies/create-policy/create-policy.component';
+import { CreatePolicyComponent } from './modules/policies/policy/create-policy/create-policy.component';
 import { UserLoginComponent } from './modules/users/user-login/user-login.component';
 import { HomeComponent } from './modules/core/home/home.component';
 import { CustomerComponent } from './modules/customers/customer/customer.component';
-import { EditPolicyComponent } from './modules/policies/edit-policy/edit-policy.component';
+import { EditPolicyComponent } from './modules/policies/policy/edit-policy/edit-policy.component';
 import { SearchCustomerComponent } from './modules/customers/search-customer/search-customer.component';
 import { CreateCustomerComponent } from './modules/customers/create-customer/create-customer.component';
 import { CreateClaimComponent } from './modules/claims/create-claim/create-claim.component';

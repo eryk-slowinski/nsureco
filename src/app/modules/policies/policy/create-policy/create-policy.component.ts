@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PolicyComponent } from '../policy.component';
 import { DatePipe } from '@angular/common';
-import { PolicyComponent } from '../policy/policy.component';
 import { InsuredObject } from 'src/app/models/insuredObject';
 
 @Component({
@@ -9,13 +9,12 @@ import { InsuredObject } from 'src/app/models/insuredObject';
   styleUrls: ['./create-policy.component.css'],
 })
 export class CreatePolicyComponent extends PolicyComponent implements OnInit {
-  startDate: Date;
+  startDate: Date = new Date();
   endDate: Date = new Date();
   datepipe: DatePipe = new DatePipe('en-US');
   customerSelected: Object = new Object();
   driverCreated: boolean = false;
   vehicleCreated: boolean = false;
-  statuses: string[] = ['quotation', 'policy'];
 
   setEndDate(date: string) {
     var result = new Date(date);
@@ -25,8 +24,18 @@ export class CreatePolicyComponent extends PolicyComponent implements OnInit {
     this.policy.endDate = this.datepipe.transform(this.endDate, 'yyyy-MM-dd');
   }
 
+  async createPolicyLine() {
+    this.policyLine.transactionId = this.transaction.id;
+    this.policyLine.policyId = this.policy.id;
+    this.policyLine.version = this.policy.version;
+    await this.policyService.createPolicyLine(this.policyLine).then();
+    this.policyLine = await this.policyService
+      .getPolicyLine(this.policyLine)
+      .then();
+  }
+
   async createPolicy() {
-    await this.createTransaction();
+    await this.createTransaction('create').then();
     this.policy.startDate = this.datepipe.transform(this.startDate, 'yyyy-MM-dd');
     this.policy.transactionId = this.transaction.id;
     this.policy.ownerId = this.customerSelected['id'];
@@ -78,17 +87,11 @@ export class CreatePolicyComponent extends PolicyComponent implements OnInit {
     await this.delay(300);
   }
 
-  delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
   ngOnInit() {
     this.customerService.customerSelected.subscribe((customer) => {
       this.customerSelected = customer;
     });
     this.customerService.customerSelected.next(this.customerSelected);
   }
-
-
 
 }

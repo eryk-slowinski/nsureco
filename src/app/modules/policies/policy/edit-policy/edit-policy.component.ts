@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PolicyComponent } from '../policy/policy.component';
+import { PolicyComponent } from '../policy.component';
 
 
 @Component({
@@ -12,7 +12,6 @@ export class EditPolicyComponent extends PolicyComponent implements OnInit {
   policySelected: Object = new Object();
   customerSelected: Object = new Object();
   editState: boolean = false;
-  statuses: string[] = ['quotation', 'policy'];
 
 
   async getPolicy() {
