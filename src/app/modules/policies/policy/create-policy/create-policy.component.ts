@@ -79,10 +79,12 @@ export class CreatePolicyComponent extends PolicyComponent implements OnInit {
   async createRisks(object: InsuredObject) {
     await this.getRisksConfig(object);
     this.objectRisksConfig.forEach(async (element) => {
-      this.risk.riskId = element.riskId;
-      this.risk.objectId = object.id;
-      this.risk.isSelected = 'false';
-      await this.policyService.createRisks(this.risk).then();
+      if (element.version === this.policy.version) {
+        this.risk.riskId = element.riskId;
+        this.risk.objectId = object.id;
+        this.risk.isSelected = 'false';
+        await this.policyService.createRisks(this.risk).then();
+      }
     });
     await this.delay(300);
   }
