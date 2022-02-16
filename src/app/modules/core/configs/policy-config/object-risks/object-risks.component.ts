@@ -13,8 +13,7 @@ export class ObjectRisksComponent implements OnInit {
   risks: ObjectRisksConfig[] = [];
   newRisk: ObjectRisksConfig = new ObjectRisksConfig();
   editState: boolean = false;
-  Filter = '';
-  userInput = '';
+  ascending: boolean = false;
 
   ngOnInit(): void {
     this.loadRisks();
@@ -34,9 +33,20 @@ export class ObjectRisksComponent implements OnInit {
   async setRisk(risk: ObjectRisksConfig) {
     this.newRisk = risk;
   }
-
-  async onRiskFilter() {
-    this.userInput = this.Filter;
+  sort(arr: any[], sortBy: string) {
+    console.log("niech zadziała");
+    this.ascending = !this.ascending;
+    if (typeof arr[0][sortBy] === 'number') {
+      this.ascending
+        ? arr.sort((a, b) => a[sortBy] - b[sortBy])
+        : arr.sort((a, b) => b[sortBy] - a[sortBy]);
+    } else {
+      this.ascending
+        ? arr.sort((a, b) => a[sortBy].localeCompare(b[sortBy]))
+        : arr.sort((a, b) => b[sortBy].localeCompare(a[sortBy]));
+    }
   }
+
+
 
 }

@@ -12,12 +12,11 @@ import { LayoutModule } from './modules/layout/layout.module';
 import { BrowserModule } from '@angular/platform-browser';
 //Components
 import { AppComponent } from './app.component';
-import { FilteringPipe } from './pipes/filtering.pipe';
-import { SortingPipe } from './pipes/sorting.pipe';
+
 
 
 @NgModule({
-  declarations: [AppComponent, FilteringPipe, SortingPipe],
+  declarations: [AppComponent],
   imports: [
     //Angular modules
     BrowserModule,
@@ -30,10 +29,6 @@ import { SortingPipe } from './pipes/sorting.pipe';
     PoliciesModule,
     UsersModule,
     SharedModule,
-    FilteringPipe,
-    SortingPipe
-
-
   ],
   providers: [],
   bootstrap: [AppComponent],
