@@ -55,12 +55,11 @@
     </ng-template>
     <table class="table table-hover">
         <thead>
-            <tr tr class="clickable" (click)="sort(risks,'id')">
-                <th scope="col1">Id</th>
-
-                <th scope="col2">Type</th>
-                <th scope="col3">Object Key</th>
-                <th scope="col4">Version</th>
+            <tr tr class="clickable">
+                <th scope="col1" (click)="sort(risks,'id')">Id</th>
+                <th scope="col2" (click)="sort(risks,'objectType')">Type</th>
+                <th scope="col3" (click)="sort(risks,'riskId')">Object Key</th>
+                <th scope="col4" (click)="sort(risks,'version')">Version</th>
                 <th></th>
             </tr>
         </thead>
