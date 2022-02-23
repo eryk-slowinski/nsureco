@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ObjectFlexfieldsConfig } from 'src/app/models/objectFlexfieldsConfig';
 import { PolicyService } from 'src/app/services/policy.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-object-flexfields',
@@ -8,7 +9,7 @@ import { PolicyService } from 'src/app/services/policy.service';
   styleUrls: ['./object-flexfields.component.css']
 })
 export class ObjectFlexfieldsComponent implements OnInit {
-  constructor(public policyService: PolicyService) { }
+  constructor(public policyService: PolicyService, public sharedService: SharedService) { }
 
   flexfields: ObjectFlexfieldsConfig[] = [];
   newFlexfield: ObjectFlexfieldsConfig = new ObjectFlexfieldsConfig();
@@ -32,5 +33,9 @@ export class ObjectFlexfieldsComponent implements OnInit {
   async setFlexfield(flexfield: ObjectFlexfieldsConfig) {
     this.newFlexfield = flexfield;
   }
+  sorting(arr: any[], sortBy: string) {
+    this.sharedService.sort(arr, sortBy);
+  }
+
 
 }

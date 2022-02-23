@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PolicyLinesConfig } from 'src/app/models/policyLinesConfig';
 import { PolicyService } from 'src/app/services/policy.service';
+import { SharedService } from 'src/app/services/shared.service';
+
 
 @Component({
   selector: 'app-policy-line-types',
@@ -8,7 +10,7 @@ import { PolicyService } from 'src/app/services/policy.service';
   styleUrls: ['./policy-line-types.component.css']
 })
 export class PolicyLineTypesComponent implements OnInit {
-  constructor(public policyService: PolicyService) { }
+  constructor(public policyService: PolicyService, public sharedService: SharedService) { }
 
   productLines: PolicyLinesConfig[] = [];
   newProductLine: PolicyLinesConfig;
@@ -31,5 +33,8 @@ export class PolicyLineTypesComponent implements OnInit {
 
   async setPolicyLineTypeConfig(productLine: PolicyLinesConfig) {
     this.newProductLine = productLine;
+  }
+  sorting(arr: any[], sortBy: string) {
+    this.sharedService.sort(arr, sortBy);
   }
 }

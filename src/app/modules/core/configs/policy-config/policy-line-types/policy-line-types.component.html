@@ -52,11 +52,11 @@
     </ng-template>
     <table class="table table-hover">
         <thead>
-            <tr>
-                <th scope="col1">Id</th>
-                <th scope="col2">Product id</th>
-                <th scope="col3">Product line id</th>
-                <th scope="col4">Version</th>
+            <tr tr class="clickable">
+                <th scope="col1" (click)="sorting(productLines,'id')">Id</th>
+                <th scope="col2" (click)="sorting(productLines,'productId')">Product id</th>
+                <th scope="col3" (click)="sorting(productLines,'policyLineType')">Product line id</th>
+                <th scope="col4" (click)="sorting(productLines,'version')">Version</th>
                 <th></th>
             </tr>
         </thead>
