@@ -57,12 +57,12 @@
     </ng-template>
     <table class="table table-hover">
         <thead>
-            <tr>
-                <th scope="col1">Id</th>
-                <th scope="col2">Product id</th>
-                <th scope="col3">Start date</th>
-                <th scope="col4">End date</th>
-                <th scope="col4">Version</th>
+            <tr tr class="clickable">
+                <th scope="col1" (click)="sorting(products,'id')">Id</th>
+                <th scope="col2" (click)="sorting(products,'id')">Product id</th>
+                <th scope="col3" (click)="sorting(products,'id')">Start date</th>
+                <th scope="col4" (click)="sorting(products,'id')">End date</th>
+                <th scope="col4" (click)="sorting(products,'id')">Version</th>
                 <th></th>
             </tr>
         </thead>

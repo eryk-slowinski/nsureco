@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsConfig } from 'src/app/models/productsConfig';
 import { PolicyService } from 'src/app/services/policy.service';
-
+import { SharedService } from 'src/app/services/shared.service';
 @Component({
   selector: 'app-products-config',
   templateUrl: './products-config.component.html',
@@ -9,7 +9,7 @@ import { PolicyService } from 'src/app/services/policy.service';
 })
 export class ProductsConfigComponent implements OnInit {
 
-  constructor(public policyService: PolicyService) { }
+  constructor(public policyService: PolicyService, public sharedService: SharedService) { }
 
   products: ProductsConfig[] = [];
   newProduct: ProductsConfig;
@@ -32,5 +32,8 @@ export class ProductsConfigComponent implements OnInit {
 
   async setProductConfig(product: ProductsConfig) {
     this.newProduct = product;
+  }
+  sorting(arr: any[], sortBy: string) {
+    this.sharedService.sort(arr, sortBy);
   }
 }
