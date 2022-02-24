@@ -83,17 +83,17 @@
     </ng-template>
     <table class="table table-hover">
         <thead>
-            <tr>
-                <th scope="col1">Vehicle id</th>
-                <th scope="col2">Vehicle type</th>
-                <th scope="col3">Brand</th>
-                <th scope="col4">Vehicle model</th>
-                <th scope="col5">Generation</th>
-                <th scope="col6">Engine type</th>
-                <th scope="col7">Engine</th>
-                <th scope="col8">Power</th>
-                <th scope="col9">Protection class</th>
-                <th scope="col10">Parts availability</th>
+            <tr tr class="clickable">
+                <th scope="col1" (click)="sorting(vehicles,'vehicleId')">Vehicle id</th>
+                <th scope="col2" (click)="sorting(vehicles,'vehicleType')">Vehicle type</th>
+                <th scope="col3" (click)="sorting(vehicles,'brand')">Brand</th>
+                <th scope="col4" (click)="sorting(vehicles,'vehicleModel')">Vehicle model</th>
+                <th scope="col5" (click)="sorting(vehicles,'generation')">Generation</th>
+                <th scope="col6" (click)="sorting(vehicles,'engineType')">Engine type</th>
+                <th scope="col7" (click)="sorting(vehicles,'engine')">Engine</th>
+                <th scope="col8" (click)="sorting(vehicles,'power')">Power</th>
+                <th scope="col9" (click)="sorting(vehicles,'protectionClass')">Protection class</th>
+                <th scope="col10" (click)="sorting(vehicles,'partsAvailability')">Parts availability</th>
                 <th></th>
             </tr>
         </thead>

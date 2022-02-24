@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Vehicle } from 'src/app/models/vehicle';
 import { PolicyService } from 'src/app/services/policy.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -9,7 +10,7 @@ import { PolicyService } from 'src/app/services/policy.service';
 })
 export class VehiclesComponent implements OnInit {
 
-  constructor(public policyService: PolicyService) { }
+  constructor(public policyService: PolicyService, public sharedService: SharedService) { }
 
   vehicles: Vehicle[] = [];
   newVehicle: Vehicle = new Vehicle();
@@ -32,6 +33,9 @@ export class VehiclesComponent implements OnInit {
 
   async setVehicle(vehicle: Vehicle) {
     this.newVehicle = vehicle;
+  }
+  sorting(arr: any[], sortBy: string) {
+    this.sharedService.sort(arr, sortBy);
   }
 
 }
