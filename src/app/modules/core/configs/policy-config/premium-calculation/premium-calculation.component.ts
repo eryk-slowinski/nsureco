@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PremiumCalcConfigHeaders } from 'src/app/models/premiumCalcConfigHeaders';
 import { PremiumCalcConfigValues } from 'src/app/models/premiumCalcConfigValues';
 import { PolicyService } from 'src/app/services/policy.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-premium-calculation',
@@ -10,7 +11,7 @@ import { PolicyService } from 'src/app/services/policy.service';
 })
 export class PremiumCalculationComponent implements OnInit {
 
-  constructor(public policyService: PolicyService) { }
+  constructor(public policyService: PolicyService, public sharedService: SharedService) { }
 
   headers: PremiumCalcConfigHeaders[] = [];
   values: PremiumCalcConfigValues[] = [];
@@ -51,5 +52,8 @@ export class PremiumCalculationComponent implements OnInit {
         this.newValue = element;
       }
     });
+  }
+  sorting(arr: any[], sortBy: string) {
+    this.sharedService.sort(arr, sortBy);
   }
 }
