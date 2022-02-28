@@ -51,7 +51,12 @@ export class CreatePolicyComponent implements OnInit {
   vehicleId: number;
   statuses: String[] = ["quotation", "policy"]
   status: String;
+<<<<<<< HEAD
   productsConfig: ProductsConfig = new ProductsConfig();
+=======
+  displayStyle = 'none';
+  requiredRisks: ObjectRisks[] = [];
+>>>>>>> develop
 
   constructor(
     public policyService: PolicyService,
@@ -216,20 +221,34 @@ export class CreatePolicyComponent implements OnInit {
     this.driverObject = await this.policyService.createInsuredObject(this.driverObject).then();
   }
 
-  async getRisksConfig(object: InsuredObject) {
+  async getRisksConfig(vehicleObject: InsuredObject) {
     await this.policyService
-      .getObjectRisksConfig(object)
+      .getObjectRisksConfig(vehicleObject)
       .then((data) => (this.objectRisksConfig = data));
     this.objectRisksConfig.sort((a, b) =>
       a.riskId.localeCompare(b.riskId)
     );
   }
 
-  async createRisks(object: InsuredObject) {
-    await this.getRisksConfig(object);
+  async getRequiredRisks() {
+    await this.getRisksConfig(this.vehicleObject);
+    this.requiredRisks = [];
+    this.objectRisksConfig.forEach(or => {
+      this.risks.forEach(risk => {
+        if (risk.riskId == or.riskId) {
+          if (risk.isSelected == 'false' && or.required.toString() == 'true') {
+            this.requiredRisks.push(risk);
+          }
+        }
+      })
+    });
+  }
+
+  async createRisks(vehicleObject: InsuredObject) {
+    await this.getRisksConfig(vehicleObject);
     this.objectRisksConfig.forEach(async (element) => {
       this.risk.riskId = element.riskId;
-      this.risk.objectId = object.objectId;
+      this.risk.objectId = vehicleObject.objectId;
       this.risk.isSelected = 'false';
       await this.policyService.createRisks(this.risk).then();
     });
@@ -293,6 +312,20 @@ export class CreatePolicyComponent implements OnInit {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
+  openPopup() {
+    this.displayStyle = 'block';
+  }
+
+  async closePopup() {
+    this.displayStyle = 'none';
+  }
+
+  async completePolicy() {
+    await this.updatePolicy();
+    this.closePopup();
+  }
+
+
   ngOnInit() {
     this.customerService.customerSelected.subscribe((customer) => {
       this.customerSelected = customer;
@@ -300,18 +333,4 @@ export class CreatePolicyComponent implements OnInit {
     this.customerService.customerSelected.next(this.customerSelected);
   }
 
-
-  displayStyle = "none";
-
-  async openPopup() {
-    await this.calculation(this.policyLine, this.vehicleObject)
-    this.displayStyle = "block";
-  }
-  async completePolicy() {
-    await this.updatePolicy();
-    this.displayStyle = "none";
-  }
-  async closePopup() {
-    this.displayStyle = "none";
-  }
 }
