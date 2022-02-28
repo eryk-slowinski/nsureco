@@ -10,6 +10,7 @@
         </div>
     </ng-template>
 
+
     <ng-template #addPolicyLineConfig>
         <div class="container mt-50">
             <div class="row mb-2">
@@ -50,11 +51,19 @@
             </div>
         </div>
     </ng-template>
+    <br><br><br><br>
+
     <table class="table table-hover">
         <thead>
             <tr tr class="clickable">
-                <th scope="col1" (click)="sorting(productLines,'id')">Id</th>
-                <th scope="col2" (click)="sorting(productLines,'productId')">Product id</th>
+                <th scope="col1" (click)="sorting(productLines,'id')">
+                    <input type="text" id="id" name="id" size="1">
+                    <button size="1">Filter </button> <br> Id
+                </th>
+                <th scope="col2" (click)="sorting(productLines,'productId')">
+                    <input type="text" id="id" name="id" size="1">
+                    <button size="1">Filter </button> <br> Product id
+                </th>
                 <th scope="col3" (click)="sorting(productLines,'policyLineType')">Product line id</th>
                 <th scope="col4" (click)="sorting(productLines,'version')">Version</th>
                 <th></th>

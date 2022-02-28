@@ -51,12 +51,9 @@ export class CreatePolicyComponent implements OnInit {
   vehicleId: number;
   statuses: String[] = ["quotation", "policy"]
   status: String;
-<<<<<<< HEAD
   productsConfig: ProductsConfig = new ProductsConfig();
-=======
   displayStyle = 'none';
   requiredRisks: ObjectRisks[] = [];
->>>>>>> develop
 
   constructor(
     public policyService: PolicyService,
