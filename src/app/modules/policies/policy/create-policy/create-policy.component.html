@@ -38,13 +38,12 @@
     <div class="col-auto">
       <h4 class="mt-3 text-center">Product & policy line</h4>
       <label for="startDate">Select policy start date:</label>
-      <input class="form-control" id="startDate" type="date" [(ngModel)]="productConfig.startDate"
-        (change)="setEndDate(productConfig.startDate); chooseProduct()">
+      <input class="form-control" id="startDate" type="date" [(ngModel)]="policy.startDate"
+        (change)="setEndDate(policy.startDate); chooseProduct()">
       <label for="endDate">Select policy end date:</label>
-      <input class="form-control" id="endDate" type="date" [disabled]="!productConfig.startDate"
-        [(ngModel)]="policy.endDate">
+      <input class="form-control" id="endDate" type="date" [disabled]="!policy.startDate" [(ngModel)]="policy.endDate">
       <label for="product">Select product:</label>
-      <select [disabled]="!productConfig.startDate || policy.productType != null" class="d-inline" id="product"
+      <select [disabled]="!policy.startDate || policy.productType != null" class="d-inline" id="product"
         class="form-control" [(ngModel)]="policy.productType" (change)="choosePolicyLine(); createPolicy()">
         <option selected hidden>Product</option>
         <option *ngFor="let product of products">{{product.productId}}</option>
@@ -230,7 +229,7 @@
       </table>
     </div>
   </div>
-  <button class="btn btn-primary" type="submit" (click)="calculation(policyLine, vehicleObject)">Calculate
+  <button class="btn btn-primary" type="submit" (click)="calculation(policy, vehicleObject)">Calculate
     premium</button>
   <button type="button" class="btn btn-primary" (click)="openPopup();">Complete
     Policy</button>

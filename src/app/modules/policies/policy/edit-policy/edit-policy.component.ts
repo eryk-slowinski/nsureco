@@ -50,6 +50,7 @@ export class EditPolicyComponent extends PolicyComponent implements OnInit {
 
   async getAllObjects() {
     await this.getPolicy();
+    await this.chooseProduct()
     await this.getPolicyLine();
     await this.getInsuredVehicle()
     await this.getInsuredDriver();
@@ -80,7 +81,6 @@ export class EditPolicyComponent extends PolicyComponent implements OnInit {
     });
     this.customerService.customerSelected.next(this.customerSelected);
     this.getAllObjects();
-    this.chooseProduct();
     this.getRisksConfig(this.vehicleObject);
   }
 }

@@ -228,8 +228,8 @@ export class PolicyService {
       .toPromise();
   }
 
-  async calculation(policyLine: PolicyLine) {
-    await this.http.post(this.calculationUrl, policyLine).toPromise();
+  async calculation(policy: Policy) {
+    await this.http.post(this.calculationUrl, policy).toPromise();
   }
 
   async checkStatus(): Promise<String> {

@@ -45,7 +45,7 @@
         <tbody>
           <tr>
             <th scope="row">Policy ID</th>
-            <td>{{policySelected['policyId']}}</td>
+            <td>{{policySelected['id']}}</td>
           </tr>
           <tr>
             <th scope="row">Product type</th>
@@ -415,7 +415,7 @@
       </table>
     </div>
     <button class="btn btn-primary" type="submit"
-      (click)="getAllObjects(); calculation(policyLine, vehicleObject)">Calculate
+      (click)="getAllObjects(); calculation(policy, vehicleObject)">Calculate
       premium</button>
     <h5 class="mt-3">TOTAL PREMIUM: {{totalPremium}}</h5>
 

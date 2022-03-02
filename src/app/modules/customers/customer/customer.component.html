@@ -50,7 +50,7 @@
         <tr class="policyRow" class="clickable" (click)="editPolicy(result)" routerLink="/editpolicy"
           [ngStyle]="{'background-color': result['status']=='policy' ?'rgb(216, 243, 216)':'rgb(255, 255, 230)'}"
           *ngFor="let result of policiesList">
-          <td>{{ result['policyId'] }}</td>
+          <td>{{ result['id'] }}</td>
           <td>{{ result['type'] }}</td>
           <td>{{ result['status'] }}</td>
           <td>{{ result['startDate'] | date: "mediumDate" }}</td>

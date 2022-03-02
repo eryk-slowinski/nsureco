@@ -53,6 +53,7 @@ export abstract class PolicyComponent {
 
   async chooseProduct() {
     this.productConfig.endDate = this.policy.endDate;
+    this.productConfig.startDate = this.policy.startDate;
     await this.policyService
       .getProducts(this.productConfig)
       .then((data) => (this.products = data));
@@ -130,8 +131,8 @@ export abstract class PolicyComponent {
     }
     await this.policyService.getVehicles(this.vehicle).then((data) => {
       this.vehicles[vehicleProperties] = data;
-      if (this.vehicles.id) {
-        this.vehicleId = this.vehicles.id[0];
+      if (this.vehicles['vehicleId']) {
+        this.vehicleId = this.vehicles['vehicleId'][0];
       }
     })
   }
@@ -179,13 +180,14 @@ export abstract class PolicyComponent {
     this.risks.sort((a, b) => a.riskId.localeCompare(b.riskId));
   }
 
-  async calculation(policyLine: PolicyLine, vehicle: InsuredObject) {
+  async calculation(policy: Policy, vehicle: InsuredObject) {
+
     let totalPremium = 0;
     this.risks.forEach((risk) => {
       risk.premium = null;
       risk.premiumForPeriod = null;
     })
-    await this.policyService.calculation(policyLine);
+    await this.policyService.calculation(policy);
     await this.reloadCoverages(vehicle);
     this.risks.forEach((risk) => {
       if (risk.premium != NaN)
@@ -195,7 +197,7 @@ export abstract class PolicyComponent {
   }
 
   async openPopup() {
-    await this.calculation(this.policyLine, this.vehicleObject)
+    await this.calculation(this.policy, this.vehicleObject)
     this.displayStyle = "block";
   }
   async completePolicy() {
