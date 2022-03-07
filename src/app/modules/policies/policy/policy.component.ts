@@ -49,7 +49,7 @@ export abstract class PolicyComponent {
   vehicleId: number;
   totalPremium: number = 0;
   displayStyle: string = 'none'
-
+  requiredRisks: ObjectRisk[] = [];
 
   async chooseProduct() {
     this.productConfig.endDate = this.policy.endDate;
@@ -181,7 +181,6 @@ export abstract class PolicyComponent {
   }
 
   async calculation(policy: Policy, vehicle: InsuredObject) {
-
     let totalPremium = 0;
     this.risks.forEach((risk) => {
       risk.premium = null;
@@ -196,10 +195,35 @@ export abstract class PolicyComponent {
     this.totalPremium = totalPremium;
   }
 
+  async getRequiredRisks() {
+    await this.getRisksConfig(this.vehicleObject);
+    this.requiredRisks = [];
+    this.objectRisksConfig.forEach(or => {
+      this.risks.forEach(risk => {
+        if (risk.riskId == or.riskId) {
+          if (risk.isSelected == 'false' && or.required.toString() == 'true') {
+            this.requiredRisks.push(risk);
+          }
+        }
+      })
+    });
+  }
+
   async openPopup() {
+    this.requiredRisks = [];
+    this.objectRisksConfig.forEach(or => {
+      this.risks.forEach(risk => {
+        if (risk.riskId == or.riskId) {
+          if (risk.isSelected == 'false' && or.required.toString() == 'true') {
+            this.requiredRisks.push(risk);
+          }
+        }
+      })
+    });
     await this.calculation(this.policy, this.vehicleObject)
     this.displayStyle = "block";
   }
+
   async completePolicy() {
     await this.updatePolicy();
     this.displayStyle = "none";

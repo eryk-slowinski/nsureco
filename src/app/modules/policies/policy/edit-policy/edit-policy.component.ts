@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Policy } from 'src/app/models/policy';
 import { PolicyComponent } from '../policy.component';
 
 
@@ -12,7 +13,6 @@ export class EditPolicyComponent extends PolicyComponent implements OnInit {
   policySelected: Object = new Object();
   customerSelected: Object = new Object();
   editState: boolean = false;
-
 
   async getPolicy() {
     this.policy = await this.policyService.getPolicy(this.policySelected).then();
@@ -70,6 +70,10 @@ export class EditPolicyComponent extends PolicyComponent implements OnInit {
     await this.updateVehicle();
     await this.updateInsuredDriver();
     await this.getAllObjects();
+  }
+
+  async getRequiredRisks() {
+    await this.getRequiredRisks();
   }
 
   ngOnInit(): void {

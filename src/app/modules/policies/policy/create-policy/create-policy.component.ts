@@ -89,6 +89,10 @@ export class CreatePolicyComponent extends PolicyComponent implements OnInit {
     await this.delay(300);
   }
 
+  async getRequiredRisks() {
+    await this.getRequiredRisks();
+  }
+
   ngOnInit() {
     this.customerService.customerSelected.subscribe((customer) => {
       this.customerSelected = customer;
