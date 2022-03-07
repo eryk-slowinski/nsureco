@@ -2,7 +2,7 @@ import { PolicyService } from 'src/app/services/policy.service';
 import { Component, OnInit } from '@angular/core';
 import { Policy } from 'src/app/models/policy';
 import { CustomerService } from 'src/app/services/customer.service';
-import { Customers } from 'src/app/models/customers';
+import { Customer } from 'src/app/models/customer';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -17,12 +17,12 @@ export class CustomerComponent implements OnInit {
   policy: Policy = new Policy();
   policiesList: Policy[];
   editState: boolean = false;
-  customer: Customers = new Customers();
+  customer: Customer = new Customer();
   error: string;
 
   async chooseCustomer() {
-    if (this.customerSelected['customerId']) {
-      this.customer.customerId = this.customerSelected['customerId'];
+    if (this.customerSelected['id']) {
+      this.customer.id = this.customerSelected['id'];
       this.customer = await this.customerService.searchCustomer(this.customer).then()
       this.customer = this.customer[0];
       this.customer.birthDate = this.datepipe.transform(this.customer.birthDate, 'yyyy-MM-dd');
@@ -30,9 +30,9 @@ export class CustomerComponent implements OnInit {
   }
 
   async searchPolicy() {
-    this.policy.ownerId = this.customerSelected['customerId'];
+    this.policy.ownerId = this.customerSelected['id'];
     this.policiesList = await this.policyService.searchPolicy(this.policy).then();
-    this.policiesList.sort((a, b) => b.policyId - a.policyId)
+    this.policiesList.sort((a, b) => b.id - a.id)
   }
 
   async modifyCustomer() {

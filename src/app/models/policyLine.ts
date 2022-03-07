@@ -1,5 +1,5 @@
 export class PolicyLine {
-  policyLineId: number;
+  id: number;
   transactionId: number;
   policyId: number;
   policyLineType: string;

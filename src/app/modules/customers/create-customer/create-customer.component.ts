@@ -1,4 +1,4 @@
-import { Customers } from './../../../models/customers';
+import { Customer } from './../../../models/customer';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -10,7 +10,7 @@ import { CustomerService } from 'src/app/services/customer.service';
 export class CreateCustomerComponent implements OnInit {
   constructor(private customerService: CustomerService) { }
 
-  customer: Customers = new Customers();
+  customer: Customer = new Customer();
   error: string;
   success: string;
 

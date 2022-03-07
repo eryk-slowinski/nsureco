@@ -1,6 +1,6 @@
 export class Transaction {
-  transactionId?: number;
-  transactionType: string;
+  id: number;
   modifiedBy: string;
   timestamp: string;
+  transactionType: string;
 }

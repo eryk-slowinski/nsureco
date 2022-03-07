@@ -1,5 +1,5 @@
 export class InsuredObject {
-  objectId: number;
+  id: number;
   policyLineId: number;
   transactionId: number;
   type: string;

@@ -1,4 +1,4 @@
-export class VehicleTypesConfig {
+export class VehicleTypeConfig {
   id: number;
   policyLineType: string;
   vehicleType: string;

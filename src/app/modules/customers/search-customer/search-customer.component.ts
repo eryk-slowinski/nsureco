@@ -1,7 +1,7 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomerService } from '../../../services/customer.service';
 import { Component } from '@angular/core';
-import { Customers } from 'src/app/models/customers';
+import { Customer } from 'src/app/models/customer';
 
 @Component({
   selector: 'app-search-customer',
@@ -10,8 +10,8 @@ import { Customers } from 'src/app/models/customers';
 export class SearchCustomerComponent {
   constructor(private customerService: CustomerService) { }
 
-  searchResults: Customers[];
-  customer: Customers = new Customers();
+  searchResults: Customer[];
+  customer: Customer = new Customer();
 
   searchForm = new FormGroup({
     searchBy: new FormControl('name', Validators.required),
@@ -21,7 +21,7 @@ export class SearchCustomerComponent {
   async search() {
     this.customer.name = null;
     this.customer.pesel = null;
-    this.customer.customerId = null;
+    this.customer.id = null;
     this.customer[this.searchForm.value.searchBy] = this.searchForm.value.searchValue;
     this.searchResults = await this.customerService.searchCustomer(this.customer).then();
   }

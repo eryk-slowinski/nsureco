@@ -1,6 +1,6 @@
 <h3 class="text-center mt-3">Create policy</h3>
 
-<div class="container" *ngIf="customerSelected['customerId']; else noCustomer">
+<div class="container" *ngIf="customerSelected['id']; else noCustomer">
   <div class="row justify-content-center">
     <div class="col-auto">
       <h4 class="mt-3 text-center">Policy owner</h4>
@@ -8,7 +8,7 @@
         <tbody>
           <tr>
             <th scope="row">ID</th>
-            <td>{{customerSelected['customerId']}}</td>
+            <td>{{customerSelected['id']}}</td>
           </tr>
           <tr>
             <th scope="row">Name</th>
@@ -30,9 +30,7 @@
             <th scope="row">Address</th>
             <td>{{customerSelected['address']}}</td>
           </tr>
-          <button class="btn btn-primary" routerLink="/customer">
-            Cancel
-          </button>
+          <button class="btn btn-primary" routerLink="/customer">Cancel</button>
         </tbody>
       </table>
 
@@ -40,19 +38,20 @@
     <div class="col-auto">
       <h4 class="mt-3 text-center">Product & policy line</h4>
       <label for="startDate">Select policy start date:</label>
-      <input class="form-control" id="startDate" type="date" [(ngModel)]="startDate" (change)="setEndDate(startDate)">
+      <input class="form-control" id="startDate" type="date" [(ngModel)]="policy.startDate"
+        (change)="setEndDate(policy.startDate); chooseProduct()">
       <label for="endDate">Select policy end date:</label>
-      <input class="form-control" id="endDate" type="date" [disabled]="!startDate" [(ngModel)]="policy.endDate">
+      <input class="form-control" id="endDate" type="date" [disabled]="!policy.startDate" [(ngModel)]="policy.endDate">
       <label for="product">Select product:</label>
-      <select [disabled]="!startDate || policy.productType != null" class="d-inline" id="product" class="form-control"
-        [(ngModel)]="policy.productType" (change)="choosePolicyLine(policy.productType); createPolicy()">
+      <select [disabled]="!policy.startDate || policy.productType != null" class="d-inline" id="product"
+        class="form-control" [(ngModel)]="policy.productType" (change)="choosePolicyLine(); createPolicy()">
         <option selected hidden>Product</option>
         <option *ngFor="let product of products">{{product.productId}}</option>
       </select>
       <label for="policyLine">Select policy line:</label>
       <select [disabled]="!policy.productType || policyLine.policyLineType != null" id="policyLine" class="form-control"
         [(ngModel)]="policyLine.policyLineType"
-        (change)="chooseVeh('brand'); getRequiredObjects(policyLine.policyLineType); getVehicleTypes(vehicleTypesObject); updatePolicyLine(); vehicle.vehicleType = null">
+        (change)="chooseVeh('brand'); getRequiredObjects(policyLine.policyLineType); getVehicleTypes(vehicleTypeObject); updatePolicyLine(); vehicle.vehicleType = null">
         <option selected hidden>Policy line</option>
         <option *ngFor="let policyLine of policyLines">{{policyLine.policyLineType}}</option>
       </select>
@@ -79,7 +78,7 @@
       <label>Choose a vehicle type:</label>
       <select class="form-control" [(ngModel)]="vehicle.vehicleType" (change)="chooseVeh('brand')">
         <option selected hidden>{{vehicle.vehicleType}}</option>
-        <option *ngFor="let vehicleType of vehicleTypesConfig">{{ vehicleType.vehicleType }}
+        <option *ngFor="let vehicleType of vehicleTypeConfig">{{ vehicleType.vehicleType }}
       </select>
       <label>Choose a brand:</label>
       <select class="form-control" [disabled]="!vehicle.vehicleType" [(ngModel)]="vehicle.brand"
@@ -162,7 +161,7 @@
       <label>Choose a trailer type:</label>
       <select class="form-control" [(ngModel)]="vehicle.vehicleType" (change)="chooseVeh('brand')">
         <option selected hidden>{{vehicle.vehicleType}}</option>
-        <option *ngFor="let vehicleType of vehicleTypesConfig">{{ vehicleType.vehicleType }}
+        <option *ngFor="let vehicleType of vehicleTypeConfig">{{ vehicleType.vehicleType }}
       </select>
       <label>Choose a brand:</label>
       <select class="form-control" [disabled]="!vehicle.vehicleType" [(ngModel)]="vehicle.brand"
@@ -199,6 +198,7 @@
   <div class="col-sm" *ngIf="vehicleCreated; then calculate"></div>
 </ng-template>
 
+
 <ng-template #calculate>
   <div class="container mt-4">
     <h4 class="mt-3">Select risks</h4>
@@ -229,7 +229,7 @@
       </table>
     </div>
   </div>
-  <button class="btn btn-primary" type="submit" (click)="calculation(policyLine, vehicleObject)">Calculate
+  <button class="btn btn-primary" type="submit" (click)="calculation(policy, vehicleObject)">Calculate
     premium</button>
   <button type="button" class="btn btn-primary" (click)="openPopup(); getRequiredRisks()">Complete
     Policy</button>
@@ -237,6 +237,7 @@
 </ng-template>
 
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+<<<<<<< HEAD:src/app/modules/policies/create-policy/create-policy.component.html
   <div *ngIf="!requiredRisks[0]; else requiredRisksModal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -262,6 +263,31 @@
             Cancel
           </button>
         </div>
+=======
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Summary of Policy no: {{policy.id}}</h4>
+      </div>
+      <div class="modal-body">
+        <p class="fw-bold">Policy holder: {{customerSelected['name']}}</p>
+        <p class="fw-bold">Start date: {{policy.startDate | date: "mediumDate"}}</p>
+        <p class="fw-bold">End date: {{policy.endDate | date: "mediumDate"}}</p>
+        <p class="fw-bold">Premium to Paid: {{totalPremium}}</p>
+        <p class="fw-bold"><label>Policy status:</label>
+          <select class="form-control" style="width:100px" [(ngModel)]="policy.status">
+            <option *ngFor="let status of statuses">{{status}}</option>
+          </select>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="completePolicy();" routerLink="/customer">
+          Complete
+        </button>
+        <button type="button" class="btn btn-primary" (click)="closePopup()">
+          Cancel
+        </button>
+>>>>>>> feature/ins-109:src/app/modules/policies/policy/create-policy/create-policy.component.html
       </div>
     </div>
   </div>
