@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { SharedModule } from './modules/shared/shared.module';
 //components
 import { CreatePolicyComponent } from './modules/policies/create-policy/create-policy.component';
 import { UserLoginComponent } from './modules/users/user-login/user-login.component';

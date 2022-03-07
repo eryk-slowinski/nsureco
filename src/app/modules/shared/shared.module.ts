@@ -13,7 +13,6 @@ export class SharedModule {
 
 
   static sort(arr: any[], sortBy: string) {
-    console.log("niech zadziała");
     this.ascending = !this.ascending;
     if (typeof arr[0][sortBy] === 'number') {
       this.ascending

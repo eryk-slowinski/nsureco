@@ -12,11 +12,13 @@ import { LayoutModule } from './modules/layout/layout.module';
 import { BrowserModule } from '@angular/platform-browser';
 //Components
 import { AppComponent } from './app.component';
+//Pipes
+import { FilteringPipePipe } from './modules/shared/filtering-pipe.pipe';
 
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FilteringPipePipe],
   imports: [
     //Angular modules
     BrowserModule,

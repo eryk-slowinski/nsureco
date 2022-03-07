@@ -15,6 +15,7 @@ export class PolicyLineTypesComponent implements OnInit {
   productLines: PolicyLinesConfig[] = [];
   newProductLine: PolicyLinesConfig;
   editState: boolean = false;
+  searchTerm: string;
 
   ngOnInit(): void {
     this.loadPolicyLineTypesConfig();

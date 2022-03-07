@@ -52,25 +52,24 @@
         </div>
     </ng-template>
     <br><br><br><br>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Filter by ID." style="width: min-content;"
+            [(ngModel)]="searchTerm" />
+    </div>
 
     <table class="table table-hover">
         <thead>
             <tr tr class="clickable">
-                <th scope="col1" (click)="sorting(productLines,'id')">
-                    <input type="text" id="id" name="id" size="1">
-                    <button size="1">Filter </button> <br> Id
-                </th>
-                <th scope="col2" (click)="sorting(productLines,'productId')">
-                    <input type="text" id="id" name="id" size="1">
-                    <button size="1">Filter </button> <br> Product id
-                </th>
+                <th scope="col1" (click)="sorting(productLines,'id')">Id</th>
+                <th scope="col2" (click)="sorting(productLines,'productId')"> Product id</th>
                 <th scope="col3" (click)="sorting(productLines,'policyLineType')">Product line id</th>
                 <th scope="col4" (click)="sorting(productLines,'version')">Version</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr class="clickable" (click)="setPolicyLineTypeConfig(result)" *ngFor="let result of productLines">
+            <tr class="clickable" (click)="setPolicyLineTypeConfig(result)"
+                *ngFor="let result of productLines | filteringPipe:searchTerm">
                 <td>{{ result['id'] }}</td>
                 <td>{{ result['productId'] }}</td>
                 <td>{{ result['policyLineType']}}</td>
