@@ -3,6 +3,7 @@ export class ObjectRisk {
   riskId: string;
   objectId: number;
   premium: number;
+  depositAmount: number;
   premiumForPeriod: number;
   isSelected: string;
 }

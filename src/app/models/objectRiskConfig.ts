@@ -3,5 +3,6 @@ export class ObjectRiskConfig {
   objectType: string;
   riskId: string;
   required: string;
+  depositAmount: number;
   version: string;
 }
