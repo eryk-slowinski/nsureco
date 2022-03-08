@@ -82,6 +82,7 @@ export class CreatePolicyComponent extends PolicyComponent implements OnInit {
       if (element.version === this.policy.version) {
         this.risk.riskId = element.riskId;
         this.risk.objectId = object.id;
+        this.risk.depositAmount = element.depositAmount;
         this.risk.isSelected = 'false';
         await this.policyService.createRisks(this.risk).then();
       }

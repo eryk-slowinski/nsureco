@@ -112,7 +112,7 @@
       </select>
       <button class="btn btn-primary" type="submit"
         (click)="updateInsuredVehicle(); reloadCoverages(vehicleObject); vehicleCreated = true"
-        [disabled]="!vehicleObject.n05 || vehicleCreated">Create
+        [disabled]="!vehicleObject.n02 || vehicleCreated">Create
         insured vehicle</button>
     </div>
     <div class="col-sm">
@@ -131,9 +131,6 @@
       <label for="vehVal">Value of a vehicle:</label>
       <input class="form-control" id="vehVal" type="text" [disabled]="!vehicleObject.n04"
         [(ngModel)]="vehicleObject.n02">
-      <label for="insDep">Sum of an insurance deposit:</label>
-      <input class="form-control" id="insDep" type="text" [disabled]="!vehicleObject.n02"
-        [(ngModel)]="vehicleObject.n05">
     </div>
     <div class="col-sm">
       <h4 class="text-center mt-3">Driver</h4>
@@ -187,10 +184,7 @@
       <label for="vehVal">Value of a vehicle:</label>
       <input class="form-control" id="vehVal" type="text" [disabled]="!vehicleObject.n01"
         [(ngModel)]="vehicleObject.n02">
-      <label for="insDep">Sum of an insurance deposit:</label>
-      <input class="form-control" id="insDep" type="text" [disabled]="!vehicleObject.n02"
-        [(ngModel)]="vehicleObject.n05">
-      <button class="btn btn-primary" type="submit" [disabled]="!vehicleObject.n05 || vehicleCreated"
+      <button class="btn btn-primary" type="submit" [disabled]="!vehicleObject.n02 || vehicleCreated"
         (click)="createInsuredVehicle(); reloadCoverages(vehicleObject); vehicleCreated = true">Create
         insured trailer</button>
     </div>
@@ -209,6 +203,7 @@
             <th scope="col">Covered</th>
             <th scope="col">Id</th>
             <th scope="col">Risk</th>
+            <th scope="col">Deposit amount</th>
             <th scope="col">Premium</th>
             <th scope="col">Premium for period</th>
           </tr>
@@ -223,6 +218,7 @@
             </td>
             <td>{{risk.id}}</td>
             <td>{{risk.riskId}}</td>
+            <td>{{risk.depositAmount}}</td>
             <td>{{risk.premium}}</td>
             <td>{{risk.premiumForPeriod}}</td>
           </tr>

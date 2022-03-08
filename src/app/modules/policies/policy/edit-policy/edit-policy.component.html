@@ -148,10 +148,6 @@
             <th scope="row">Mileage</th>
             <td>{{vehicleObject.n04}}</td>
           </tr>
-          <tr>
-            <th scope="row">Amount of insurance deposit</th>
-            <td>{{vehicleObject.n05}}</td>
-          </tr>
         </tbody>
       </table>
     </div>
@@ -298,8 +294,6 @@
         <input class="form-control" id="mileage" type="text" [(ngModel)]="vehicleObject.n04">
         <label for="vehVal">Value of a vehicle:</label>
         <input class="form-control" id="vehVal" type="text" [(ngModel)]="vehicleObject.n02">
-        <label for="insDep">Sum of an insurance deposit:</label>
-        <input class="form-control" id="insDep" type="text" [(ngModel)]="vehicleObject.n05">
       </div>
 
       <div class="col-sm">
@@ -343,8 +337,6 @@
         <input class="form-control" id="mfgYear" type="date" [(ngModel)]="vehicleObject.d01">
         <label for="vehVal">Value of a vehicle:</label>
         <input class="form-control" id="vehVal" type="text" [(ngModel)]="vehicleObject.n02">
-        <label for="insDep">Sum of an insurance deposit:</label>
-        <input class="form-control" id="insDep" type="text" [(ngModel)]="vehicleObject.n05">
       </div>
     </div>
 
@@ -367,6 +359,7 @@
             <th scope="col">Covered</th>
             <th scope="col">Id</th>
             <th scope="col">Risk</th>
+            <th scope="col">Deposit amount</th>
             <th scope="col">Premium</th>
             <th scope="col">Premium for period</th>
           </tr>
@@ -376,6 +369,7 @@
             <td>{{risk.isSelected}}</td>
             <td>{{risk.id}}</td>
             <td>{{risk.riskId}}</td>
+            <td>{{risk.depositAmount}}</td>
             <td>{{risk.premium}}</td>
             <td>{{risk.premiumForPeriod}}</td>
           </tr>
