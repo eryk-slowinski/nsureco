@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { FilteringPipePipe } from './filtering-pipe.pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: [FilteringPipePipe],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
-  exports: [FormsModule, ReactiveFormsModule, RouterModule],
+  exports: [FormsModule, ReactiveFormsModule, RouterModule, FilteringPipePipe],
 })
 export class SharedModule {
   static ascending: boolean = false;

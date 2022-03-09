@@ -52,9 +52,11 @@
         </div>
     </ng-template>
     <br><br><br><br>
+
     <div class="form-group">
-        <input type="text" class="form-control" placeholder="Filter by ID." style="width: min-content;"
-            [(ngModel)]="searchTerm" />
+        <input type="text" class="form-control" style="width: min-content;" [(ngModel)]="searchTerm" />
+        <input type="text" class="form-control" style="width: min-content;" [(ngModel)]="searchTerm1" />
+
     </div>
 
     <table class="table table-hover">
@@ -62,14 +64,14 @@
             <tr tr class="clickable">
                 <th scope="col1" (click)="sorting(productLines,'id')">Id</th>
                 <th scope="col2" (click)="sorting(productLines,'productId')"> Product id</th>
-                <th scope="col3" (click)="sorting(productLines,'policyLineType')">Product line id</th>
+                <th scope="col3" (click)="sorting(productLines,'policyLineType')">Policy line type</th>
                 <th scope="col4" (click)="sorting(productLines,'version')">Version</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr class="clickable" (click)="setPolicyLineTypeConfig(result)"
-                *ngFor="let result of productLines | filteringPipe:searchTerm">
+                *ngFor="let result of productLines | filteringPipe:searchTerm | filteringPipe:searchTerm1">
                 <td>{{ result['id'] }}</td>
                 <td>{{ result['productId'] }}</td>
                 <td>{{ result['policyLineType']}}</td>

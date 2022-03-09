@@ -1,15 +1,26 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { PolicyLinesConfig } from 'src/app/models/policyLinesConfig';
 
 @Pipe({
   name: 'filteringPipe'
 })
 export class FilteringPipePipe implements PipeTransform {
 
-  transform(list: any[], filters: Object) {
-    const keys = Object.keys(filters).filter(key => filters[key]);
-    const filterUser = user => keys.every(key => user[key] === filters[key]);
 
-    return keys.length ? list.filter(filterUser) : list;
+  transform(arr: any[], searchTerm: string) {
+
+    if (!arr || !searchTerm) {
+      return arr;
+    }
+
+    return arr.filter(productLine =>
+      productLine.version.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      productLine.id == searchTerm ||
+      productLine.policyLineType.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
+      productLine.productId.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+
+    );
   }
+
 
 }

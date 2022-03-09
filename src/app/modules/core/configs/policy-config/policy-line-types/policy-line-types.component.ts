@@ -16,6 +16,7 @@ export class PolicyLineTypesComponent implements OnInit {
   newProductLine: PolicyLinesConfig;
   editState: boolean = false;
   searchTerm: string;
+  searchTerm1: string;
 
   ngOnInit(): void {
     this.loadPolicyLineTypesConfig();
@@ -38,4 +39,6 @@ export class PolicyLineTypesComponent implements OnInit {
   sorting(arr: any[], sortBy: string) {
     this.sharedService.sort(arr, sortBy);
   }
+
+
 }
