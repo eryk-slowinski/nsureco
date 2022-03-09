@@ -185,37 +185,6 @@
 <ng-template #editPolicy>
   <div class="row justify-content-center">
     <div class="col-auto">
-      <h4 class="mt-3 text-center">Policy owner</h4>
-      <table class="table table-borderless w-auto">
-        <tbody>
-          <tr>
-            <th scope="row">ID</th>
-            <td>{{customerSelected[0]}}</td>
-          </tr>
-          <tr>
-            <th scope="row">Name</th>
-            <td>{{customerSelected[1]}}</td>
-          </tr>
-          <tr>
-            <th scope="row">PESEL</th>
-            <td>{{customerSelected[2]}}</td>
-          </tr>
-          <tr>
-            <th scope="row">Birth date</th>
-            <td>{{customerSelected[3] | date: "mediumDate"}}</td>
-          </tr>
-          <tr>
-            <th scope="row">Phone number</th>
-            <td>{{customerSelected[4]}}</td>
-          </tr>
-          <tr>
-            <th scope="row">Address</th>
-            <td>{{customerSelected[5]}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-auto">
       <h4 class="mt-3 text-center">Product & policy line</h4>
       <label for="startDate">Select policy start date:</label>
       <input class="form-control" id="startDate" type="date" [(ngModel)]="policy.startDate">
