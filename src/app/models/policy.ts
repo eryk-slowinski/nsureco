@@ -1,5 +1,5 @@
 export class Policy {
-  policyId?: number;
+  id: number;
   transactionId: number;
   ownerId: number;
   type: string;

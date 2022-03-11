@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ObjectRisksConfig } from 'src/app/models/objectRisksConfig';
+import { ObjectRiskConfig } from 'src/app/models/objectRiskConfig';
 import { PolicyService } from 'src/app/services/policy.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -12,8 +12,8 @@ export class ObjectRisksComponent implements OnInit {
   constructor(public policyService: PolicyService, public sharedService: SharedService) { }
 
 
-  risks: ObjectRisksConfig[] = [];
-  newRisk: ObjectRisksConfig = new ObjectRisksConfig();
+  risks: ObjectRiskConfig[] = [];
+  newRisk: ObjectRiskConfig = new ObjectRiskConfig();
   editState: boolean = false;
   ascending: boolean = false;
 
@@ -32,7 +32,7 @@ export class ObjectRisksComponent implements OnInit {
       .mergeObjectRiskConfig(this.newRisk).then();
   }
 
-  async setRisk(risk: ObjectRisksConfig) {
+  async setRisk(risk: ObjectRiskConfig) {
     this.newRisk = risk;
   }
   sorting(arr: any[], sortBy: string) {

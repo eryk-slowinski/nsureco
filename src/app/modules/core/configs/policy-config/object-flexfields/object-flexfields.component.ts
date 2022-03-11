@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ObjectFlexfieldsConfig } from 'src/app/models/objectFlexfieldsConfig';
+import { ObjectFlexfieldConfig } from 'src/app/models/objectFlexfieldConfig';
 import { PolicyService } from 'src/app/services/policy.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -11,8 +11,8 @@ import { SharedService } from 'src/app/services/shared.service';
 export class ObjectFlexfieldsComponent implements OnInit {
   constructor(public policyService: PolicyService, public sharedService: SharedService) { }
 
-  flexfields: ObjectFlexfieldsConfig[] = [];
-  newFlexfield: ObjectFlexfieldsConfig = new ObjectFlexfieldsConfig();
+  flexfields: ObjectFlexfieldConfig[] = [];
+  newFlexfield: ObjectFlexfieldConfig = new ObjectFlexfieldConfig();
   editState: boolean = false;
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class ObjectFlexfieldsComponent implements OnInit {
       .mergeObjectFlexfield(this.newFlexfield).then();
   }
 
-  async setFlexfield(flexfield: ObjectFlexfieldsConfig) {
+  async setFlexfield(flexfield: ObjectFlexfieldConfig) {
     this.newFlexfield = flexfield;
   }
   sorting(arr: any[], sortBy: string) {

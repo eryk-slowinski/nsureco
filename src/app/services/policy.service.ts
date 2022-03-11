@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
@@ -8,22 +8,20 @@ import { PolicyLine } from 'src/app/models/policyLine';
 import { Transaction } from 'src/app/models/transaction';
 import { Vehicle } from 'src/app/models/vehicle';
 import { Policy } from 'src/app/models/policy';
-import { ObjectsConfig } from 'src/app/models/objectsConfig';
-import { ObjectRisksConfig } from 'src/app/models/objectRisksConfig';
-import { ObjectRisks } from 'src/app/models/objectRisks';
-import { PolicyLinesConfig } from 'src/app/models/policyLinesConfig';
-import { ProductsConfig } from 'src/app/models/productsConfig';
-import { VehicleTypesConfig } from './../models/vehicleTypesConfig';
-import { ObjectFlexfieldsConfig } from '../models/objectFlexfieldsConfig';
-import { PremiumCalcConfigHeaders } from '../models/premiumCalcConfigHeaders';
-import { PremiumCalcConfigValues } from '../models/premiumCalcConfigValues';
-
+import { ProductConfig } from '../models/productConfig';
+import { PolicyLineTypeConfig } from '../models/policyLineTypeConfig';
+import { ObjectTypeConfig } from '../models/objectTypeConfig';
+import { ObjectRiskConfig } from '../models/objectRiskConfig';
+import { ObjectRisk } from '../models/objectRisk';
+import { VehicleTypeConfig } from '../models/vehicleTypeConfig';
+import { ObjectFlexfieldConfig } from '../models/objectFlexfieldConfig';
+import { PremiumCalcConfigHeader } from '../models/premiumCalcConfigHeader';
+import { PremiumCalcConfigValue } from '../models/premiumCalcConfigValue';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PolicyService {
-
   urlStatus: string = environment.policyService + 'serviceStatus';
   createTransactionUrl: string =
     environment.policyService + 'createtransaction';
@@ -49,53 +47,56 @@ export class PolicyService {
   searchPolicyLineUrl: string = environment.policyService + 'searchpolicyline';
   updatePolicyUrl: string = environment.policyService + 'updatepolicy';
   updatePolicyLineUrl: string = environment.policyService + 'updatepolicyline';
-  updateInsuredVehicleUrl: string = environment.policyService + 'updateinsuredvehicle';
-  searchInsuredObjectUrl: string = environment.policyService + 'searchinsuredobject';
+  updateInsuredVehicleUrl: string =
+    environment.policyService + 'updateinsuredvehicle';
+  searchInsuredObjectUrl: string =
+    environment.policyService + 'searchinsuredobject';
   searchVehicleUrl: string = environment.policyService + 'getvehicle';
   allVehiclesUrl: string = environment.policyService + 'allvehicles';
   mergeVehicleUrl: string = environment.policyService + 'mergevehicle';
-  allObjectFlexfieldsUrl: string = environment.policyService + 'allobjectflexfields';
-  mergeObjectFlexfieldUrl: string = environment.policyService + 'mergeobjectflexfield';
-  allObjectRiskConfigUrl: string = environment.policyService + 'allobjectriskconfig';
-  mergeObjectRiskConfigUrl: string = environment.policyService + 'mergeobjectriskconfig';
-  getAllProductConfigUrl: string = environment.policyService + 'allproductconfig';
-  mergeProductConfigUrl: string = environment.policyService + 'mergeproductConfig';
-  getAllPolicyLineTypesUrl: string = environment.policyService + 'allpolicylinetypesconfig';
-  mergePolicyLineTypeConfigUrl: string = environment.policyService + 'mergepolicylinetypeconfig';
-  getAllPremiumHeadersUrl: string = environment.policyService + 'allpremiumheadersconfig';
-  mergePremiumHeadersUrl: string = environment.policyService + 'mergepremiumheadersconfig';
-  getAllPremiumValuesUrl: string = environment.policyService + 'allpremiumvaluesconfig';
-  mergePremiumValuesUrl: string = environment.policyService + 'mergepremiumvaluesconfig';
+  allObjectFlexfieldsUrl: string =
+    environment.policyService + 'allobjectflexfields';
+  mergeObjectFlexfieldUrl: string =
+    environment.policyService + 'mergeobjectflexfield';
+  allObjectRiskConfigUrl: string =
+    environment.policyService + 'allobjectriskconfig';
+  mergeObjectRiskConfigUrl: string =
+    environment.policyService + 'mergeobjectriskconfig';
+  mergeProductConfigUrl: string =
+    environment.policyService + 'mergeproductConfig';
+  getAllPolicyLineTypesUrl: string =
+    environment.policyService + 'allpolicylinetypesconfig';
+  mergePolicyLineTypeConfigUrl: string =
+    environment.policyService + 'mergepolicylinetypeconfig';
+  getAllPremiumHeadersUrl: string =
+    environment.policyService + 'allpremiumheadersconfig';
+  mergePremiumHeadersUrl: string =
+    environment.policyService + 'mergepremiumheadersconfig';
+  getAllPremiumValuesUrl: string =
+    environment.policyService + 'allpremiumvaluesconfig';
+  mergePremiumValuesUrl: string =
+    environment.policyService + 'mergepremiumvaluesconfig';
   policySelected: BehaviorSubject<Object> = new BehaviorSubject<any>(Object);
 
   constructor(private http: HttpClient) { }
 
-  async getProducts(productsConfig: ProductsConfig): Promise<ProductsConfig[]> {
-    console.log(productsConfig);
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    }
+  async getProducts(productConfig: ProductConfig): Promise<ProductConfig[]> {
     return await this.http
-      .post<ProductsConfig[]>(this.getProductsUrl, productsConfig)
+      .post<ProductConfig[]>(this.getProductsUrl, productConfig)
       .toPromise();
   }
 
-  async getProductConfig(): Promise<ProductsConfig[]> {
+  async getPolicyLines(policyLineConfig: PolicyLineTypeConfig): Promise<PolicyLineTypeConfig[]> {
     return await this.http
-      .get<ProductsConfig[]>(this.getAllProductConfigUrl)
+      .post<PolicyLineTypeConfig[]>(this.getPolicyLinesUrl, policyLineConfig)
       .toPromise();
   }
 
-  async getPolicyLines(policyLineConfig: PolicyLinesConfig): Promise<PolicyLinesConfig[]> {
-
+  async getObjects(policyLine: string): Promise<ObjectTypeConfig[]> {
     return await this.http
-      .post<PolicyLinesConfig[]>(this.getPolicyLinesUrl, policyLineConfig)
-      .toPromise();
-  }
-
-  async getObjects(policyLine: string): Promise<ObjectsConfig[]> {
-    return await this.http
-      .post<ObjectsConfig[]>(this.getObjectsUrl, { policyLineId: policyLine })
+      .post<ObjectTypeConfig[]>(this.getObjectsUrl, {
+        policyLineId: policyLine,
+      })
       .toPromise();
   }
 
@@ -112,7 +113,6 @@ export class PolicyService {
   }
 
   async createPolicy(policy: Policy): Promise<Policy> {
-
     return await this.http
       .post<Policy>(this.createPolicyUrl, policy)
       .toPromise();
@@ -123,38 +123,46 @@ export class PolicyService {
   }
 
   async searchPolicy(policy: Policy): Promise<Policy[]> {
-    return await this.http.post<Policy[]>(this.searchPolicyUrl, policy).toPromise();
+    return await this.http
+      .post<Policy[]>(this.searchPolicyUrl, policy)
+      .toPromise();
   }
 
   async updatePolicy(policy: Policy): Promise<Policy> {
-    return await this.http.post<Policy>(this.updatePolicyUrl, policy).toPromise();
+    return await this.http
+      .post<Policy>(this.updatePolicyUrl, policy)
+      .toPromise();
   }
 
-  async createPolicyLine(policyLine: PolicyLine): Promise<PolicyLine> {
+  async createPolicyLine(policyLine: Object): Promise<PolicyLine> {
     return await this.http
       .post<PolicyLine>(this.createPolicyLineUrl, policyLine)
       .toPromise();
   }
 
-  async getPolicyLine(policyLine: PolicyLine): Promise<PolicyLine> {
+  async getPolicyLine(policyLine: Object): Promise<PolicyLine> {
     return await this.http
       .post<PolicyLine>(this.getPolicyLineUrl, policyLine)
       .toPromise();
   }
 
   async searchPolicyLine(policyLine: PolicyLine): Promise<PolicyLine> {
-    return await this.http.post<PolicyLine>(this.searchPolicyLineUrl, policyLine).toPromise();
+    return await this.http
+      .post<PolicyLine>(this.searchPolicyLineUrl, policyLine)
+      .toPromise();
   }
 
   async updatePolicyLine(policyLine: PolicyLine): Promise<PolicyLine> {
-    return await this.http.post<PolicyLine>(this.updatePolicyLineUrl, policyLine).toPromise();
+    return await this.http
+      .post<PolicyLine>(this.updatePolicyLineUrl, policyLine)
+      .toPromise();
   }
 
   async getObjectRisksConfig(
     insuredObject: InsuredObject
-  ): Promise<ObjectRisksConfig[]> {
+  ): Promise<ObjectRiskConfig[]> {
     return await this.http
-      .post<ObjectRisksConfig[]>(this.getObjectRisksConfigUrl, insuredObject)
+      .post<ObjectRiskConfig[]>(this.getObjectRisksConfigUrl, insuredObject)
       .toPromise();
   }
 
@@ -194,38 +202,40 @@ export class PolicyService {
       .toPromise();
   }
 
-  async createRisks(risks: ObjectRisks): Promise<ObjectRisks> {
+  async createRisks(risks: ObjectRisk): Promise<ObjectRisk> {
     return await this.http
-      .post<ObjectRisks>(this.createRisksUrl, risks)
+      .post<ObjectRisk>(this.createRisksUrl, risks)
       .toPromise();
   }
 
-  async getRisks(object: InsuredObject): Promise<ObjectRisks[]> {
+  async getRisks(object: InsuredObject): Promise<ObjectRisk[]> {
     return await this.http
-      .post<ObjectRisks[]>(this.getRisksUrl, object)
+      .post<ObjectRisk[]>(this.getRisksUrl, object)
       .toPromise();
   }
 
   async getVehicleTypes(
-    object: VehicleTypesConfig
-  ): Promise<VehicleTypesConfig[]> {
+    object: VehicleTypeConfig
+  ): Promise<VehicleTypeConfig[]> {
     return await this.http
-      .post<VehicleTypesConfig[]>(this.getVehicleTypesUrl, object)
+      .post<VehicleTypeConfig[]>(this.getVehicleTypesUrl, object)
       .toPromise();
   }
 
-  async changeCoverage(risk: ObjectRisks): Promise<ObjectRisks> {
+  async changeCoverage(risk: ObjectRisk): Promise<ObjectRisk> {
     return await this.http
-      .post<ObjectRisks>(this.updateRiskUrl, risk)
+      .post<ObjectRisk>(this.updateRiskUrl, risk)
       .toPromise();
   }
 
-  async calculation(policyLine: PolicyLine) {
-    await this.http.post(this.calculationUrl, policyLine).toPromise();
+  async calculation(policy: Policy) {
+    await this.http.post(this.calculationUrl, policy).toPromise();
   }
 
   async checkStatus(): Promise<String> {
-    return await this.http.get(this.urlStatus, { responseType: 'text' }).toPromise();
+    return await this.http
+      .get(this.urlStatus, { responseType: 'text' })
+      .toPromise();
   }
 
   async getAllVehicles(): Promise<Vehicle[]> {
@@ -238,66 +248,88 @@ export class PolicyService {
       .toPromise();
   }
 
-  async getAllObjectFlexfields(): Promise<ObjectFlexfieldsConfig[]> {
-    return await this.http.get<ObjectFlexfieldsConfig[]>(this.allObjectFlexfieldsUrl).toPromise();
-  }
-
-  async mergeObjectFlexfield(flexfield: ObjectFlexfieldsConfig): Promise<ObjectFlexfieldsConfig> {
+  async getAllObjectFlexfields(): Promise<ObjectFlexfieldConfig[]> {
     return await this.http
-      .post<ObjectFlexfieldsConfig>(this.mergeObjectFlexfieldUrl, flexfield)
+      .get<ObjectFlexfieldConfig[]>(this.allObjectFlexfieldsUrl)
       .toPromise();
   }
 
-  async getAllObjectRiskConfig(): Promise<ObjectRisksConfig[]> {
-    return await this.http.get<ObjectRisksConfig[]>(this.allObjectRiskConfigUrl).toPromise();
-  }
-
-  async mergeObjectRiskConfig(risk: ObjectRisksConfig): Promise<ObjectRisksConfig> {
+  async mergeObjectFlexfield(
+    flexfield: ObjectFlexfieldConfig
+  ): Promise<ObjectFlexfieldConfig> {
     return await this.http
-      .post<ObjectRisksConfig>(this.mergeObjectRiskConfigUrl, risk)
+      .post<ObjectFlexfieldConfig>(this.mergeObjectFlexfieldUrl, flexfield)
       .toPromise();
   }
 
-  async mergeProductConfig(product: ProductsConfig): Promise<ProductsConfig> {
+  async getAllObjectRiskConfig(): Promise<ObjectRiskConfig[]> {
     return await this.http
-      .post<ProductsConfig>(this.mergeProductConfigUrl, product)
+      .get<ObjectRiskConfig[]>(this.allObjectRiskConfigUrl)
       .toPromise();
   }
 
-  async getAllPolicyLines(): Promise<PolicyLinesConfig[]> {
+  async mergeObjectRiskConfig(
+    risk: ObjectRiskConfig
+  ): Promise<ObjectRiskConfig> {
     return await this.http
-      .get<PolicyLinesConfig[]>(this.getAllPolicyLineTypesUrl)
+      .post<ObjectRiskConfig>(this.mergeObjectRiskConfigUrl, risk)
       .toPromise();
   }
 
-  async mergePolicyLineTypeConfig(policyLineType: PolicyLinesConfig): Promise<PolicyLinesConfig> {
+  async mergeProductConfig(product: ProductConfig): Promise<ProductConfig> {
     return await this.http
-      .post<PolicyLinesConfig>(this.mergePolicyLineTypeConfigUrl, policyLineType)
+      .post<ProductConfig>(this.mergeProductConfigUrl, product)
       .toPromise();
   }
 
-  async getAllPremiumCalcHeaders(): Promise<PremiumCalcConfigHeaders[]> {
+  async getAllPolicyLines(): Promise<PolicyLineTypeConfig[]> {
     return await this.http
-      .get<PremiumCalcConfigHeaders[]>(this.getAllPremiumHeadersUrl)
+      .get<PolicyLineTypeConfig[]>(this.getAllPolicyLineTypesUrl)
       .toPromise();
   }
 
-  async mergePremiumCalcHeadersConfig(premiumCalcHeaders: PremiumCalcConfigHeaders): Promise<PremiumCalcConfigHeaders> {
+  async mergePolicyLineTypeConfig(
+    policyLineType: PolicyLineTypeConfig
+  ): Promise<PolicyLineTypeConfig> {
     return await this.http
-      .post<PremiumCalcConfigHeaders>(this.mergePremiumHeadersUrl, premiumCalcHeaders)
+      .post<PolicyLineTypeConfig>(
+        this.mergePolicyLineTypeConfigUrl,
+        policyLineType
+      )
       .toPromise();
   }
 
-  async getAllPremiumCalcValues(): Promise<PremiumCalcConfigValues[]> {
+  async getAllPremiumCalcHeaders(): Promise<PremiumCalcConfigHeader[]> {
     return await this.http
-      .get<PremiumCalcConfigValues[]>(this.getAllPremiumValuesUrl)
+      .get<PremiumCalcConfigHeader[]>(this.getAllPremiumHeadersUrl)
       .toPromise();
   }
 
-  async mergePremiumCalcValuesConfig(premiumCalcValues: PremiumCalcConfigValues): Promise<PremiumCalcConfigValues> {
+  async mergePremiumCalcHeadersConfig(
+    premiumCalcHeaders: PremiumCalcConfigHeader
+  ): Promise<PremiumCalcConfigHeader> {
     return await this.http
-      .post<PremiumCalcConfigValues>(this.mergePremiumValuesUrl, premiumCalcValues)
+      .post<PremiumCalcConfigHeader>(
+        this.mergePremiumHeadersUrl,
+        premiumCalcHeaders
+      )
       .toPromise();
   }
 
+  async getAllPremiumCalcValues(): Promise<PremiumCalcConfigValue[]> {
+    return await this.http
+      .get<PremiumCalcConfigValue[]>(this.getAllPremiumValuesUrl)
+      .toPromise();
+  }
+
+  async mergePremiumCalcValuesConfig(
+    premiumCalcValues: PremiumCalcConfigValue
+  ): Promise<PremiumCalcConfigValue> {
+    return await this.http
+      .post<PremiumCalcConfigValue>(
+        this.mergePremiumValuesUrl,
+        premiumCalcValues
+      )
+      .toPromise();
+  }
 }

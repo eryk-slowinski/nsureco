@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PolicyLinesConfig } from 'src/app/models/policyLinesConfig';
+import { PolicyLineTypeConfig } from 'src/app/models/policyLineTypeConfig';
 import { PolicyService } from 'src/app/services/policy.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -12,8 +12,8 @@ import { SharedService } from 'src/app/services/shared.service';
 export class PolicyLineTypesComponent implements OnInit {
   constructor(public policyService: PolicyService, public sharedService: SharedService) { }
 
-  productLines: PolicyLinesConfig[] = [];
-  newProductLine: PolicyLinesConfig;
+  productLines: PolicyLineTypeConfig[] = [];
+  newProductLine: PolicyLineTypeConfig;
   editState: boolean = false;
   searchTerm: string;
   searchTerm1: string;
@@ -33,7 +33,7 @@ export class PolicyLineTypesComponent implements OnInit {
       .mergePolicyLineTypeConfig(this.newProductLine).then();
   }
 
-  async setPolicyLineTypeConfig(productLine: PolicyLinesConfig) {
+  async setPolicyLineTypeConfig(productLine: PolicyLineTypeConfig) {
     this.newProductLine = productLine;
   }
   sorting(arr: any[], sortBy: string) {

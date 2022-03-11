@@ -1,6 +1,6 @@
-export interface ObjectsConfig {
+export class PolicyLineTypeConfig {
   id: number;
+  productId: string;
   policyLineType: string;
-  objType: string;
   version: string;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PremiumCalcConfigHeaders } from 'src/app/models/premiumCalcConfigHeaders';
-import { PremiumCalcConfigValues } from 'src/app/models/premiumCalcConfigValues';
+import { PremiumCalcConfigHeader } from 'src/app/models/premiumCalcConfigHeader';
+import { PremiumCalcConfigValue } from 'src/app/models/premiumCalcConfigValue';
 import { PolicyService } from 'src/app/services/policy.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -13,10 +13,10 @@ export class PremiumCalculationComponent implements OnInit {
 
   constructor(public policyService: PolicyService, public sharedService: SharedService) { }
 
-  headers: PremiumCalcConfigHeaders[] = [];
-  values: PremiumCalcConfigValues[] = [];
-  newHeader: PremiumCalcConfigHeaders = new PremiumCalcConfigHeaders();
-  newValue: PremiumCalcConfigValues = new PremiumCalcConfigValues();
+  headers: PremiumCalcConfigHeader[] = [];
+  values: PremiumCalcConfigValue[] = [];
+  newHeader: PremiumCalcConfigHeader = new PremiumCalcConfigHeader();
+  newValue: PremiumCalcConfigValue = new PremiumCalcConfigValue();
   editState: boolean = false;
 
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class PremiumCalculationComponent implements OnInit {
       .mergePremiumCalcHeadersConfig(this.newHeader).then();
   }
 
-  async setHeaderConfig(header: PremiumCalcConfigHeaders) {
+  async setHeaderConfig(header: PremiumCalcConfigHeader) {
     this.newHeader = header;
   }
   async setValueConfig(value: number) {
