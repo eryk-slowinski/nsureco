@@ -25,10 +25,11 @@ export class PolicyLineTypesComponent implements OnInit, AfterViewInit {
   sort!: MatSort;
 
 
-  async loadPolicyLineTypeConfig(): Promise<PolicyLineTypeConfig[]> {
+  async loadPolicyLineTypeConfig() {
     await this.policyService.getAllPolicyLines().then((data) => (this.productLines = data));
     this.dataSource = new MatTableDataSource(this.productLines);
-    return this.productLines;
+    this.dataSource.sort = this.sort;
+
 
   }
   ngOnInit(): void {
@@ -37,7 +38,6 @@ export class PolicyLineTypesComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.loadPolicyLineTypeConfig();
-    this.dataSource.sort = this.sort;
 
   }
 
