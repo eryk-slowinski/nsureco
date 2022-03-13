@@ -16,9 +16,7 @@ export class PolicyLineTypesComponent implements AfterViewInit {
   constructor(public policyService: PolicyService, public sharedService: SharedService) { }
 
   productLines: PolicyLineTypeConfig[] = [];
-
   dataSource = new MatTableDataSource();
-
   displayedColumns: string[] = ['id', 'productId', 'policyLineType', 'version'];
 
   idFilter = new FormControl();
@@ -43,8 +41,6 @@ export class PolicyLineTypesComponent implements AfterViewInit {
     this.dataSource = new MatTableDataSource(this.productLines);
     this.dataSource.sort = this.sort;
     this.dataSource.filterPredicate = this.customFilterPredicate();
-
-
 
   }
 
@@ -90,7 +86,6 @@ export class PolicyLineTypesComponent implements AfterViewInit {
 
       let searchString = JSON.parse(filter);
       console.log(searchString);
-      //return true;
       return data.id.toString().trim().indexOf(searchString.id) !== -1 &&
         data.productId.toString().trim().toLowerCase().indexOf(searchString.productId.toLowerCase()) !== -1 &&
         data.policyLineType.toString().trim().toLowerCase().indexOf(searchString.policyLineType.toLowerCase()) !== -1 &&
