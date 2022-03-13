@@ -8,4 +8,4 @@ import { SharedModule } from '../shared/shared.module';
   imports: [CommonModule, SharedModule],
   exports: [UserLoginComponent],
 })
-export class UsersModule {}
+export class UsersModule { }

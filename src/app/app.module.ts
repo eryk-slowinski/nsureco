@@ -41,6 +41,7 @@ import { MatSortModule } from '@angular/material/sort';
     SharedModule,
     BrowserAnimationsModule,
     FormsModule,
+
     //Material modules
     MatInputModule,
     MatTableModule,
