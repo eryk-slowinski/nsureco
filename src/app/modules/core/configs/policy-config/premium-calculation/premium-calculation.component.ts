@@ -53,7 +53,5 @@ export class PremiumCalculationComponent implements OnInit {
       }
     });
   }
-  sorting(arr: any[], sortBy: string) {
-    this.sharedService.sort(arr, sortBy);
-  }
 }
+

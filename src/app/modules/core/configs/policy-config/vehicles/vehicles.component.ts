@@ -34,8 +34,6 @@ export class VehiclesComponent implements OnInit {
   async setVehicle(vehicle: Vehicle) {
     this.newVehicle = vehicle;
   }
-  sorting(arr: any[], sortBy: string) {
-    this.sharedService.sort(arr, sortBy);
-  }
+
 
 }

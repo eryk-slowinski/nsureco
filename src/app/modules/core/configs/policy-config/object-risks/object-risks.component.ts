@@ -35,9 +35,6 @@ export class ObjectRisksComponent implements OnInit {
   async setRisk(risk: ObjectRiskConfig) {
     this.newRisk = risk;
   }
-  sorting(arr: any[], sortBy: string) {
-    this.sharedService.sort(arr, sortBy);
-  }
 
 
 

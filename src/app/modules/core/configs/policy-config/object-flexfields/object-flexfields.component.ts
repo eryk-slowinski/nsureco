@@ -33,9 +33,6 @@ export class ObjectFlexfieldsComponent implements OnInit {
   async setFlexfield(flexfield: ObjectFlexfieldConfig) {
     this.newFlexfield = flexfield;
   }
-  sorting(arr: any[], sortBy: string) {
-    this.sharedService.sort(arr, sortBy);
-  }
 
 
 }
