@@ -16,10 +16,12 @@ export class ProductsConfigComponent implements OnInit {
   editState: boolean = false;
 
   ngOnInit(): void {
+
     this.loadProductConfig();
   }
 
   async loadProductConfig() {
+
     await this.policyService
       .getProducts(new ProductConfig())
       .then((data) => (this.products = data));

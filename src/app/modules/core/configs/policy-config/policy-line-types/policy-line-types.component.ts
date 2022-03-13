@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
 import { PolicyLineTypeConfig } from 'src/app/models/policyLineTypeConfig';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { PolicyService } from 'src/app/services/policy.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -9,36 +11,38 @@ import { SharedService } from 'src/app/services/shared.service';
   templateUrl: './policy-line-types.component.html',
   styleUrls: ['./policy-line-types.component.css']
 })
-export class PolicyLineTypesComponent implements OnInit {
+export class PolicyLineTypesComponent implements OnInit, AfterViewInit {
   constructor(public policyService: PolicyService, public sharedService: SharedService) { }
 
   productLines: PolicyLineTypeConfig[] = [];
-  newProductLine: PolicyLineTypeConfig;
-  editState: boolean = false;
-  searchTerm: string;
-  searchTerm1: string;
 
+  dataSource = new MatTableDataSource();
+
+  displayedColumns: string[] = ['id', 'productId', 'policyLineType', 'version'];
+
+
+  @ViewChild(MatSort)
+  sort!: MatSort;
+
+
+  async loadPolicyLineTypeConfig(): Promise<PolicyLineTypeConfig[]> {
+    await this.policyService.getAllPolicyLines().then((data) => (this.productLines = data));
+    this.dataSource = new MatTableDataSource(this.productLines);
+    return this.productLines;
+
+  }
   ngOnInit(): void {
-    this.loadPolicyLineTypesConfig();
+
+
+  }
+  ngAfterViewInit(): void {
+    this.loadPolicyLineTypeConfig();
+    this.dataSource.sort = this.sort;
+
   }
 
-  async loadPolicyLineTypesConfig() {
-    await this.policyService
-      .getAllPolicyLines()
-      .then((data) => (this.productLines = data));
-  }
 
-  async mergePolicyLineTypeConfig() {
-    await this.policyService
-      .mergePolicyLineTypeConfig(this.newProductLine).then();
-  }
-
-  async setPolicyLineTypeConfig(productLine: PolicyLineTypeConfig) {
-    this.newProductLine = productLine;
-  }
-  sorting(arr: any[], sortBy: string) {
-    this.sharedService.sort(arr, sortBy);
-  }
 
 
 }
+

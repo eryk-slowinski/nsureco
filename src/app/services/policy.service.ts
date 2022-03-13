@@ -81,6 +81,7 @@ export class PolicyService {
   constructor(private http: HttpClient) { }
 
   async getProducts(productConfig: ProductConfig): Promise<ProductConfig[]> {
+
     return await this.http
       .post<ProductConfig[]>(this.getProductsUrl, productConfig)
       .toPromise();

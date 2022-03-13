@@ -1,25 +1,17 @@
-.col-lg-1{
-    width: 210px;
-    margin-right: 10px;
-}
-.table{
-    margin-bottom: 35px;
-}
-
-.container{
-    margin-left: 35px;
-}
-
-.clickable{
-     cursor: pointer; 
-}
-.btn{
-    width: 110px;
-}
-
-.editbtn{
-    float: right;
-    margin-top: 1%;
-    margin-left: 20%;
-}
-
+/* Structure */
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 50%;
+  }
+  
+  .mat-column-position {
+    max-width: 100px;
+  }
+  
+  .mat-column-name {
+    max-width: 100px;
+  }

@@ -12,6 +12,17 @@ import { LayoutModule } from './modules/layout/layout.module';
 import { BrowserModule } from '@angular/platform-browser';
 //Components
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//Material
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
+
+
+
 
 
 @NgModule({
@@ -28,6 +39,14 @@ import { AppComponent } from './app.component';
     PoliciesModule,
     UsersModule,
     SharedModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    //Material modules
+    MatInputModule,
+    MatTableModule,
+    MatButtonModule,
+    MatSortModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
