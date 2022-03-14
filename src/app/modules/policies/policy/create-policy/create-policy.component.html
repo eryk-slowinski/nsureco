@@ -3,37 +3,7 @@
 <div class="container" *ngIf="customerSelected['id']; else noCustomer">
   <div class="row justify-content-center">
     <div class="col-auto">
-      <h4 class="mt-3 text-center">Policy owner</h4>
-      <table class="table table-borderless w-auto">
-        <tbody>
-          <tr>
-            <th scope="row">ID</th>
-            <td>{{customerSelected['id']}}</td>
-          </tr>
-          <tr>
-            <th scope="row">Name</th>
-            <td>{{customerSelected['name']}}</td>
-          </tr>
-          <tr>
-            <th scope="row">PESEL</th>
-            <td>{{customerSelected['pesel']}}</td>
-          </tr>
-          <tr>
-            <th scope="row">Birth date</th>
-            <td>{{customerSelected['birthDate'] | date: "mediumDate"}}</td>
-          </tr>
-          <tr>
-            <th scope="row">Phone number</th>
-            <td>{{customerSelected['phoneNum']}}</td>
-          </tr>
-          <tr>
-            <th scope="row">Address</th>
-            <td>{{customerSelected['address']}}</td>
-          </tr>
-          <button class="btn btn-primary" routerLink="/customer">Cancel</button>
-        </tbody>
-      </table>
-
+      <app-customer-table></app-customer-table>
     </div>
     <div class="col-auto">
       <h4 class="mt-3 text-center">Product & policy line</h4>
@@ -117,20 +87,12 @@
     </div>
     <div class="col-sm">
       <h4 class="text-center mt-3">Vehicle properties</h4>
-      <label for="VIN">Please enter VIN:</label>
-      <input class="form-control" id="VIN" type="text" [(ngModel)]="vehicleObject.c01">
-      <label for="rgnum">Please enter registration number:</label>
-      <input class="form-control" id="rgnum" type="text" [disabled]="!vehicleObject.c01"
-        [(ngModel)]="vehicleObject.c02">
-      <label for="mfgYear">Please enter date of manufacturing:</label>
-      <input class="form-control" id="mfgYear" type="date" [(ngModel)]="vehicleObject.d01"
-        [disabled]="!vehicleObject.c02">
-      <label for="mileage">Please enter mileage:</label>
-      <input class="form-control" id="mileage" type="text" [disabled]="!vehicleObject.d01"
-        [(ngModel)]="vehicleObject.n04">
-      <label for="vehVal">Value of a vehicle:</label>
-      <input class="form-control" id="vehVal" type="text" [disabled]="!vehicleObject.n04"
-        [(ngModel)]="vehicleObject.n02">
+
+      <ng-container *ngFor="let input of inputs">
+        <app-input [inputType]="input.inputType" [labelFor]="input.labelFor" [labelText]="input.labelText"
+          (emittedValue)="assignValue($event, input.assignTo)"></app-input>
+      </ng-container>
+
     </div>
     <div class="col-sm">
       <h4 class="text-center mt-3">Driver</h4>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-input',
@@ -7,13 +7,14 @@ import { Component, Input } from '@angular/core';
 })
 export class InputComponent {
 
-  @Input()
-  inputType: string = '';
-  @Input()
-  labelFor: string = '';
-  @Input()
-  labelText: string = '';
-  @Input()
-  ngModel: any;
+  @Input() inputType: string = '';
+  @Input() labelFor: string = '';
+  @Input() labelText: string = '';
+  @Input() inputValue: string = '';
+  @Output() emittedValue = new EventEmitter<string>();
+
+  onEmit() {
+    this.emittedValue.emit(this.inputValue)
+  }
 
 }

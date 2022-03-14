@@ -16,6 +16,18 @@ export class CreatePolicyComponent extends PolicyComponent implements OnInit {
   driverCreated: boolean = false;
   vehicleCreated: boolean = false;
 
+  inputs: any[] = [
+    { inputType: 'text', labelFor: 'VIN', labelText: 'Please enter VIN:', assignTo: 'c01' },
+    { inputType: 'text', labelFor: 'REG', labelText: 'Please enter registration number:', assignTo: 'c02' },
+    { inputType: 'date', labelFor: 'date', labelText: 'Please enter date of manufacturing:', assignTo: 'd01' },
+    { inputType: 'text', labelFor: 'mileage', labelText: 'Please enter milease:', assignTo: 'n04' },
+    { inputType: 'text', labelFor: 'value', labelText: 'Please enter value of a vehicle:', assignTo: 'n02' }
+  ]
+
+  assignValue(event, assignTo) {
+    this.vehicleObject[assignTo] = event;
+  }
+
   setEndDate(date: string) {
     var result = new Date(date);
     result.setFullYear(result.getFullYear() + 1);
