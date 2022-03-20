@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -41,6 +42,7 @@ import { MatSortModule } from '@angular/material/sort';
     SharedModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatFormFieldModule,
 
     //Material modules
     MatInputModule,
