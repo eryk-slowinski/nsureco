@@ -52,4 +52,6 @@
     </div>
   </div>
 </ng-template>
-<app-table-template [data]="data" [filteredValues]="filteredValues"></app-table-template>
+<div *ngIf="data.length>0">
+  <app-table-template [data]="data" [filteredValues]="filteredValues"></app-table-template>
+</div>

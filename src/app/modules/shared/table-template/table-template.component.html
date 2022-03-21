@@ -2,8 +2,7 @@
     <ng-container *ngFor="let control of filterControls; index as i">
         <th>
             <mat-form-field>
-                <input matInput class="form-field" [formControl]="control"
-                    placeholder={{displayedColumns[i].toUpperCase()}}>
+                <input matInput class="form-field" placeholder={{displayedColumns[i].toUpperCase()}}>
             </mat-form-field>
         </th>
     </ng-container>

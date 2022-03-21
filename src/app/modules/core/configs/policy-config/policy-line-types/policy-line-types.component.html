@@ -1,47 +1,102 @@
-<table>
-    <th>
-        <input size="7" class="form-field" [formControl]="idFilter" placeholder="Id Filter">
-    </th>
-    <th>
-        <input size="12" class="form-field" [formControl]="productIdFilter" placeholder="productId Filter">
-    </th>
-    <th>
-        <input size="20" class="form-field" [formControl]="policyLineTypeFilter" placeholder="Policy Line Type Filter">
-    </th>
-    <th>
-        <input class="form-field" [formControl]="versionFilter" placeholder="Version Filter">
-    </th>
-</table>
+<div>
+    <h4 class="mb-3 mt-3 text-center">Policy Line Config</h4>
+    <div *ngIf="!editState; then policyLineConfigLookup else addPolicyLineConfig"></div>
+    <ng-template #policyLineConfigLookup>
+        <div class="editbtn">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary btn-lg btn-block" (click)="editState=true">Edit</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" routerLink="..">Back</button>
+            </div>
+        </div>
+    </ng-template>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
-    <!--- Note that these columns can be defined in any order.
+    <ng-template #addPolicyLineConfig>
+        <div class="container mt-50">
+            <div class="row mb-2">
+                <div class="col-lg-1">
+                    <label for="id">Id</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="productId">Product id</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="startDate">Product line id</label>
+                </div>
+                <div class="col-lg-1">
+                    <label for="version">Version</label>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-lg-1">
+                    <input class="form-control" id="id" type="text" [(ngModel)]="newProductLine.id">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="productId" type="text" [(ngModel)]="newProductLine.productId">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="policyLineType" type="text"
+                        [(ngModel)]="newProductLine.policyLineType">
+                </div>
+                <div class="col-lg-1">
+                    <input class="form-control" id="version" type="text" [(ngModel)]="newProductLine.version">
+                </div>
+                <div class="col-lg-1">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-primary"
+                            (click)="mergePolicyLineTypeConfig(); editState=false">Add/Change</button>
+                        <button type="button" class="btn btn-primary" (click)="editState=false">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <br><br><br><br>
+    <table>
+        <th>
+            <input size="7" class="form-field" [formControl]="idFilter" placeholder="Id Filter">
+        </th>
+        <th>
+            <input size="12" class="form-field" [formControl]="productIdFilter" placeholder="productId Filter">
+        </th>
+        <th>
+            <input size="20" class="form-field" [formControl]="policyLineTypeFilter"
+                placeholder="Policy Line Type Filter">
+        </th>
+        <th>
+            <input class="form-field" [formControl]="versionFilter" placeholder="Version Filter">
+        </th>
+    </table>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+        <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-        <th mat-sort-header mat-header-cell *matHeaderCellDef> id </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="productId">
-        <th mat-sort-header mat-header-cell *matHeaderCellDef> productId </th>
-        <td mat-cell *matCellDef="let element"> {{element.productId}} </td>
-    </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="productId">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> productId </th>
+            <td mat-cell *matCellDef="let element"> {{element.productId}} </td>
+        </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="policyLineType">
-        <th mat-sort-header mat-header-cell *matHeaderCellDef> Policy Line Type </th>
-        <td mat-cell *matCellDef="let element"> {{element.policyLineType}} </td>
-    </ng-container>
+        <!-- Weight Column -->
+        <ng-container matColumnDef="policyLineType">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Policy Line Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.policyLineType}} </td>
+        </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="version">
-        <th mat-sort-header mat-header-cell *matHeaderCellDef> Version </th>
-        <td mat-cell *matCellDef="let element"> {{element.version}} </td>
-    </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="version">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Version </th>
+            <td mat-cell *matCellDef="let element"> {{element.version}} </td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>

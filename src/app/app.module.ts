@@ -1,6 +1,6 @@
 //Angular modules
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule, Pipe } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './appRoutingModule';
 //Feature modules
 import { SharedModule } from './modules/shared/shared.module';
@@ -43,13 +43,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     BrowserAnimationsModule,
     FormsModule,
     MatFormFieldModule,
-
     //Material modules
     MatInputModule,
     MatTableModule,
     MatButtonModule,
     MatSortModule,
     ReactiveFormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],

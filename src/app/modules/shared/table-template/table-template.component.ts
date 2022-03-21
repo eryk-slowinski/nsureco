@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,12 +9,10 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class TableTemplateComponent implements AfterViewInit {
 
-  constructor() { }
   @Input()
   data: any[] = [];
   @Input()
-  filteredValues: any = { id: "", version: "" };
-
+  filteredValues: any;
   dataSource = new MatTableDataSource();
   displayedColumns: string[] = [];
   filterControls: FormControl[] = [];

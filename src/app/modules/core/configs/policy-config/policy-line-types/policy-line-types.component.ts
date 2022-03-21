@@ -14,10 +14,11 @@ import { FormControl } from '@angular/forms';
 })
 export class PolicyLineTypesComponent implements AfterViewInit {
   constructor(public policyService: PolicyService, public sharedService: SharedService) { }
-
+  newProductLine: PolicyLineTypeConfig;
   productLines: PolicyLineTypeConfig[] = [];
   dataSource = new MatTableDataSource();
   displayedColumns: string[] = ['id', 'productId', 'policyLineType', 'version'];
+  editState: boolean = false;
 
   idFilter = new FormControl();
   productIdFilter = new FormControl();
@@ -93,6 +94,21 @@ export class PolicyLineTypesComponent implements AfterViewInit {
     }
     return myFilterPredicate;
   }
+  async loadPolicyLineTypesConfig() {
+    await this.policyService
+      .getAllPolicyLines()
+      .then((data) => (this.productLines = data));
+  }
+
+  async mergePolicyLineTypeConfig() {
+    await this.policyService
+      .mergePolicyLineTypeConfig(this.newProductLine).then();
+  }
+
+  async setPolicyLineTypeConfig(productLine: PolicyLineTypeConfig) {
+    this.newProductLine = productLine;
+  }
+
 }
 
 
