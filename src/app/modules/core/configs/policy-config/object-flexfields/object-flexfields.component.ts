@@ -14,7 +14,14 @@ export class ObjectFlexfieldsComponent implements OnInit {
   flexfields: ObjectFlexfieldConfig[] = [];
   newFlexfield: ObjectFlexfieldConfig = new ObjectFlexfieldConfig();
   editState: boolean = false;
-
+  displayedColumns: string[] = ['id', 'type', 'objectKey', 'objectValue'];
+  data;
+  filteredValues = {
+    id: '',
+    type: '',
+    objectKey: '',
+    objectValue: ''
+  }
   ngOnInit(): void {
     this.loadFlexfields();
   }
@@ -23,6 +30,7 @@ export class ObjectFlexfieldsComponent implements OnInit {
     await this.policyService
       .getAllObjectFlexfields()
       .then((data) => (this.flexfields = data));
+    this.data = this.flexfields;
   }
 
   public async mergeFlexfield() {
@@ -33,6 +41,4 @@ export class ObjectFlexfieldsComponent implements OnInit {
   async setFlexfield(flexfield: ObjectFlexfieldConfig) {
     this.newFlexfield = flexfield;
   }
-
-
 }
