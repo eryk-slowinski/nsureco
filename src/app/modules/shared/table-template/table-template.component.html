@@ -1,5 +1,5 @@
-<table>
-    <ng-container *ngFor="let control of filterControls; index as i">
+<table cellspacing="0">
+    <ng-container *ngFor=" let control of filterControls; index as i">
         <th>
             <mat-form-field>
                 <input matInput class="form-field" [formControl]="control"

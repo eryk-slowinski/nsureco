@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ObjectRiskConfig } from 'src/app/models/objectRiskConfig';
 import { PolicyService } from 'src/app/services/policy.service';
 import { SharedService } from 'src/app/services/shared.service';
-
 
 @Component({
   selector: 'app-object-risks',
@@ -11,6 +10,7 @@ import { SharedService } from 'src/app/services/shared.service';
 })
 export class ObjectRisksComponent implements OnInit {
   constructor(public policyService: PolicyService, public sharedService: SharedService) { }
+
   risks: ObjectRiskConfig[] = [];
   newRisk: ObjectRiskConfig = new ObjectRiskConfig();
   editState: boolean = false;
@@ -18,11 +18,9 @@ export class ObjectRisksComponent implements OnInit {
   displayedColumns: string[] = ['id', 'objectType', 'riskId', 'required', 'depositAmount', 'version'];
   filteredValues: any = { id: "", objectType: "", riskId: "", required: "", depositAmount: "", version: "" };
 
-
   ngOnInit() {
     this.loadRisks();
   }
-
 
   async loadRisks() {
     await this.policyService

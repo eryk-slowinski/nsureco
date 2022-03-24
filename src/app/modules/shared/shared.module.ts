@@ -12,7 +12,7 @@ import { TableTemplateComponent } from './table-template/table-template.componen
   declarations: [
     TableTemplateComponent
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, MatTableModule, MatFormFieldModule, MatInputModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSortModule],
   exports: [FormsModule, ReactiveFormsModule, RouterModule, MatButtonModule, MatInputModule, MatTableModule, MatSortModule, TableTemplateComponent, MatFormFieldModule],
 })
 export class SharedModule {
