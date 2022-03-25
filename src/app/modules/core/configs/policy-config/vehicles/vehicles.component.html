@@ -81,35 +81,7 @@
             </div>
         </div>
     </ng-template>
-    <table class="table table-hover">
-        <thead>
-            <tr tr class="clickable">
-                <th scope="col1">Vehicle id</th>
-                <th scope="col2">Vehicle type</th>
-                <th scope="col3">Brand</th>
-                <th scope="col4">Vehicle model</th>
-                <th scope="col5">Generation</th>
-                <th scope="col6">Engine type</th>
-                <th scope="col7">Engine</th>
-                <th scope="col8">Power</th>
-                <th scope="col9">Protection class</th>
-                <th scope="col10">Parts availability</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="clickable" (click)="setVehicle(result)" *ngFor="let result of vehicles">
-                <td>{{ result['vehicleId'] }}</td>
-                <td>{{ result['vehicleType'] }}</td>
-                <td>{{ result['brand'] }}</td>
-                <td>{{ result['vehicleModel']}}</td>
-                <td>{{ result['generation']}}</td>
-                <td>{{ result['engineType']}}</td>
-                <td>{{ result['engine']}}</td>
-                <td>{{ result['power']}}</td>
-                <td>{{ result['protectionClass']}}</td>
-                <td>{{ result['partsAvailability']}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div *ngIf="data.length>0">
+        <app-table-template [data]="data" [filteredValues]="filteredValues"></app-table-template>
+    </div>
 </div>
