@@ -55,25 +55,7 @@
             </div>
         </div>
     </ng-template>
-    <table class="table table-hover">
-        <thead>
-            <tr tr class="clickable">
-                <th scope="col1">Id</th>
-                <th scope="col2">Product id</th>
-                <th scope="col3">Start date</th>
-                <th scope="col4">End date</th>
-                <th scope="col4">Version</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="clickable" (click)="setProductConfig(result)" *ngFor="let result of products">
-                <td>{{ result['id'] }}</td>
-                <td>{{ result['productId'] }}</td>
-                <td>{{ result['startDate'] | date: "mediumDate"}}</td>
-                <td>{{ result['endDate'] | date: "mediumDate"}}</td>
-                <td>{{ result['version']}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div *ngIf="data.length>0">
+        <app-table-template [data]="data" [filteredValues]="filteredValues"></app-table-template>
+    </div>
 </div>

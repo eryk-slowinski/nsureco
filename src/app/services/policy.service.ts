@@ -70,6 +70,10 @@ export class PolicyService {
     environment.policyService + 'mergepolicylinetypeconfig';
   getAllPremiumHeadersUrl: string =
     environment.policyService + 'allpremiumheadersconfig';
+
+  getAllProductConfigUrl: string =
+    environment.policyService + 'allproductconfig';
+
   mergePremiumHeadersUrl: string =
     environment.policyService + 'mergepremiumheadersconfig';
   getAllPremiumValuesUrl: string =
@@ -77,11 +81,15 @@ export class PolicyService {
   mergePremiumValuesUrl: string =
     environment.policyService + 'mergepremiumvaluesconfig';
   policySelected: BehaviorSubject<Object> = new BehaviorSubject<any>(Object);
-
   constructor(private http: HttpClient) { }
 
-  async getProducts(productConfig: ProductConfig): Promise<ProductConfig[]> {
+  async getProductConfig(): Promise<ProductConfig[]> {
+    return await this.http
+      .get<ProductConfig[]>(this.getAllProductConfigUrl)
+      .toPromise();
+  }
 
+  async getProducts(productConfig: ProductConfig): Promise<ProductConfig[]> {
     return await this.http
       .post<ProductConfig[]>(this.getProductsUrl, productConfig)
       .toPromise();

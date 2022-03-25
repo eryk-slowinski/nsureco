@@ -14,6 +14,9 @@ export class ProductsConfigComponent implements OnInit {
   products: ProductConfig[] = [];
   newProduct: ProductConfig;
   editState: boolean = false;
+  data;
+  displayedColumns: string[] = ['id', 'productId', 'startDate', 'endDate', 'version'];
+  filteredValues: any = { id: "", productId: "", startDate: "", endDate: "", version: "" };
 
   ngOnInit(): void {
 
@@ -23,8 +26,8 @@ export class ProductsConfigComponent implements OnInit {
   async loadProductConfig() {
 
     await this.policyService
-      .getProducts(new ProductConfig())
-      .then((data) => (this.products = data));
+      .getProductConfig().then((data) => (this.products = data));
+    this.data = this.products;
   }
 
   async mergeProductConfig() {
