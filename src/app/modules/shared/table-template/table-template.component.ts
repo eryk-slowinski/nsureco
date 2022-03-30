@@ -37,22 +37,28 @@ export class TableTemplateComponent implements AfterViewInit {
     });
 
     this.dataSource.filterPredicate = this.customFilterPredicate();
+    console.log(this.filteredValues);
+
   }
 
   customFilterPredicate() {
     const myFilterPredicate = (data: any, filter: string): boolean => {
-
       let searchString = JSON.parse(filter);
       let arr = Object.getOwnPropertyNames(data);
       let booleanArr: Boolean[] = [];
 
       arr.forEach(key => {
+
         if (isNaN(data[key])) {
+
           booleanArr.push(data[key].toString().trim().indexOf(searchString[key]) !== -1)
-        } else {
+        } else if (data[key] == null) { }
+        else {
+
           booleanArr.push(data[key].toString().trim().toLowerCase().indexOf(isNaN(searchString[key]) ? searchString[key] !== -1 : searchString[key].toLowerCase()) !== -1)
         }
       });
+
 
 
       let prevStatement = booleanArr[0];

@@ -18,6 +18,26 @@ export class PremiumCalculationComponent implements OnInit {
   newHeader: PremiumCalcConfigHeader = new PremiumCalcConfigHeader();
   newValue: PremiumCalcConfigValue = new PremiumCalcConfigValue();
   editState: boolean = false;
+  data;
+  filteredValues = {
+    id: '',
+    comboId: '',
+    riskId: '',
+    combinationName: '',
+    header1: '',
+    header2: '',
+    header3: '',
+    header4: '',
+    header5: '',
+    header6: '',
+    header7: '',
+    header8: '',
+    header9: '',
+    header10: '',
+    header11: '',
+    header12: '',
+    version: ''
+  }
 
   ngOnInit(): void {
     this.loadHeadersConfig();
@@ -29,6 +49,8 @@ export class PremiumCalculationComponent implements OnInit {
       .getAllPremiumCalcHeaders()
       .then((data) => (this.headers = data));
     this.newHeader = this.headers[0];
+    this.data = this.headers;
+
   }
 
   async loadValuesConfig() {
@@ -36,6 +58,7 @@ export class PremiumCalculationComponent implements OnInit {
       .getAllPremiumCalcValues()
       .then((data) => (this.values = data));
     this.newValue = this.values[0];
+
   }
 
   async mergeHeaderConfig() {

@@ -15,7 +15,6 @@ export class ObjectRisksComponent implements OnInit {
   newRisk: ObjectRiskConfig = new ObjectRiskConfig();
   editState: boolean = false;
   data;
-  displayedColumns: string[] = ['id', 'objectType', 'riskId', 'required', 'depositAmount', 'version'];
   filteredValues: any = { id: "", objectType: "", riskId: "", required: "", depositAmount: "", version: "" };
 
   ngOnInit() {

@@ -16,7 +16,6 @@ export class VehiclesComponent implements OnInit {
   newVehicle: Vehicle = new Vehicle();
   editState: boolean = false;
   data;
-  displayedColumns: string[] = ['id', 'vehicleType', 'brand', 'vehicleModel', 'generation', 'engineType', 'enginge', 'power', 'protectionClass', 'partsAvailability', 'version'];
   filteredValues: any = { id: "", vehicleType: "", brand: "", vehicleModel: "", generation: "", engineType: "", engine: "", power: "", protectionClass: "", partsAvailability: "", version: "" };
 
   ngOnInit(): void {

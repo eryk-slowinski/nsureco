@@ -14,7 +14,6 @@ export class ObjectFlexfieldsComponent implements OnInit {
   flexfields: ObjectFlexfieldConfig[] = [];
   newFlexfield: ObjectFlexfieldConfig = new ObjectFlexfieldConfig();
   editState: boolean = false;
-  displayedColumns: string[] = ['id', 'type', 'objectKey', 'objectValue'];
   data;
   filteredValues = {
     id: '',

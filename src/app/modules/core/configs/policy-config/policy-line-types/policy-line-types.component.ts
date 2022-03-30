@@ -13,7 +13,6 @@ export class PolicyLineTypesComponent implements OnInit {
 
   newProductLine: PolicyLineTypeConfig;
   productLines: PolicyLineTypeConfig[] = [];
-  displayedColumns: string[] = ['id', 'productId', 'policyLineType', 'version'];
   data;
   editState: boolean = false;
   filteredValues = {

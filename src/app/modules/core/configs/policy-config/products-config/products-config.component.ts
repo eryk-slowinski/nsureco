@@ -15,16 +15,13 @@ export class ProductsConfigComponent implements OnInit {
   newProduct: ProductConfig;
   editState: boolean = false;
   data;
-  displayedColumns: string[] = ['id', 'productId', 'startDate', 'endDate', 'version'];
   filteredValues: any = { id: "", productId: "", startDate: "", endDate: "", version: "" };
 
   ngOnInit(): void {
-
     this.loadProductConfig();
   }
 
   async loadProductConfig() {
-
     await this.policyService
       .getProductConfig().then((data) => (this.products = data));
     this.data = this.products;
