@@ -3,7 +3,7 @@
         <th>
             <mat-form-field>
                 <input matInput class="form-field" [formControl]="control"
-                    placeholder={{displayedColumns[i].toUpperCase()}}>
+                    placeholder={{divideCamCase(displayedColumns[i])}}>
             </mat-form-field>
         </th>
     </ng-container>

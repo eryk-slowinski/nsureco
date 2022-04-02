@@ -20,6 +20,23 @@ export class TableTemplateComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
+  divideCamCase(camelCaseWord: string) {
+
+    let fixedPlaceHolder: string = "";
+    for (var i = 0; i < camelCaseWord.length; i++) {
+      if (camelCaseWord.toLowerCase() == camelCaseWord) {
+        fixedPlaceHolder = camelCaseWord;
+        fixedPlaceHolder = fixedPlaceHolder.replace(camelCaseWord[0], camelCaseWord[0].toUpperCase());
+      }
+      else if (camelCaseWord[i] == camelCaseWord[i].toUpperCase()) {
+        fixedPlaceHolder = camelCaseWord.replace(camelCaseWord[i], " " + camelCaseWord[i]);
+        fixedPlaceHolder = fixedPlaceHolder.replace(camelCaseWord[0], camelCaseWord[0].toUpperCase())
+      }
+    }
+    return fixedPlaceHolder;
+  }
+
+
   ngAfterViewInit() {
 
     this.dataSource = new MatTableDataSource(this.data);
@@ -37,7 +54,6 @@ export class TableTemplateComponent implements AfterViewInit {
     });
 
     this.dataSource.filterPredicate = this.customFilterPredicate();
-    console.log(this.filteredValues);
 
   }
 
