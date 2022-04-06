@@ -23,16 +23,12 @@ export class TableTemplateComponent implements AfterViewInit {
   divideCamCase(camelCaseWord: string) {
 
     let fixedPlaceHolder: string = "";
-    for (var i = 0; i < camelCaseWord.length; i++) {
-      if (camelCaseWord.toLowerCase() == camelCaseWord) {
-        fixedPlaceHolder = camelCaseWord;
-        fixedPlaceHolder = fixedPlaceHolder.replace(camelCaseWord[0], camelCaseWord[0].toUpperCase());
-      }
-      else if (camelCaseWord[i] == camelCaseWord[i].toUpperCase()) {
-        fixedPlaceHolder = camelCaseWord.replace(camelCaseWord[i], " " + camelCaseWord[i]);
-        fixedPlaceHolder = fixedPlaceHolder.replace(camelCaseWord[0], camelCaseWord[0].toUpperCase())
-      }
-    }
+    camelCaseWord.split(/(?=[A-Z]+)/g).forEach(
+      word => {
+        word = word[0].toUpperCase() + word.substring(1);
+        fixedPlaceHolder += word + ' ';
+      })
+    fixedPlaceHolder.substring(0, fixedPlaceHolder.length - 1);
     return fixedPlaceHolder;
   }
 
@@ -67,11 +63,11 @@ export class TableTemplateComponent implements AfterViewInit {
 
         if (isNaN(data[key])) {
 
-          booleanArr.push(data[key].toString().trim().indexOf(searchString[key]) !== -1)
+          booleanArr.push(data[key].toString().trim().toLowerCase().indexOf(searchString[key].toLowerCase()) !== -1)
         } else if (data[key] == null) { }
         else {
 
-          booleanArr.push(data[key].toString().trim().toLowerCase().indexOf(isNaN(searchString[key]) ? searchString[key] !== -1 : searchString[key].toLowerCase()) !== -1)
+          booleanArr.push(data[key].toString().trim().toLowerCase().indexOf(isNaN(searchString[key].toLowerCase()) ? searchString[key].toLowerCase() !== -1 : searchString[key].toLowerCase()) !== -1)
         }
       });
 
