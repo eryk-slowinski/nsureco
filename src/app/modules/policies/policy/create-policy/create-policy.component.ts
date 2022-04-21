@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PolicyComponent } from '../policy.component';
 import { DatePipe } from '@angular/common';
-import { InsuredObject } from 'src/app/models/insuredObject';
+import { Policy } from 'src/app/models/policy';
 
 @Component({
   selector: 'app-create-policy',
@@ -16,17 +16,6 @@ export class CreatePolicyComponent extends PolicyComponent implements OnInit {
   driverCreated: boolean = false;
   vehicleCreated: boolean = false;
 
-  inputs: any[] = [
-    { inputType: 'text', labelFor: 'VIN', labelText: 'Please enter VIN:', assignTo: 'c01' },
-    { inputType: 'text', labelFor: 'REG', labelText: 'Please enter registration number:', assignTo: 'c02' },
-    { inputType: 'date', labelFor: 'date', labelText: 'Please enter date of manufacturing:', assignTo: 'd01' },
-    { inputType: 'text', labelFor: 'mileage', labelText: 'Please enter milease:', assignTo: 'n04' },
-    { inputType: 'text', labelFor: 'value', labelText: 'Please enter value of a vehicle:', assignTo: 'n02' }
-  ]
-
-  assignValue(event, assignTo) {
-    this.vehicleObject[assignTo] = event;
-  }
 
   setEndDate(date: string) {
     var result = new Date(date);
@@ -57,53 +46,6 @@ export class CreatePolicyComponent extends PolicyComponent implements OnInit {
     this.policy.version = this.products[0].version;
     await this.policyService.createPolicy(this.policy).then();
     this.policy = await this.policyService.getPolicy(this.policy).then();
-    await this.createRequiredObjects();
-  }
-
-  async createRequiredObjects() {
-    await this.createPolicyLine();
-    await this.createInsuredVehicle();
-    await this.createInsuredDriver();
-  }
-
-  async createInsuredVehicle() {
-    this.vehicleObject.policyLineId = this.policyLine.id;
-    this.vehicleObject.transactionId = this.transaction.id;
-    this.vehicleObject.type = 'VEH';
-    this.vehicleObject.version = this.policy.version;
-    this.vehicleObject = await this.policyService
-      .createInsuredObject(this.vehicleObject)
-      .then();
-    await this.createRisks(this.vehicleObject);
-    await this.reloadCoverages(this.vehicleObject);
-    this.risks.sort((a, b) => a.riskId.localeCompare(b.riskId));
-  }
-
-  async createInsuredDriver() {
-    this.driverObject.policyLineId = this.policyLine.id;
-    this.driverObject.transactionId = this.transaction.id;
-    this.driverObject.type = 'DRI';
-    this.driverObject.version = this.policyLine.version;
-    this.driverObject.n01 = this.customerSelected['id'];
-    this.driverObject = await this.policyService.createInsuredObject(this.driverObject).then();
-  }
-
-  async createRisks(object: InsuredObject) {
-    await this.getRisksConfig(object);
-    this.objectRisksConfig.forEach(async (element) => {
-      if (element.version === this.policy.version) {
-        this.risk.riskId = element.riskId;
-        this.risk.objectId = object.id;
-        this.risk.depositAmount = element.depositAmount;
-        this.risk.isSelected = 'false';
-        await this.policyService.createRisks(this.risk).then();
-      }
-    });
-    await this.delay(300);
-  }
-
-  async getRequiredRisks() {
-    await this.getRequiredRisks();
   }
 
   ngOnInit() {

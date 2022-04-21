@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { InsuredObject } from 'src/app/models/insuredObject';
 import { ObjectRisk } from 'src/app/models/objectRisk';
 import { ObjectRiskConfig } from 'src/app/models/objectRiskConfig';
@@ -31,13 +31,10 @@ export abstract class PolicyComponent {
   policyLine: PolicyLine = new PolicyLine();
   vehicle: Vehicle = new Vehicle();
   policy: Policy = new Policy();
-  driverObject: InsuredObject = new InsuredObject();
-  vehicleObject: InsuredObject = new InsuredObject();
   risk: ObjectRisk = new ObjectRisk();
   risks: ObjectRisk[] = [];
   products: ProductConfig[];
   policyLines: PolicyLineTypeConfig[];
-  objects: ObjectTypeConfig[];
   objectRisksConfig: ObjectRiskConfig[];
   vehicles: Vehicles = new Vehicles();
   productConfig: ProductConfig = new ProductConfig();
@@ -50,6 +47,10 @@ export abstract class PolicyComponent {
   totalPremium: number = 0;
   displayStyle: string = 'none'
   requiredRisks: ObjectRisk[] = [];
+  objects: ObjectTypeConfig[];
+
+  driverObject: InsuredObject = new InsuredObject();
+  vehicleObject: InsuredObject = new InsuredObject();
 
   async chooseProduct() {
     this.productConfig.endDate = this.policy.endDate;
@@ -67,12 +68,6 @@ export abstract class PolicyComponent {
       .then((data) => (this.policyLines = data));
   }
 
-  async getRequiredObjects(policyLine: string) {
-    await this.policyService
-      .getObjects(policyLine)
-      .then((data) => (this.objects = data));
-  }
-
   async createTransaction(transactionType: string) {
     let currentTime = new Date();
     let currentDate = this.datepipe.transform(
@@ -86,14 +81,6 @@ export abstract class PolicyComponent {
     this.transaction = await this.policyService
       .getTransaction(this.transaction)
       .then();
-  }
-
-  async getVehicleTypes(vehicleTypeConfig: VehicleTypeConfig) {
-    vehicleTypeConfig.policyLineType = this.policyLine.policyLineType;
-    vehicleTypeConfig.version = this.policy.version;
-    await this.policyService
-      .getVehicleTypes(vehicleTypeConfig)
-      .then((data) => (this.vehicleTypeConfig = data));
   }
 
   async chooseVeh(vehicleProperties: string) {
@@ -166,73 +153,15 @@ export abstract class PolicyComponent {
     await this.policyService.updatePolicyLine(this.policyLine);
   }
 
-  async updateInsuredVehicle() {
-    this.vehicleObject.n01 = this.vehicleId;
-    await this.policyService.updateInsuredObject(this.vehicleObject).then();
-  }
-
-  async updateInsuredDriver() {
-    await this.policyService.updateInsuredObject(this.driverObject).then();
-  }
-
   async reloadCoverages(object: InsuredObject) {
     this.risks = await this.policyService.getRisks(object);
     this.risks.sort((a, b) => a.riskId.localeCompare(b.riskId));
   }
 
-  async calculation(policy: Policy, vehicle: InsuredObject) {
-    let totalPremium = 0;
-    this.risks.forEach((risk) => {
-      risk.premium = null;
-      risk.premiumForPeriod = null;
-    })
-    await this.policyService.calculation(policy);
-    await this.reloadCoverages(vehicle);
-    this.risks.forEach((risk) => {
-      if (risk.premium != NaN)
-        totalPremium += risk.premium;
-    })
-    this.totalPremium = totalPremium;
+  async getRequiredObjects(policyLineTypeConfig: PolicyLineTypeConfig) {
+    await this.policyService
+      .getObjects(policyLineTypeConfig)
+      .then((data) => (this.objects = data));
   }
 
-  async getRequiredRisks() {
-    await this.getRisksConfig(this.vehicleObject);
-    this.requiredRisks = [];
-    this.objectRisksConfig.forEach(or => {
-      this.risks.forEach(risk => {
-        if (risk.riskId == or.riskId) {
-          if (risk.isSelected == 'false' && or.required.toString() == 'true') {
-            this.requiredRisks.push(risk);
-          }
-        }
-      })
-    });
-  }
-
-  async openPopup() {
-    this.requiredRisks = [];
-    this.objectRisksConfig.forEach(or => {
-      this.risks.forEach(risk => {
-        if (risk.riskId == or.riskId) {
-          if (risk.isSelected == 'false' && or.required.toString() == 'true') {
-            this.requiredRisks.push(risk);
-          }
-        }
-      })
-    });
-    await this.calculation(this.policy, this.vehicleObject)
-    this.displayStyle = "block";
-  }
-
-  async completePolicy() {
-    await this.updatePolicy();
-    this.displayStyle = "none";
-  }
-  async closePopup() {
-    this.displayStyle = "none";
-  }
-
-  delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
 }
