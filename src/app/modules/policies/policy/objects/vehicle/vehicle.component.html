@@ -1,0 +1,125 @@
+<div class="container mb-5">
+    <div *ngIf="policyLine.policyLineType === 'MOT'; then motorVehicle"></div>
+    <!-- <div *ngIf="policyLine.policyLineType === 'TRA'; then trailer"></div> -->
+</div>
+
+<ng-template #motorVehicle>
+    <div class="row">
+        <div class="col-sm">
+            <h4 class="text-center mt-3">Vehicle</h4>
+            <label>Choose a vehicle type:</label>
+            <select class="form-control" [(ngModel)]="vehicle.vehicleType" (change)="chooseVeh()">
+                <option selected hidden>{{vehicle.vehicleType}}</option>
+                <option *ngFor="let vehicleType of vehicleTypeConfig">{{ vehicleType.vehicleType }}
+            </select>
+            <label>Choose a brand:</label>
+            <select class="form-control" [disabled]="!vehicle.vehicleType" [(ngModel)]="vehicle.brand"
+                (change)="chooseVeh('vehicleModel')">
+                <option selected hidden>{{vehicle.brand}}</option>
+                <option *ngFor="let vehicleBrand of vehicles.brand">{{vehicleBrand}}</option>
+            </select>
+            <label>Choose a model:</label>
+            <select class="form-control" [disabled]="!vehicle.brand" [(ngModel)]="vehicle.vehicleModel"
+                (change)="chooseVeh('generation')">
+                <option selected hidden>{{vehicle.vehicleModel}}</option>
+                <option *ngFor="let vehicleModel of vehicles.vehicleModel">{{vehicleModel}}</option>
+            </select>
+            <label>Choose a generation:</label>
+            <select class="form-control" [disabled]="!vehicle.vehicleModel" [(ngModel)]="vehicle.generation"
+                (change)="chooseVeh('engineType')">
+                <option selected hidden>{{vehicle.generation}}</option>
+                <option *ngFor="let generation of vehicles.generation">{{generation}}</option>
+            </select>
+            <label>Choose an engine type:</label>
+            <select class="form-control" [disabled]="!vehicle.generation" [(ngModel)]="vehicle.engineType"
+                (change)="chooseVeh('engine')">
+                <option selected hidden>{{vehicle.engineType}}</option>
+                <option *ngFor="let engineType of vehicles.engineType">{{engineType}}</option>
+            </select>
+            <label>Choose an engine:</label>
+            <select class="form-control" [disabled]="!vehicle.engineType" [(ngModel)]="vehicle.engine"
+                (change)="chooseVeh('vehicleId')">
+                <option selected hidden>{{vehicle.engine}}</option>
+                <option *ngFor="let engine of vehicles.engine">{{engine}}</option>
+            </select>
+            <button class="btn btn-primary" type="submit"
+                (click)="updateInsuredObject(driverObject); vehicleCreated = true"
+                [disabled]="!vehicleObject.n02 || vehicleCreated">Create
+                insured vehicle</button>
+        </div>
+        <div class="col-sm">
+            <h4 class="text-center mt-3">Vehicle properties</h4>
+
+            <ng-container *ngFor="let input of inputs">
+                <app-input [inputType]="input.inputType" [labelFor]="input.labelFor" [labelText]="input.labelText"
+                    (emittedValue)="assignValue($event, input.assignTo)"></app-input>
+            </ng-container>
+
+        </div>
+        <div class="col-sm">
+            <h4 class="text-center mt-3">Driver</h4>
+            <label for="yearsOC">How many years driver has been insured:</label>
+            <input class="form-control" id="yearsOC" type="text" [(ngModel)]="driverObject.n02">
+            <label for="claims">How many claims driver had:</label>
+            <input class="form-control" id="claims" type="text" [disabled]="!driverObject.n02"
+                [(ngModel)]="driverObject.n03">
+            <label for="licDate">Please enter driver's license date:</label>
+            <input class="form-control" id="mfgYear" type="date" [disabled]="!driverObject.n03"
+                [(ngModel)]="driverObject.d01">
+            <button class="btn btn-primary" type="submit" (click)="driverCreated = true; createObjects()"
+                [disabled]="!driverObject.d01 || driverCreated">Create
+                insured driver</button>
+        </div>
+    </div>
+</ng-template>
+
+<div *ngIf="driverCreated" class="row">
+    <!--app-object [policy]="policy" [risks]="risks"></app-object-->
+    <app-risks [risks]="risks" [insuredObject]="vehicleObject" [policy]="policy" [policyLine]="policyLine"
+        [objectRisksConfig]="objectRisksConfig"></app-risks>
+</div>
+
+<!-- 
+<ng-template #trailer>
+    <div class="row justify-content-md-center">
+        <div class="col-sm-5">
+            <h4 class="text-center mt-3">Vehicle</h4>
+            <label>Choose a trailer type:</label>
+            <select class="form-control" [(ngModel)]="vehicle.vehicleType" (change)="chooseVeh('brand')">
+                <option selected hidden>{{vehicle.vehicleType}}</option>
+                <option *ngFor="let vehicleType of vehicleTypeConfig">{{ vehicleType.vehicleType }}
+            </select>
+            <label>Choose a brand:</label>
+            <select class="form-control" [disabled]="!vehicle.vehicleType" [(ngModel)]="vehicle.brand"
+                (change)="chooseVeh('vehicleModel')">
+                <option selected hidden>{{vehicle.brand}}</option>
+                <option *ngFor="let vehicleBrand of vehicles.brand">{{vehicleBrand}}</option>
+            </select>
+            <label>Choose a model:</label>
+            <select class="form-control" [disabled]="!vehicle.brand" [(ngModel)]="vehicle.vehicleModel"
+                (change)="vehicle.generation = 'null'; vehicle.engineType = 'null'; vehicle.engine = 'null'; chooseVeh('vehicleId')">
+                <option selected hidden>{{vehicle.vehicleModel}}</option>
+                <option *ngFor="let vehicleModel of vehicles.vehicleModel">{{vehicleModel}}</option>
+            </select>
+            <label for="VIN">Please enter VIN:</label>
+            <input class="form-control" id="VIN" type="text" [disabled]="!vehicle.vehicleModel"
+                [(ngModel)]="vehicleObject.c01">
+            <label for="rgnum">Please enter registration number:</label>
+            <input class="form-control" id="rgnum" type="text" [disabled]="!vehicleObject.c01"
+                [(ngModel)]="vehicleObject.c02">
+            <label for="mfgYear">Please enter year of manufacturing:</label>
+            <input class="form-control" id="mfgYear" type="text" [disabled]="!vehicleObject.c02"
+                [(ngModel)]="vehicleObject.n01">
+            <label for="vehVal">Value of a vehicle:</label>
+            <input class="form-control" id="vehVal" type="text" [disabled]="!vehicleObject.n01"
+                [(ngModel)]="vehicleObject.n02">
+            <button class="btn btn-primary" type="submit" [disabled]="!vehicleObject.n02 || vehicleCreated"
+                (click)="createInsuredVehicle(); reloadCoverages(vehicleObject); vehicleCreated = true">Create
+                insured trailer</button>
+        </div>
+    </div>
+</ng-template> -->
+
+<!-- <div class="col-sm">
+    <app-object *ngIf="vehicleCreated"></app-object>
+</div> -->
