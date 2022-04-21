@@ -92,11 +92,9 @@ export class PolicyService {
       .toPromise();
   }
 
-  async getObjects(policyLine: string): Promise<ObjectTypeConfig[]> {
+  async getObjects(policyLineTypeConfig: PolicyLineTypeConfig): Promise<ObjectTypeConfig[]> {
     return await this.http
-      .post<ObjectTypeConfig[]>(this.getObjectsUrl, {
-        policyLineId: policyLine,
-      })
+      .post<ObjectTypeConfig[]>(this.getObjectsUrl, policyLineTypeConfig)
       .toPromise();
   }
 
@@ -215,10 +213,10 @@ export class PolicyService {
   }
 
   async getVehicleTypes(
-    object: VehicleTypeConfig
+    policyLine: PolicyLine
   ): Promise<VehicleTypeConfig[]> {
     return await this.http
-      .post<VehicleTypeConfig[]>(this.getVehicleTypesUrl, object)
+      .post<VehicleTypeConfig[]>(this.getVehicleTypesUrl, policyLine)
       .toPromise();
   }
 
